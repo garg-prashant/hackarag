@@ -235,7 +235,6 @@ $RECYCLE.BIN/
 # Project specific
 # Data directories
 data/
-hackathon_data/
 
 # ChromaDB database
 chroma_db/
