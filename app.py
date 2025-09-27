@@ -11,14 +11,41 @@ import re
 import time
 import glob
 from pathlib import Path
-import chromadb
-from chromadb.config import Settings
+from faiss_vector_store import FAISSVectorStore
 from sentence_transformers import SentenceTransformer
 from rag_evaluator import RAGEvaluator
+from langgraph_evaluator_simple import LangGraphIdeaEvaluator
+import multiprocessing
+import atexit
+import signal
+import sys
 
-# Disable ChromaDB telemetry globally
-os.environ["ANONYMIZED_TELEMETRY"] = "False"
+# Set environment variables to prevent multiprocessing warnings
+os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF', 'max_split_size_mb:128')
+os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
+os.environ.setdefault('OMP_NUM_THREADS', '1')
+os.environ.setdefault('MKL_NUM_THREADS', '1')
 
+# FAISS doesn't require telemetry settings
+
+def cleanup_resources():
+    """Clean up multiprocessing resources to prevent semaphore leaks."""
+    try:
+        # Force cleanup of multiprocessing resources
+        multiprocessing.active_children()
+        for process in multiprocessing.active_children():
+            process.join(timeout=1)
+        
+        # Clear any remaining semaphores
+        if hasattr(multiprocessing, '_resource_tracker'):
+            multiprocessing._resource_tracker._cleanup()
+            
+    except Exception as e:
+        # Silently handle cleanup errors
+        pass
+
+# Register cleanup function
+atexit.register(cleanup_resources)
 
 # Page configuration
 st.set_page_config(
@@ -295,96 +322,76 @@ class HackathonDataLoader:
         return []
 
 class BountyVectorizer:
-    """Handle vectorization and similarity search for bounty data"""
+    """Handle vectorization and similarity search for bounty data using FAISS"""
     
-    def __init__(self, persist_directory="./chroma_db"):
-        self.persist_directory = persist_directory
-        self.client = None
-        self.collection = None
+    def __init__(self, index_path="./faiss_index"):
+        self.index_path = index_path
+        self.faiss_store = None
         self.model = None
         self.initialize()
     
     def initialize(self):
-        """Initialize ChromaDB and sentence transformer model"""
+        """Initialize FAISS vector store and sentence transformer model"""
         try:
-            # Initialize ChromaDB client with telemetry disabled
-            self.client = chromadb.PersistentClient(
-                path=self.persist_directory,
-                settings=Settings(anonymized_telemetry=False)
-            )
-            
             # Download and initialize sentence transformer model at boot time
             with st.spinner("🔄 Downloading AI model (this may take a moment on first run)..."):
-                self.model = SentenceTransformer('all-MiniLM-L6-v2')
+                try:
+                    # Try with CPU device first
+                    self.model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+                except Exception as model_error:
+                    st.warning(f"⚠️ CPU device failed, trying default: {str(model_error)}")
+                    # Fallback to default initialization
+                    self.model = SentenceTransformer('all-MiniLM-L6-v2')
             
-            # Create or get collection
-            self.collection = self.client.get_or_create_collection(
-                name="hackathon_bounties",
-                metadata={"hnsw:space": "cosine"}
+            # Initialize FAISS vector store
+            self.faiss_store = FAISSVectorStore(
+                index_path=self.index_path,
+                embedding_model='all-MiniLM-L6-v2'
             )
             
-            st.success("✅ Vector database and AI model initialized successfully!")
+            st.success("✅ FAISS vector database and AI model initialized successfully!")
         except Exception as e:
             st.error(f"Error initializing vector database: {str(e)}")
+            # Provide more helpful error message
+            if "meta tensor" in str(e).lower():
+                st.error("💡 **Tip**: This error is related to PyTorch model loading. Try restarting the app or clearing the browser cache.")
+            elif "device" in str(e).lower():
+                st.error("💡 **Tip**: This error is related to GPU/CPU device handling. The app will try to use CPU instead.")
     
     def vectorize_bounties(self, event_key, companies_data, force_revectorize=False):
-        """Vectorize all bounties for an event"""
+        """Vectorize all bounties for an event using FAISS with tracking"""
         try:
-            documents = []
-            metadatas = []
-            ids = []
-            
-            # Check which bounties are already vectorized
-            existing_ids = set()
-            if not force_revectorize:
-                try:
-                    # Get all existing documents for this event
-                    existing_results = self.collection.get(
-                        where={"event_key": event_key}
-                    )
-                    existing_ids = set(existing_results['ids']) if existing_results['ids'] else set()
-                except:
-                    pass  # If collection is empty or doesn't exist, continue
-            
-            for company_name, bounties in companies_data.items():
-                for i, bounty in enumerate(bounties):
-                    # Create unique ID
-                    bounty_id = f"{event_key}_{company_name}_{i}"
-                    
-                    # Skip if already vectorized and not forcing re-vectorization
-                    if not force_revectorize and bounty_id in existing_ids:
-                        continue
-                    
-                    # Create document text from bounty data
-                    doc_text = f"""
-                    Company: {company_name}
-                    Title: {bounty.get('title', '')}
-                    Description: {bounty.get('description', '')}
-                    Prizes: {bounty.get('prizes', '')}
-                    """
-                    
-                    # Create metadata
-                    metadata = {
-                        'event_key': event_key,
-                        'company': company_name,
-                        'title': bounty.get('title', ''),
-                        'bounty_index': i
-                    }
-                    
-                    documents.append(doc_text.strip())
-                    metadatas.append(metadata)
-                    ids.append(bounty_id)
-            
-            # Add to collection
-            if documents:
-                self.collection.add(
-                    documents=documents,
-                    metadatas=metadatas,
-                    ids=ids
-                )
-                st.success(f"✅ Vectorized {len(documents)} bounties for {event_key}")
+            # Extract event info from event_key
+            # Format: "EthGlobal_New-Delhi_2025_September"
+            parts = event_key.split('_')
+            if len(parts) >= 4:
+                event_name = parts[0]
+                location = parts[1]
+                year = parts[2]
+                month = parts[3]
             else:
-                st.info(f"ℹ️ All bounties for {event_key} are already vectorized")
+                event_name = event_key
+                location = "Unknown"
+                year = "2025"
+                month = "September"
+            
+            # Use the new tracking-enabled method
+            success = self.faiss_store.add_event_bounties(
+                event_key=event_key,
+                event_name=event_name,
+                location=location,
+                year=year,
+                month=month,
+                companies_data=companies_data,
+                force_revectorize=force_revectorize
+            )
+            
+            if success:
+                # Get the actual count from tracking
+                bounty_count = self.faiss_store.get_vectorization_status(event_key)
+                st.success(f"✅ Vectorized {bounty_count} bounties for {event_key}")
+            else:
+                st.info(f"ℹ️ No new bounties to vectorize for {event_key}")
             
         except Exception as e:
             st.error(f"Error vectorizing bounties: {str(e)}")
@@ -392,15 +399,7 @@ class BountyVectorizer:
     def get_vectorized_events(self):
         """Get list of events that have been vectorized"""
         try:
-            # Get all unique event keys from the collection
-            results = self.collection.get()
-            if results['metadatas']:
-                event_keys = set()
-                for metadata in results['metadatas']:
-                    if 'event_key' in metadata:
-                        event_keys.add(metadata['event_key'])
-                return list(event_keys)
-            return []
+            return self.faiss_store.get_vectorized_events()
         except Exception as e:
             st.error(f"Error getting vectorized events: {str(e)}")
             return []
@@ -408,30 +407,50 @@ class BountyVectorizer:
     def get_vectorization_status(self, event_key):
         """Get vectorization status for a specific event"""
         try:
-            results = self.collection.get(
-                where={"event_key": event_key}
-            )
-            return len(results['ids']) if results['ids'] else 0
+            return self.faiss_store.get_vectorization_status(event_key)
         except Exception as e:
             return 0
     
-    def search_similar_bounties(self, query, event_key=None, n_results=5):
-        """Search for similar bounties based on query"""
+    def search_similar_bounties(self, query, event_key=None, n_results=5, selected_events=None, selected_companies=None, selected_bounties=None):
+        """Search for similar bounties based on query using FAISS with filtering"""
         try:
-            # Generate query embedding
-            query_embedding = self.model.encode([query])
+            # Use filtered search if we have specific selections
+            if selected_events or selected_companies or selected_bounties:
+                # Use the new filtered search method
+                results = self.faiss_store.search_filtered(
+                    query=query, 
+                    k=n_results, 
+                    score_threshold=0.1,
+                    event_keys=selected_events,
+                    companies=selected_companies,
+                    bounty_ids=selected_bounties
+                )
+            else:
+                # Fallback to regular search with event_key filter for backward compatibility
+                results = self.faiss_store.search(query, k=n_results, score_threshold=0.1)
+                
+                # Filter by event_key if specified
+                if event_key:
+                    filtered_results = [r for r in results if r['metadata'].get('event_key') == event_key]
+                    results = filtered_results
             
-            # Search parameters
-            where_clause = {"event_key": event_key} if event_key else None
-            
-            # Perform search
-            results = self.collection.query(
-                query_embeddings=query_embedding.tolist(),
-                n_results=n_results,
-                where=where_clause
-            )
-            
-            return results
+            # Convert FAISS results to ChromaDB-like format for compatibility
+            if results:
+                # Convert to ChromaDB-like format
+                chromadb_format = {
+                    'ids': [f"result_{i}" for i in range(len(results))],
+                    'distances': [[1.0 - r['similarity_score'] for r in results]],  # Convert similarity to distance
+                    'documents': [r['content'] for r in results],
+                    'metadatas': [r['metadata'] for r in results]
+                }
+                return chromadb_format
+            else:
+                return {
+                    'ids': [],
+                    'distances': [[]],
+                    'documents': [],
+                    'metadatas': []
+                }
         except Exception as e:
             st.error(f"Error searching similar bounties: {str(e)}")
             return None
@@ -439,16 +458,29 @@ class BountyVectorizer:
     def get_bounty_by_id(self, bounty_id):
         """Get bounty details by ID"""
         try:
-            result = self.collection.get(ids=[bounty_id])
-            if result['ids']:
+            # Search for the specific bounty by ID in metadata
+            results = self.faiss_store.search(f"bounty_id:{bounty_id}", k=1, score_threshold=0.0)
+            if results:
+                result = results[0]
                 return {
-                    'document': result['documents'][0],
-                    'metadata': result['metadatas'][0]
+                    'document': result['content'],
+                    'metadata': result['metadata']
                 }
             return None
         except Exception as e:
             st.error(f"Error getting bounty by ID: {str(e)}")
             return None
+    
+    def clear_all_vectors(self):
+        """Clear all vectors from FAISS store"""
+        try:
+            if self.faiss_store:
+                self.faiss_store.clear()
+                st.success("✅ All vectors cleared from FAISS store")
+            else:
+                st.warning("⚠️ FAISS store not initialized")
+        except Exception as e:
+            st.error(f"Error clearing vectors: {str(e)}")
 
 class HackathonEvaluator:
     def __init__(self):
@@ -1129,6 +1161,12 @@ def main():
         st.session_state.vectorizer = BountyVectorizer()
     if 'rag_evaluator' not in st.session_state:
         st.session_state.rag_evaluator = RAGEvaluator()
+    if 'langgraph_evaluator' not in st.session_state:
+        try:
+            st.session_state.langgraph_evaluator = LangGraphIdeaEvaluator()
+        except Exception as e:
+            st.error(f"Failed to initialize LangGraph evaluator: {str(e)}")
+            st.session_state.langgraph_evaluator = None
     
     # Clean header
     st.markdown("""
@@ -1174,28 +1212,42 @@ def main():
                 st.success("All events re-vectorized!")
                 st.rerun()
     
+    # Add a clear vectors button below the main controls
+    col1, col2, col3 = st.columns([2, 1, 1])
+    with col1:
+        st.markdown("### 🗑️ Vector Management")
+    with col2:
+        if st.button("🗑️ Clear All Vectors", type="secondary", use_container_width=True, key="clear_vectors_main"):
+            st.session_state.vectorizer.clear_all_vectors()
+            st.rerun()
+    with col3:
+        if st.button("📊 Check Status", type="secondary", use_container_width=True, key="check_status_main"):
+            stats = st.session_state.vectorizer.faiss_store.get_stats()
+            st.info(f"FAISS Store: {stats['total_documents']} documents loaded")
+            st.rerun()
+    
     st.markdown("---")
     
-    # RAG Evaluation Mode Toggle
-    st.markdown("### 🔍 Evaluation Mode")
-    col1, col2 = st.columns([1, 3])
+    # LangGraph Evaluation Info
+    st.markdown("### 🧠 Intelligent AI Evaluation")
     
-    with col1:
-        use_rag_evaluation = st.checkbox("Use RAG Evaluation", value=True, help="Enable AI-powered evaluation with evidence-backed feedback")
-    
-    with col2:
-        if use_rag_evaluation:
-            st.info("🤖 **RAG Mode**: AI will analyze your idea against bounty descriptions and provide evidence-backed feedback")
-        else:
-            st.info("📊 **Manual Mode**: Self-evaluation form with manual scoring")
+    # Show stored evaluation results if they exist
+    if hasattr(st.session_state, 'langgraph_evaluation_result') and st.session_state.langgraph_evaluation_result:
+        st.markdown("---")
+        st.markdown("## 🎯 **Latest AI Evaluation Results**")
+        st.markdown("---")
+        st.markdown(st.session_state.langgraph_evaluation_result)
+        st.markdown("---")
     
     st.markdown("---")
     
     evaluator = HackathonEvaluator()
     
     # Initialize session state
+    if 'selected_events' not in st.session_state:
+        st.session_state.selected_events = []
     if 'selected_event' not in st.session_state:
-        st.session_state.selected_event = None
+        st.session_state.selected_event = None  # Keep for backward compatibility
     if 'selected_companies' not in st.session_state:
         st.session_state.selected_companies = []
     if 'selected_bounties' not in st.session_state:
@@ -1215,9 +1267,9 @@ def main():
     
     # Progress tracking
     def get_progress():
-        if not st.session_state.selected_event:
+        if not st.session_state.selected_events:
             return 0
-        elif st.session_state.selected_event and not st.session_state.selected_companies:
+        elif st.session_state.selected_events and not st.session_state.selected_companies:
             return 20
         elif st.session_state.selected_companies and not st.session_state.user_idea:
             return 40
@@ -1261,24 +1313,46 @@ def main():
                 display_name = f"{event_data['name']} - {event_data['location']} ({event_data['month']} {event_data['year']})"
                 event_options.append((display_name, event_key))
             
-            selected_display = st.selectbox(
-                "Choose an event:",
+            st.markdown("### 🎯 Select Hackathon Events")
+            st.markdown("You can select one or multiple events to compare bounties across different hackathons.")
+            
+            # Multiple event selection
+            selected_display_names = st.multiselect(
+                "Choose events:",
                 options=[opt[0] for opt in event_options],
-                index=0 if not st.session_state.selected_event else None
+                default=[opt[0] for opt in event_options if opt[1] in st.session_state.selected_events],
+                help="Select one or more hackathon events to analyze"
             )
             
-            if selected_display:
-                selected_event_key = next(opt[1] for opt in event_options if opt[0] == selected_display)
+            # Convert display names back to event keys
+            selected_event_keys = []
+            for display_name in selected_display_names:
+                event_key = next(opt[1] for opt in event_options if opt[0] == display_name)
+                selected_event_keys.append(event_key)
+            
+            # Update session state
+            st.session_state.selected_events = selected_event_keys
+            
+            # Show selection summary
+            if selected_event_keys:
+                st.markdown("### 📊 Selected Events")
+                for event_key in selected_event_keys:
+                    event_data = st.session_state.data_loader.events[event_key]
+                    st.markdown(f"• **{event_data['name']}** - {event_data['location']} ({event_data['month']} {event_data['year']})")
                 
-                if st.button("🚀 Select Event", type="primary"):
-                    st.session_state.selected_event = selected_event_key
+                # Backward compatibility: set selected_event to first selected event
+                st.session_state.selected_event = selected_event_keys[0]
+                
+                if st.button("🚀 Continue to Company Selection", type="primary"):
                     st.session_state.current_step = 2
                     st.rerun()
+            else:
+                st.info("Please select at least one event to continue.")
         else:
             st.warning("No hackathon events found. Please add JSON files to the hackathon_data folder.")
     
     # Step 2: Select Companies and Bounties
-    if st.session_state.current_step >= 2 and st.session_state.selected_event:
+    if st.session_state.current_step >= 2 and st.session_state.selected_events:
         step2_class = "step-container active" if st.session_state.current_step == 2 else "step-container completed"
         st.markdown(f"""
         <div class="{step2_class}">
@@ -1293,10 +1367,30 @@ def main():
         """, unsafe_allow_html=True)
         
         if st.session_state.current_step == 2:
-            companies = st.session_state.data_loader.get_event_companies(st.session_state.selected_event)
+            # Collect companies from all selected events
+            all_companies = {}
+            event_company_mapping = {}
             
-            if companies:
+            for event_key in st.session_state.selected_events:
+                event_companies = st.session_state.data_loader.get_event_companies(event_key)
+                event_company_mapping[event_key] = event_companies
+                
+                # Merge companies from all events
+                for company_name, bounties in event_companies.items():
+                    if company_name not in all_companies:
+                        all_companies[company_name] = []
+                    all_companies[company_name].extend(bounties)
+            
+            if all_companies:
                 st.markdown("### 🏢 Select Companies")
+                st.markdown(f"Companies available across {len(st.session_state.selected_events)} selected events:")
+                
+                # Show event breakdown
+                with st.expander("📊 Event Breakdown", expanded=False):
+                    for event_key in st.session_state.selected_events:
+                        event_data = st.session_state.data_loader.events[event_key]
+                        event_companies = event_company_mapping[event_key]
+                        st.markdown(f"**{event_data['name']} - {event_data['location']}**: {len(event_companies)} companies")
                 
                 # Select All Companies option
                 col1, col2 = st.columns([1, 4])
@@ -1304,11 +1398,11 @@ def main():
                     select_all_companies = st.checkbox("Select All", key="select_all_companies", label_visibility="visible")
                 with col2:
                     if select_all_companies:
-                        st.info("All companies will be selected")
+                        st.info(f"All {len(all_companies)} companies will be selected")
                 
                 # Company selection with proper state management
                 if select_all_companies:
-                    selected_companies = list(companies.keys())
+                    selected_companies = list(all_companies.keys())
                     # Update session state immediately
                     st.session_state.selected_companies = selected_companies
                     # Show the selected companies
@@ -1316,7 +1410,7 @@ def main():
                 else:
                     selected_companies = st.multiselect(
                         "Choose companies:",
-                        options=list(companies.keys()),
+                        options=list(all_companies.keys()),
                         default=st.session_state.selected_companies,
                         key="company_multiselect"
                     )
@@ -1335,18 +1429,21 @@ def main():
                 st.markdown("### 🎯 Available Bounties")
                 
                 all_bounties = []
-                for company in selected_companies:
-                    bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
-                    for i, bounty in enumerate(bounties):
-                        bounty_id = f"{st.session_state.selected_event}_{company}_{i}"
-                        all_bounties.append({
-                            'id': bounty_id,
-                            'company': company,
-                            'title': bounty.get('title', ''),
-                            'description': bounty.get('description', ''),
-                            'prizes': bounty.get('prizes', ''),
-                            'bounty_data': bounty
-                        })
+                for event_key in st.session_state.selected_events:
+                    for company in selected_companies:
+                        if company in event_company_mapping[event_key]:
+                            bounties = event_company_mapping[event_key][company]
+                            for i, bounty in enumerate(bounties):
+                                bounty_id = f"{event_key}_{company}_{i}"
+                                all_bounties.append({
+                                    'id': bounty_id,
+                                    'company': company,
+                                    'event': event_key,
+                                    'title': bounty.get('title', ''),
+                                    'description': bounty.get('description', ''),
+                                    'prizes': bounty.get('prizes', ''),
+                                    'bounty_data': bounty
+                                })
                     
                 # Select All Bounties option
                 col1, col2 = st.columns([1, 4])
@@ -1368,10 +1465,15 @@ def main():
                         if selected:
                             selected_bounty_ids.append(bounty['id'])
                     with col2:
+                        # Get event display name
+                        event_data = st.session_state.data_loader.events[bounty['event']]
+                        event_display = f"{event_data['name']} - {event_data['location']}"
+                        
                         st.markdown(f"""
                         <div class="company-card">
                             <div class="company-name">{bounty['company']}</div>
                             <div class="company-title">{bounty['title']}</div>
+                            <p style="font-size: 0.75rem; color: #3b82f6; margin: 0.25rem 0; font-weight: 500;">📍 {event_display}</p>
                             <p style="font-size: 0.8rem; color: #666; margin: 0.5rem 0;">{bounty['description'][:200]}...</p>
                             <p style="font-size: 0.8rem; color: #059669; margin: 0;">💰 {bounty['prizes']}</p>
                         </div>
@@ -1394,13 +1496,15 @@ def main():
                     st.stop()
                 
                 if st.button("🚀 Continue to Idea Evaluation", type="primary"):
-                    # Vectorize the selected event's bounties (only unvectorized ones)
+                    # Vectorize all selected events' bounties (only unvectorized ones)
                     with st.spinner("🔍 Vectorizing bounties..."):
-                        st.session_state.vectorizer.vectorize_bounties(st.session_state.selected_event, companies)
+                        for event_key in st.session_state.selected_events:
+                            event_companies = event_company_mapping[event_key]
+                            st.session_state.vectorizer.vectorize_bounties(event_key, event_companies)
                     st.session_state.current_step = 3
                     st.rerun()
             else:
-                st.warning("No companies found for this event.")
+                st.warning("No companies found for the selected events.")
     
     # Step 3: Enter Your Idea
     if st.session_state.current_step >= 3:
@@ -1452,14 +1556,16 @@ def main():
                         # RAG evaluation uses the same vectorized data as the main system
                         # No additional vectorization needed
                         
+                        # Auto-trigger LangGraph evaluation
                         st.session_state.current_step = 4
+                        st.session_state.auto_trigger_langgraph_evaluation = True
                         st.rerun()
     
     # Step 4: Idea Evaluation
     if st.session_state.current_step >= 4 and st.session_state.user_idea:
         step4_class = "step-container active" if st.session_state.current_step == 4 else "step-container completed"
-        step_title = "AI-Powered Evaluation" if use_rag_evaluation else "Evaluate Your Idea"
-        step_description = "AI analyzes your idea against bounty descriptions with evidence-backed feedback" if use_rag_evaluation else "Rate your idea across key dimensions to identify strengths and weaknesses"
+        step_title = "Intelligent AI Evaluation"
+        step_description = "Multi-step AI evaluation with idea validation, bounty matching, and comprehensive metrics"
         
         st.markdown(f"""
         <div class="{step4_class}">
@@ -1477,190 +1583,81 @@ def main():
             st.markdown("### 🎯 Your Idea")
             st.info(f"**{st.session_state.user_idea}**")
             
-            if use_rag_evaluation:
-                # RAG Evaluation Mode
-                st.markdown("### 🤖 AI-Powered Evaluation")
-                st.markdown("The AI will analyze your idea against available bounty descriptions and provide evidence-backed feedback.")
-                
-                # Show RAG evaluator status
+            # LangGraph Evaluation Mode
+            st.markdown("### 🧠 Intelligent AI Evaluation")
+            st.markdown("Multi-step AI evaluation with idea validation, bounty matching, and comprehensive metrics.")
+            
+            # Show LangGraph evaluator status
+            if st.session_state.langgraph_evaluator:
                 try:
-                    rag_count = st.session_state.rag_evaluator.get_collection_count()
-                    if rag_count > 0:
-                        st.success(f"✅ RAG system ready with {rag_count} bounties loaded")
+                    collection_count = st.session_state.langgraph_evaluator.get_collection_count()
+                    if collection_count > 0:
+                        st.success(f"✅ LangGraph system ready with {collection_count} bounties loaded")
                     else:
-                        st.warning("⚠️ RAG system needs to load bounty data - this will happen automatically when you start evaluation")
+                        st.warning("⚠️ LangGraph system needs to load bounty data - this will happen automatically when you start evaluation")
                 except Exception as e:
-                    st.error(f"❌ RAG system initialization error: {str(e)}")
-                    st.info("Please refresh the page to reinitialize the RAG system.")
-                
-                if st.button("🚀 Start AI Evaluation", type="primary"):
-                    # RAG evaluator uses the same vectorized data as the main system
-                    with st.spinner("🤖 AI is analyzing your idea against bounty descriptions..."):
-                        evaluation_result = st.session_state.rag_evaluator.evaluate_hackathon_idea(st.session_state.user_idea)
-                    
-                    st.markdown("---")
-                    st.markdown(evaluation_result)
-                    
-                    # Store evaluation result for potential future use
-                    st.session_state.rag_evaluation_result = evaluation_result
-                    st.session_state.current_step = 5
-                    st.rerun()
+                    st.error(f"❌ LangGraph system initialization error: {str(e)}")
+                    st.info("Please refresh the page to reinitialize the LangGraph system.")
             else:
-                # Manual Evaluation Mode
-                st.markdown("### 📊 Self-Evaluation Form")
-                st.markdown("Rate your idea on each dimension (0 = poor, max = excellent). Be honest - this helps identify areas to improve before building.")
+                st.error("❌ LangGraph evaluator not initialized. Please check your Anthropic API key.")
+            
+            # Auto-trigger LangGraph evaluation if flag is set
+            auto_trigger = st.session_state.get('auto_trigger_langgraph_evaluation', False)
+            
+            if auto_trigger and st.session_state.langgraph_evaluator:
+                # Clear the flag to prevent re-triggering
+                st.session_state.auto_trigger_langgraph_evaluation = False
                 
-                # Initialize evaluation scores if not exists
-                if not st.session_state.evaluation_scores:
-                    st.session_state.evaluation_scores = {}
-                if not st.session_state.confidence_levels:
-                    st.session_state.confidence_levels = {}
-                if not st.session_state.evaluation_evidence:
-                    st.session_state.evaluation_evidence = {}
+                # Run LangGraph evaluation with selected context
+                with st.spinner("🧠 AI is running intelligent multi-step evaluation..."):
+                    evaluation_result = st.session_state.langgraph_evaluator.evaluate_idea(
+                        user_idea=st.session_state.user_idea,
+                        selected_companies=st.session_state.selected_companies,
+                        selected_bounties=st.session_state.selected_bounties,
+                        selected_events=st.session_state.selected_events
+                    )
                 
-                # Group metrics by category
-                categories = {}
-                for metric, data in evaluator.evaluation_metrics.items():
-                    category = data["category"]
-                    if category not in categories:
-                        categories[category] = []
-                    categories[category].append((metric, data))
+                # Store evaluation result
+                st.session_state.langgraph_evaluation_result = evaluation_result
+                st.session_state.current_step = 5
                 
-                # Create evaluation form
-                for category_name, metrics in categories.items():
-                    st.markdown(f"#### {category_name}")
-                    
-                    for metric, data in metrics:
-                        # Metric header
-                        st.markdown(f"**{metric}** ({data['max_score']} max)")
-                        st.caption(data['description'])
-                        
-                        # Score and confidence in one row
-                        col1, col2 = st.columns([1, 1])
-                        
-                        with col1:
-                            score = st.number_input(
-                                f"Score (0-{data['max_score']})",
-                                min_value=0,
-                                max_value=data['max_score'],
-                                value=st.session_state.evaluation_scores.get(metric, 0),
-                                key=f"score_{metric}",
-                                help=f"Rate from 0 (poor) to {data['max_score']} (excellent)"
+                # Display the evaluation results prominently
+                st.markdown("---")
+                st.markdown("## 🎯 **AI Evaluation Results**")
+                st.markdown("---")
+                
+                # Display the evaluation result (already streamed)
+                st.markdown(evaluation_result)
+                
+                st.rerun()
+            else:
+                # Show manual trigger button if auto-trigger is not set
+                if st.button("🚀 Start Intelligent Evaluation", type="primary"):
+                    if st.session_state.langgraph_evaluator:
+                        # Run LangGraph evaluation with selected context
+                        with st.spinner("🧠 AI is running intelligent multi-step evaluation..."):
+                            evaluation_result = st.session_state.langgraph_evaluator.evaluate_idea(
+                                user_idea=st.session_state.user_idea,
+                                selected_companies=st.session_state.selected_companies,
+                                selected_bounties=st.session_state.selected_bounties,
+                                selected_events=st.session_state.selected_events
                             )
-                            st.session_state.evaluation_scores[metric] = score
                         
-                        with col2:
-                            confidence = st.selectbox(
-                                "Confidence Level",
-                                options=["low", "medium", "high"],
-                                index=["low", "medium", "high"].index(st.session_state.confidence_levels.get(metric, "medium")),
-                                key=f"confidence_{metric}",
-                                help="How confident are you in this score?"
-                            )
-                            st.session_state.confidence_levels[metric] = confidence
+                        # Store evaluation result
+                        st.session_state.langgraph_evaluation_result = evaluation_result
+                        st.session_state.current_step = 5
                         
-                        # Evidence/justification input
-                        evidence = st.text_area(
-                            f"Evidence/Justification for {metric}",
-                            value=st.session_state.evaluation_evidence.get(metric, ""),
-                            key=f"evidence_{metric}",
-                            placeholder=f"Explain why you gave {metric} a score of {score}. What specific evidence supports this rating?",
-                            help="Provide specific evidence, examples, or reasoning for your score. This helps identify strengths and areas for improvement.",
-                            height=80
-                        )
-                        st.session_state.evaluation_evidence[metric] = evidence
-                        
+                        # Display the evaluation results prominently
                         st.markdown("---")
-                
-                # Calculate and display results
-                if st.button("📊 Calculate Evaluation Score", type="primary"):
-                    # Check for missing evidence on important metrics
-                    important_metrics = ["Problem Significance", "Novelty / Uniqueness", "User Value", "Crypto-Nativeness"]
-                    missing_evidence_important = []
-                    
-                    for metric in important_metrics:
-                        if not st.session_state.evaluation_evidence.get(metric, "").strip():
-                            missing_evidence_important.append(metric)
-                    
-                    if missing_evidence_important:
-                        st.warning(f"⚠️ Please provide evidence for important metrics: {', '.join(missing_evidence_important)}")
-                        return
-                    
-                    # Calculate scores
-                    score_result = evaluator.calculate_evaluation_score(
-                        st.session_state.evaluation_scores,
-                        st.session_state.confidence_levels
-                    )
-                    
-                    # Get insights
-                    insights = evaluator.get_evaluation_insights(
-                        st.session_state.evaluation_scores,
-                        st.session_state.confidence_levels,
-                        st.session_state.evaluation_evidence
-                    )
-                    
-                    # Display results
-                    st.markdown("### 📈 Evaluation Results")
-                    
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        st.metric("Raw Score", f"{score_result['raw_score']:.1f}/10")
-                    with col2:
-                        st.metric("Confidence Adjusted", f"{score_result['confidence_adjusted_score']:.1f}/10")
-                    with col3:
-                        confidence_mult = score_result['confidence_multiplier']
-                        confidence_text = "High" if confidence_mult >= 0.9 else "Medium" if confidence_mult >= 0.8 else "Low"
-                        st.metric("Confidence Level", confidence_text)
-                    
-                    # Detailed breakdown with evidence
-                    st.markdown("### 📋 Detailed Breakdown")
-                    
-                    for category_name, metrics in categories.items():
-                        st.markdown(f"#### {category_name}")
+                        st.markdown("## 🎯 **AI Evaluation Results**")
+                        st.markdown("---")
                         
-                        for metric, data in metrics:
-                            score = st.session_state.evaluation_scores.get(metric, 0)
-                            confidence = st.session_state.confidence_levels.get(metric, "medium")
-                            evidence = st.session_state.evaluation_evidence.get(metric, "")
-                            
-                            # Score display with color coding
-                            if score >= data['max_score'] * 0.8:
-                                score_color = "🟢"
-                            elif score >= data['max_score'] * 0.6:
-                                score_color = "🟡"
-                            else:
-                                score_color = "🔴"
-                            
-                            # Confidence emoji
-                            confidence_emoji = {"low": "🔴", "medium": "🟡", "high": "🟢"}.get(confidence, "🟡")
-                            
-                            st.markdown(f"""
-                            **{score_color} {metric}**: {score}/{data['max_score']} {confidence_emoji} {confidence.title()} Confidence
-                            """)
-                            
-                            if evidence:
-                                st.markdown(f"**Evidence**: {evidence}")
-                            else:
-                                st.markdown("*No evidence provided*")
-                            
-                            st.markdown("---")
-                    
-                    # Display insights
-                    if insights:
-                        st.markdown("### 💡 Insights & Recommendations")
-                        for insight in insights:
-                            st.markdown(insight)
-                    
-                    # Score interpretation
-                    final_score = score_result['confidence_adjusted_score']
-                    if final_score >= 8:
-                        st.success("🎉 **Excellent!** Your idea scores very high. You're ready to build!")
-                    elif final_score >= 6:
-                        st.info("👍 **Good!** Your idea has solid potential. Consider the insights above to improve further.")
-                    elif final_score >= 4:
-                        st.warning("⚠️ **Needs Work.** Your idea has potential but needs significant improvement in key areas.")
+                        # Display the evaluation result (already streamed)
+                        st.markdown(evaluation_result)
+                        
+                        st.rerun()
                     else:
-                        st.error("🚨 **Major Concerns.** Consider pivoting or significantly revising your idea before building.")
+                        st.error("❌ LangGraph evaluator not initialized. Please check your OpenAI API key.")
                     
                     # Proceed to bounty matching
                     if st.button("🔍 Find Matching Bounties", type="primary"):
@@ -1708,7 +1705,10 @@ def main():
                                 results = st.session_state.vectorizer.search_similar_bounties(
                                     st.session_state.user_idea, 
                                     st.session_state.selected_event, 
-                                    n_results=n_results
+                                    n_results=n_results,
+                                    selected_events=st.session_state.selected_events,
+                                    selected_companies=st.session_state.selected_companies,
+                                    selected_bounties=st.session_state.selected_bounties
                                 )
                                 
                                 if results and results['ids']:
@@ -1723,113 +1723,24 @@ def main():
                                 else:
                                     st.warning("⚠️ Unable to find relevant bounties for your idea. Please provide more specific information about your project.")
     
-    # Step 5: Show Similar Bounties and Recommendations
-    if st.session_state.current_step >= 5 and st.session_state.similar_bounties:
-        step5_class = "step-container active" if st.session_state.current_step == 5 else "step-container completed"
-        st.markdown(f"""
-        <div class="{step5_class}">
-            <div class="step-header">
-                <div class="step-number completed">5</div>
-                <div>
-                    <h3 class="step-title">Similar Bounties & Recommendations</h3>
-                    <p class="step-description">Here are the bounties that match your idea</p>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        if st.session_state.current_step == 5:
-            st.markdown("### 🎯 Your Idea")
-            st.info(f"**{st.session_state.user_idea}**")
-            
-            st.markdown("### 🔍 Similar Bounties")
-            
-            results = st.session_state.similar_bounties
-            
-            # Check if this is from vector database or mock results
-            is_vector_search = 'distances' in results and len(results['distances']) > 0 and len(results['distances'][0]) > 0 and results['distances'][0][0] > 0
-            
-            for i, bounty_id in enumerate(results['ids']):
-                if is_vector_search:
-                    # Vector database results
-                    distance = results['distances'][0][i] if i < len(results['distances'][0]) else 0
-                    bounty_data = st.session_state.vectorizer.get_bounty_by_id(bounty_id)
-                    if bounty_data:
-                        metadata = bounty_data['metadata']
-                        similarity_score = 1 - distance  # Convert distance to similarity
-                        
-                        st.markdown(f"""
-                        <div class="company-card" style="margin: 1rem 0; padding: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                <div class="company-name">{metadata['company']}</div>
-                                <div style="background: #10b981; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">
-                                    {similarity_score:.1%} Match
-                                </div>
-                            </div>
-                            <div class="company-title">{metadata['title']}</div>
-                            <p style="font-size: 0.9rem; color: #666; margin: 0.5rem 0;">{bounty_data['document']}</p>
-                        </div>
-                        """, unsafe_allow_html=True)
-                else:
-                    # Mock results (bounty count < 5)
-                    if i < len(results['metadatas']):
-                        metadata = results['metadatas'][i]
-                        document = results['documents'][i] if i < len(results['documents']) else ""
-                        
-                        st.markdown(f"""
-                        <div class="company-card" style="margin: 1rem 0; padding: 1.5rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                <div class="company-name">{metadata['company']}</div>
-                                <div style="background: #3b82f6; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;">
-                                    Selected Bounty
-                                </div>
-                            </div>
-                            <div class="company-title">{metadata['title']}</div>
-                            <p style="font-size: 0.9rem; color: #666; margin: 0.5rem 0;">{document}</p>
-                        </div>
-                        """, unsafe_allow_html=True)
-            
-            # Recommendations
-            st.markdown("### 💡 Recommendations")
-            
-            if is_vector_search:
-                st.markdown("""
-                Based on the similarity analysis, here are some recommendations:
-                
-                1. **Focus on the most similar bounties** - These have the highest alignment with your idea
-                2. **Consider combining elements** - You might be able to address multiple bounties with one project
-                3. **Check requirements carefully** - Make sure your technical approach aligns with what's expected
-                4. **Plan your timeline** - Consider the complexity and scope of the bounties you're targeting
-                """)
-            else:
-                st.markdown("""
-                Since you have fewer than 5 bounties selected, here are some recommendations:
-                
-                1. **Review all selected bounties** - You can see all the bounties you've chosen
-                2. **Consider expanding your selection** - You might want to select more companies/bounties for better coverage
-                3. **Focus on quality over quantity** - Make sure the selected bounties align well with your idea
-                4. **Check requirements carefully** - Make sure your technical approach aligns with what's expected
-                """)
-            
-            if st.button("🔄 Start Over", type="secondary"):
-                # Reset session state
-                for key in ['selected_event', 'selected_companies', 'selected_bounties', 'user_idea', 'similar_bounties', 'evaluation_scores', 'confidence_levels', 'evaluation_evidence', 'current_step']:
-                    if key in st.session_state:
-                        del st.session_state[key]
-                st.rerun()
+    # Step 5: Show Similar Bounties and Recommendations - HIDDEN
+    # This section has been hidden as requested - no similar bounties component shown after model response
     
     # Sidebar with event info and data management
     with st.sidebar:
         st.markdown("### 📊 Event Information")
         
-        if st.session_state.selected_event:
-            event_data = st.session_state.data_loader.events[st.session_state.selected_event]
-            st.markdown(f"""
-            **Event:** {event_data['name']}  
-            **Location:** {event_data['location']}  
-            **Date:** {event_data['month']} {event_data['year']}  
-            **Companies:** {len(st.session_state.selected_companies) if st.session_state.selected_companies else 0} selected
-            """)
+        if st.session_state.selected_events:
+            st.markdown(f"**Selected Events:** {len(st.session_state.selected_events)}")
+            st.markdown(f"**Companies:** {len(st.session_state.selected_companies) if st.session_state.selected_companies else 0} selected")
+            
+            # Show details for each selected event
+            for event_key in st.session_state.selected_events:
+                event_data = st.session_state.data_loader.events[event_key]
+                st.markdown(f"""
+                **{event_data['name']} - {event_data['location']}**  
+                📅 {event_data['month']} {event_data['year']}
+                """)
             
             if st.session_state.selected_companies:
                 st.markdown("### 🏢 Selected Companies")
@@ -1844,6 +1755,10 @@ def main():
         vectorized_events = st.session_state.vectorizer.get_vectorized_events()
         all_events = list(st.session_state.data_loader.get_all_events().keys())
         
+        # Get tracking stats
+        tracking_stats = st.session_state.vectorizer.faiss_store.get_tracking_stats()
+        st.info(f"📊 **Total**: {tracking_stats['total_events']} events, {tracking_stats['total_bounties']} bounties, {tracking_stats['total_vectors']} vectors")
+        
         for event_key in all_events:
             event_data = st.session_state.data_loader.events[event_key]
             is_vectorized = event_key in vectorized_events
@@ -1855,7 +1770,7 @@ def main():
                 bounty_count = st.session_state.vectorizer.get_vectorization_status(event_key)
                 status_text += f" ({bounty_count} bounties)"
             
-            st.markdown(f"{status_icon} **{event_data['name']}**: {status_text}")
+            st.markdown(f"{status_icon} **{event_data['name']} {event_data['location']}**: {status_text}")
         
         st.markdown("---")
         
@@ -1869,8 +1784,8 @@ def main():
             st.markdown("**Events to vectorize:**")
             for event_key in unvectorized_events:
                 event_data = st.session_state.data_loader.events[event_key]
-                if st.button(f"📥 Load {event_data['name']}", key=f"load_{event_key}", use_container_width=True):
-                    with st.spinner(f"Loading {event_data['name']}..."):
+                if st.button(f"📥 Load {event_data['name']} {event_data['location']}", key=f"load_{event_key}", use_container_width=True):
+                    with st.spinner(f"Loading {event_data['name']} {event_data['location']}..."):
                         companies = st.session_state.data_loader.get_event_companies(event_key)
                         st.session_state.vectorizer.vectorize_bounties(event_key, companies)
                         st.rerun()
@@ -1888,16 +1803,27 @@ def main():
         
         st.markdown("---")
         st.markdown("### 🗑️ Reset")
-        if st.button("🔄 Reset All", type="secondary", use_container_width=True, key="reset_all_sidebar"):
-            # Clear all session state
-            for key in list(st.session_state.keys()):
-                if key not in ['data_loader', 'vectorizer']:
-                    del st.session_state[key]
-            st.rerun()
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("🗑️ Clear Vectors", type="secondary", use_container_width=True, key="clear_vectors_sidebar"):
+                st.session_state.vectorizer.clear_all_vectors()
+                st.rerun()
+        
+        with col2:
+            if st.button("🔄 Reset All", type="secondary", use_container_width=True, key="reset_all_sidebar"):
+                # Clear FAISS vectors
+                st.session_state.vectorizer.clear_all_vectors()
+                
+                # Clear all session state
+                for key in list(st.session_state.keys()):
+                    if key not in ['data_loader', 'vectorizer']:
+                        del st.session_state[key]
+                st.rerun()
 
 if __name__ == "__main__":
     try:
         main()
     finally:
-        # Cleanup when app closes
-        pass
+        # Cleanup multiprocessing resources to prevent semaphore leaks
+        cleanup_resources()

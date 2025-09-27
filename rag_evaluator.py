@@ -12,18 +12,16 @@ import os
 from typing import Dict, List, Tuple, Optional, Any
 from dataclasses import dataclass
 from sentence_transformers import SentenceTransformer
-import chromadb
-from chromadb.config import Settings
+from faiss_vector_store import FAISSVectorStore
 import numpy as np
 from datetime import datetime
-from openai import OpenAI
+from langchain_anthropic import ChatAnthropic
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-# Disable ChromaDB telemetry globally
-os.environ["ANONYMIZED_TELEMETRY"] = "False"
+# FAISS doesn't require telemetry settings
 
 
 @dataclass
@@ -61,12 +59,11 @@ class RAGEvaluator:
     and evidence-backed feedback by comparing ideas against bounty descriptions.
     """
     
-    def __init__(self, persist_directory="./chroma_db"):
-        self.persist_directory = persist_directory
-        self.client = None
-        self.collection = None
+    def __init__(self, index_path="./faiss_index"):
+        self.index_path = index_path
+        self.faiss_store = None
         self.model = None
-        self.openai_client = None
+        self.anthropic_client = None
         self.initialize()
         
         # Evaluation criteria with weights
@@ -109,14 +106,14 @@ class RAGEvaluator:
         }
     
     def initialize(self):
-        """Initialize ChromaDB, sentence transformer model, and OpenAI client"""
+        """Initialize FAISS vector store, sentence transformer model, and OpenAI client"""
         try:
-            # Initialize ChromaDB client with telemetry disabled
-            self.client = chromadb.PersistentClient(
-                path=self.persist_directory,
-                settings=Settings(anonymized_telemetry=False)
+            # Initialize FAISS vector store
+            self.faiss_store = FAISSVectorStore(
+                index_path=self.index_path,
+                embedding_model='all-MiniLM-L6-v2'
             )
-            self._log_info("✅ ChromaDB client initialized")
+            self._log_info("✅ FAISS vector store initialized")
             
             # Initialize sentence transformer model
             try:
@@ -126,36 +123,35 @@ class RAGEvaluator:
                 self._log_error(f"Failed to load sentence transformer: {str(model_error)}")
                 self.model = None
             
-            # Initialize OpenAI client
-            api_key = os.getenv('OPENAI_API_KEY')
-            if api_key and api_key != 'your_openai_api_key_here':
+            # Initialize Anthropic client
+            api_key = os.getenv('ANTHROPIC_API_KEY')
+            if api_key and api_key != 'your_anthropic_api_key_here':
                 try:
-                    # Initialize with minimal parameters to avoid proxy issues
-                    self.openai_client = OpenAI(api_key=api_key)
-                    self._log_success("✅ OpenAI client initialized successfully!")
-                except Exception as openai_error:
-                    self._log_error(f"Failed to initialize OpenAI client: {str(openai_error)}")
-                    self.openai_client = None
+                    # Clear any proxy-related environment variables that might cause issues
+                    proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
+                    for var in proxy_vars:
+                        if var in os.environ:
+                            del os.environ[var]
+                    
+                    # Initialize Anthropic client
+                    self.anthropic_client = ChatAnthropic(
+                        model="claude-3-5-sonnet-20241022",
+                        temperature=0.1,
+                        api_key=api_key
+                    )
+                    self._log_success("✅ Anthropic client initialized successfully!")
+                except Exception as anthropic_error:
+                    self._log_error(f"Failed to initialize Anthropic client: {str(anthropic_error)}")
+                    self.anthropic_client = None
             else:
-                self._log_warning("⚠️ OpenAI API key not found. LLM evaluation will be disabled. Please set OPENAI_API_KEY in your .env file.")
-                self.openai_client = None
-            
-            # Use the same collection as the main vectorizer
-            try:
-                self.collection = self.client.get_or_create_collection(
-                    name="hackathon_bounties",  # Same as main vectorizer
-                    metadata={"hnsw:space": "cosine"}
-                )
-                self._log_info("✅ ChromaDB collection created/retrieved")
-            except Exception as collection_error:
-                self._log_error(f"Failed to create/retrieve collection: {str(collection_error)}")
-                self.collection = None
+                self._log_warning("⚠️ Anthropic API key not found. LLM evaluation will be disabled. Please set ANTHROPIC_API_KEY in your .env file.")
+                self.anthropic_client = None
             
             self._log_success("✅ RAG evaluator initialized successfully!")
         except Exception as e:
             self._log_error(f"Error initializing RAG evaluator: {str(e)}")
-            # Ensure collection is None if initialization fails
-            self.collection = None
+            # Ensure faiss_store is None if initialization fails
+            self.faiss_store = None
     
     def _log_info(self, message):
         """Log info message, handling both Streamlit and non-Streamlit contexts"""
@@ -240,53 +236,44 @@ class RAGEvaluator:
             List of BountyMatch objects
         """
         try:
-            if not self.collection:
-                st.error("ChromaDB collection not initialized")
+            if not self.faiss_store:
+                st.error("FAISS vector store not initialized")
                 return []
             
-            # Generate query embedding
-            query_embedding = self.model.encode([idea])
-            
-            # Search for similar bounties
-            results = self.collection.query(
-                query_embeddings=query_embedding.tolist(),
-                n_results=n_results
-            )
+            # Search for similar bounties using FAISS
+            results = self.faiss_store.search(idea, k=n_results, score_threshold=0.1)
             
             bounty_matches = []
             
-            if results and results['ids']:
-                for i, bounty_id in enumerate(results['ids']):
-                    if i < len(results['distances'][0]):
-                        distance = results['distances'][0][i]
-                        similarity_score = 1 - distance
-                        
-                        metadata = results['metadatas'][i]
-                        document = results['documents'][i]
-                        
-                        # Extract evidence phrases
-                        evidence_phrases = self._extract_evidence_phrases(idea, document)
-                        
-                        # Calculate alignment score
-                        alignment_score = self._calculate_alignment_score(idea, document)
-                        
-                        # Identify gaps
-                        gaps = self._identify_gaps(idea, document)
-                        
-                        bounty_match = BountyMatch(
-                            bounty_id=bounty_id,
-                            company_name=metadata['company_name'],
-                            event_name=metadata['event_name'],
-                            title=metadata['title'],
-                            description=metadata['description'],
-                            prizes=metadata['prizes'],
-                            similarity_score=similarity_score,
-                            evidence_phrases=evidence_phrases,
-                            alignment_score=alignment_score,
-                            gaps=gaps
-                        )
-                        
-                        bounty_matches.append(bounty_match)
+            if results:
+                for i, result in enumerate(results):
+                    similarity_score = result['similarity_score']
+                    metadata = result['metadata']
+                    document = result['content']
+                    
+                    # Extract evidence phrases
+                    evidence_phrases = self._extract_evidence_phrases(idea, document)
+                    
+                    # Calculate alignment score
+                    alignment_score = self._calculate_alignment_score(idea, document)
+                    
+                    # Identify gaps
+                    gaps = self._identify_gaps(idea, document)
+                    
+                    bounty_match = BountyMatch(
+                        bounty_id=metadata.get('bounty_id', f"result_{i}"),
+                        company_name=metadata.get('company', 'Unknown'),
+                        event_name=metadata.get('event', 'Unknown'),
+                        title=metadata.get('title', 'Unknown'),
+                        description=metadata.get('description', ''),
+                        prizes=metadata.get('prizes', ''),
+                        similarity_score=similarity_score,
+                        evidence_phrases=evidence_phrases,
+                        alignment_score=alignment_score,
+                        gaps=gaps
+                    )
+                    
+                    bounty_matches.append(bounty_match)
             
             return bounty_matches
             
@@ -581,7 +568,7 @@ class RAGEvaluator:
     
     def generate_llm_evaluation(self, idea: str, bounty_matches: List[BountyMatch]) -> str:
         """
-        Generate comprehensive evaluation using OpenAI LLM
+        Generate comprehensive evaluation using Anthropic Claude
         
         Args:
             idea: User's hackathon idea
@@ -590,8 +577,8 @@ class RAGEvaluator:
         Returns:
             LLM-generated evaluation report
         """
-        if not self.openai_client:
-            return "❌ **LLM Evaluation Unavailable**\n\nOpenAI API key not configured. Please set OPENAI_API_KEY in your .env file to enable LLM-powered evaluation."
+        if not self.anthropic_client:
+            return "❌ **LLM Evaluation Unavailable**\n\nAnthropic API key not configured. Please set ANTHROPIC_API_KEY in your .env file to enable LLM-powered evaluation."
         
         try:
             # Prepare bounty descriptions for the prompt
@@ -652,34 +639,27 @@ Please provide a structured evaluation report with:
 
 Be critical but constructive. Focus on evidence from the bounty descriptions. Use specific examples and concrete suggestions."""
 
-            # Get model configuration
-            model = os.getenv('OPENAI_MODEL', 'gpt-3.5-turbo')
-            temperature = float(os.getenv('OPENAI_TEMPERATURE', '0.7'))
-            max_tokens = int(os.getenv('OPENAI_MAX_TOKENS', '2000'))
+            # Call Anthropic API
+            from langchain_core.messages import HumanMessage, SystemMessage
             
-            # Call OpenAI API
-            response = self.openai_client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": "You are an expert hackathon judge with deep knowledge of blockchain, Web3, and startup evaluation. Provide critical, constructive, and evidence-backed feedback."},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=temperature,
-                max_tokens=max_tokens
-            )
+            messages = [
+                SystemMessage(content="You are an expert hackathon judge with deep knowledge of blockchain, Web3, and startup evaluation. Provide critical, constructive, and evidence-backed feedback."),
+                HumanMessage(content=prompt)
+            ]
             
-            return response.choices[0].message.content.strip()
+            response = self.anthropic_client.invoke(messages)
+            return response.content.strip()
             
         except Exception as e:
             return f"❌ **LLM Evaluation Error**\n\nError generating LLM evaluation: {str(e)}\n\nFalling back to rule-based evaluation."
     
     def get_collection_count(self) -> int:
-        """Get the number of documents in the collection"""
+        """Get the number of documents in the FAISS store"""
         try:
-            if not self.collection:
+            if not self.faiss_store:
                 return 0
-            results = self.collection.get()
-            return len(results['ids']) if results['ids'] else 0
+            stats = self.faiss_store.get_stats()
+            return stats['total_documents']
         except Exception as e:
             st.error(f"Error getting collection count: {str(e)}")
             return 0
