@@ -1,5 +1,5 @@
 # Use Python 3.12 slim Debian-based image
-FROM python:3.12-slim
+FROM python:3.12.3-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -27,7 +27,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 # Copy application code
 COPY app.py .
-COPY README.md .
 
 # Create necessary directories
 RUN mkdir -p data hackathon_data chroma_db

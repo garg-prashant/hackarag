@@ -1,0 +1,18 @@
+{
+    "api_key": "",
+    "base_url": "https://api.fluence.network",
+    "default_vm_config": {
+        "vcpus": 2,
+        "memory_gb": 4,
+        "storage_gb": 25,
+        "open_ports": [
+            22,
+            80,
+            443,
+            3000,
+            8000,
+            8080
+        ]
+    },
+    "auto_cleanup_hours": 24
+}

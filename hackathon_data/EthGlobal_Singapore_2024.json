@@ -1,0 +1,900 @@
+{
+    "Worldcoin": [
+        {
+            "title": "Best Overall Use Cases of World ID",
+            "description": "These prizes are for the best overall use cases of World ID, Worldcoin's privacy-preserving proof of personhood protocol. Show us your ideas for where anti-bot and anti-sybil have the greatest impact!",
+            "prizes": "$4,000 for 1st place, $3,000 for 2nd place, $2,000 for 3rd place, $500 ×2 for 4th place",
+            "requirements": "Integrate Sign in with World ID or Incognito Actions. World ID must be fully integrated. Proof validation is required and needs to occur in a web backend or smart contract."
+        },
+        {
+            "title": "Most Creative Use Case of World ID",
+            "description": "This prize is for the most creative use case of World ID. Past winners have included dating apps, coupon programs, agricultural finance, and more!",
+            "prizes": "Not specified",
+            "requirements": "Integrate Sign in with World ID or Incognito Actions. World ID must be fully integrated. Proof validation is required and needs to occur in a web backend or smart contract."
+        },
+        {
+            "title": "Best Governance Application of World ID",
+            "description": "This prize is for the best governance application of World ID -- this can include DAO governance, private voting, etc.",
+            "prizes": "Not specified",
+            "requirements": "Integrate Sign in with World ID or Incognito Actions. World ID must be fully integrated. Proof validation is required and needs to occur in a web backend or smart contract."
+        },
+        {
+            "title": "Best Usage of World ID for Public Goods",
+            "description": "This prize is for the best usage of World ID for Public Goods -- this can include public goods funding, quadratic funding/matching, or anything else that's primarily for a public benefit!",
+            "prizes": "Not specified",
+            "requirements": "Integrate Sign in with World ID or Incognito Actions. World ID must be fully integrated. Proof validation is required and needs to occur in a web backend or smart contract."
+        },
+        {
+            "title": "Pool Prize",
+            "description": "The Pool Prize will be evenly distributed to all projects that integrate World ID (excluding those that win a separate prize from Worldcoin).",
+            "prizes": "Split with up to 49 teams (capped at $51 per team)",
+            "requirements": "Projects must demonstrate a good-faith effort to integrate World ID to be eligible for the pool prize."
+        }
+    ],
+    "Uniswap": [
+        {
+            "title": "Hook Implementations",
+            "description": "Implement a hook, leveraging-first class features Dynamic Fees - showcase potential hooks that rely on dynamic fees to reward LPs or swappers Custom Curves - showcase hooks swapping on a custom curve Hook Fees - showcase novel hook fee designs Asynchronous Swaps / App-level sequencing - perform asynchronous swaps where output tokens are given a few blocks later General Hooks - use of hook functions Liquidity managing hooks - hooks which automate or streamline liquidity management",
+            "prizes": "$4,000 for 1st place, $3,000 for 2nd place, $2,000 for 3rd place, $1,000 for 4th place",
+            "requirements": "A proper interface is not required. Evidence of working code is more than sufficient, such as: unit tests with proper assertions succesful testnet transactions local testing on anvil"
+        },
+        {
+            "title": "Integrations with Uniswap v4",
+            "description": "The category is for integrations with Uniswap v4 such as periphery contracts, developer infrastructure, user abstractions. Some ideas include, but are not limited to: Pool Operators - contracts which unlock and call PoolManager Batched liquidity operations - contracts which leverage Position Manager's command system for complex liquidity sequences Liquidity Staking (Subscribers) Developer tooling User abstractions",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place, $1,000 for 3rd place",
+            "requirements": "A proper interface is not required. Evidence of working code is more than sufficient, such as: unit tests with proper assertions succesful testnet transactions local testing on anvil"
+        },
+        {
+            "title": "Open Track for Innovation Related to v4",
+            "description": "An open track for innovation related to v4. The catch-all category for projects that do not fit above. Examples include, but are not limited to: LVR Minimization MEV minimization/redistribution Fee optimization Oracle designs ERC-7683 Cross-chain intents Moonshot experiments",
+            "prizes": "$2,000 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place",
+            "requirements": "A proper interface is not required. Evidence of working code is more than sufficient, such as: unit tests with proper assertions succesful testnet transactions local testing on anvil"
+        }
+    ],
+    "Polygon Labs": [
+        {
+            "title": "Consumer Applications",
+            "description": "Create consumer applications focusing on real world use cases, using Polygon technology.",
+            "prizes": "$2,000 for 1st place, $1,000 ×5 for Runner-up",
+            "requirements": "Deployment: Your MVP must be fully deployed on any of Polygon’s networks, featuring a functional UI for seamless interaction with your smart contract(s); Documentation: Provide detailed documentation, including setup instructions, technologies used and architecture/conceptual diagrams; Consumer approach: Proposed business model and roadmap as part of your deliverables (include in your demo video, and upload references as images); Innovation and Utility: Entries should introduce novel features or mechanisms that foster user onboarding by solving a problem"
+        },
+        {
+            "title": "AI Integration with Smart Contracts",
+            "description": "Develop innovative AI solutions that leverage blockchain technology for decentralized applications, with project ideas including AI wearables, on-chain inference validation, data sourcing incentive model, AI powered blockchain applications, and AI protection on blockchain security.",
+            "prizes": "$2,000 for 1st place, $1,000 ×2 for 2nd place",
+            "requirements": "AI Integration: Develop a decentralized application that incorporates AI to solve a specific problem or enhance functionality; Use of Blockchain: Demonstrate how blockchain technology enhances or secures the AI solution; Documentation: Provide detailed documentation, including setup instructions, architecture/conceptual diagrams, and an explanation of the AI model used"
+        },
+        {
+            "title": "Unified Bridge Implementation",
+            "description": "Develop a fully functional implementation of the unified bridge that allows seamless transfer of Ethereum across different chains without wrapping, with project ideas including cross-chain DAO and cross-chain wallet.",
+            "prizes": "$2,000 for 1st place, $1,000 for 2nd place",
+            "requirements": "Demo: Create a demo showcasing the transfer of either L1 to L2 or L2 to L2 transaction from one chain to another using the Unified Bridge (it can include Ethereum, Polygon zkEVM among others); Transfer Integrity: Ensure that the transferred Ethereum retains its original form and is not wrapped (i.e, it is ETH and not WETH, ETH.e etc.); Documentation: Provide detailed documentation, including setup instructions, technologies used and architecture/conceptual diagrams"
+        },
+        {
+            "title": "Zero-Knowledge Technology Applications",
+            "description": "Develop secure and privacy-preserving applications on Polygon using zero-knowledge (zk) technology, with ideas including Plonky3, Privado ID, and SP1.",
+            "prizes": "$2,000 for 1st place, $1,000 ×4 for 2nd place",
+            "requirements": "Zero-knowledge Technology Integration: Develop an application that incorporates zk to solve a specific problem or enhance functionality; Deployment: Your MVP must have components deployed on Polygon’s zkEVM Mainnet or Cardona (testnet); Documentation: Provide detailed documentation, including setup instructions, architecture/conceptual diagrams, and an explanation of the zk technology used"
+        }
+    ],
+    "Celo": [
+        {
+            "title": "Consumer App for Emerging Markets",
+            "description": "Build a responsive web app for non-crypto native users in emerging markets. Ideas include: - Payments (personal finance, yield, microloans, on/off ramps, remittances, utility payments, salary payments) - Funding (microwork, crowdfunding, gift cards, donations) - Rewards (learn-to-earn, games, gift cards, prize saving pools, lottery) - Donations (Kickstarter, direct donations, quadratic funding)",
+            "prizes": "$3,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place",
+            "requirements": "Responsive web app (needs to look good on mobile) - Easy, simple to use, and great UX Nice to have: - Demoed within the MiniPay site tester - Uses the Celo-Composer MiniPay template starter kit - Uses viem, wagmi, or web3.js We do consider partial or incomplete integration on a case-by-case basis. For submissions aiming to solve real-world use cases with a clear path towards full integration, we will most likely issue the full amount of the bounty."
+        },
+        {
+            "title": "Open-Source Tool on Celo's L2 Testnet",
+            "description": "Build an open-source tool on Celo's L2 testnet. Ideas include: - Improvements to Celo Composer - Developer tools (SDKs, APIs) - Mobile app components - Wallet integrations with fee abstraction or social connect - Data indexing - Scalability solutions - Cross-chain interoperability Your project should enhance the Celo L2 ecosystem and improve its functionality. We offer support for open-source through public goods funding and Open Source community projects",
+            "prizes": "$2,500 for 1st place, $1,500 for 2nd place",
+            "requirements": "Live on Celo Alfajores L2 Testnet - Open Source Nice to have: - Improves Celo Composer - Uses Social Connect or Fee Abstraction"
+        }
+    ],
+    "1inch": [
+        {
+            "title": "Fusion+ Integration",
+            "description": "Give your users the power of efficient cross-chain swaps with our brand new Fusion+ mode! Skip bridging entirely with 1inch Fusion+. Your users simply pick the tokens they want to swap, sign a message, and let our Fusion+ system do the rest. The funds on the destination chain will be available in seconds!",
+            "prizes": "$4,000, $2,500, $1,500",
+            "requirements": "- Fusion+ integration should have a meaningful purpose in your project"
+        },
+        {
+            "title": "Developer Portal APIs Utilization",
+            "description": "The Developer Portal APIs are the gateway to all things 1inch. Use it to get quotes from our multiple swap protocols and explore all the ways it can save you time and effort when building your dApp by giving you the onchain data you need with a simple REST call. --- Available APIs include: - Wallet balances - Token prices - Transaction history - Transaction traces - and more! --- Explore all the APIs in our documentation (linked below) and find how to incorporate them into your project!",
+            "prizes": "$3,000, $2,000, $1,000",
+            "requirements": "- Use the Developer portal APIs to power your dApp - The integration should provide value your project's main use case"
+        },
+        {
+            "title": "Portfolio API Integration",
+            "description": "Did you know 1inch can efficiently track portfolio performance for wallets across Ethereum and many L2s? Integrate our portfolio API into your application and give your users visibility into their balances and profits!",
+            "prizes": "$3,000, $2,000, $1,000",
+            "requirements": "- Portfolio API integration should be used in a meaningful way that improves your project"
+        }
+    ],
+    "Arbitrum": [
+        {
+            "title": "General Non-DeFi Applications Using Stylus (Rust)",
+            "description": "THIS IS A BOUNTY FOR PROJECTS USING STYLUS (RUST), JUST USING SOLIDITY DOES NOT QUALIFY This is the track for general, non-DeFI applications built using Arbitrum Stylus. There are lots of different types of things we'd love to see you build, so here are some ideas: General: - Gaming - Social apps - Art / Culture apps - Cross-chain interoperability Ecosystem interoperability / Tooling - Port over projects from other chains using Rust(-like languages) - e.g. Solana, Aptos, Stellar - AssemblyScript SDK - GUI for the cache manager Cryptography / AI / Compute: - AI - Cryptographic proofs that do not exist on the EVM - FHE - MPC - ZeroKnowledge proofs Stylus on Orbit: - Either on your own Orbit chain, or an existing Orbit chain, e.g. ApeChain",
+            "prizes": "$2,500 (up to 3 teams)",
+            "requirements": "- Must have a Stylus smart contract deployed on an Arbitrum chain (Arbitrum Sepolia, Arbitrum One, Arbitrum Nova, or your own Arbitrum Orbit chain) - Must not be DeFi (because there is a separate prize category for DeFi)"
+        },
+        {
+            "title": "DeFi on Stylus (Rust)",
+            "description": "THIS IS A BOUNTY FOR PROJECTS USING STYLUS (RUST), JUST USING SOLIDITY DOES NOT QUALIFY Arbitrum is the leading L2 for DeFi applications. Now you can build more advanced and novel DeFi applications using new languages, like Rust, with Stylus. The DeFi on Stylus prize celebrates groundbreaking projects that harness Arbitrum Stylus to build advanced DeFi applications on Arbitrum. This prize rewards developers who leverage the flexibility of Stylus and the new WASM VM, using languages like Rust, C, or C++, to create powerful, unique, and efficient financial solutions that push the boundaries of what’s possible in decentralized finance. Eligible projects may include innovative lending protocols, liquidity solutions, cross-chain interoperability tools, or other financial products that demonstrate novel approaches to security, scalability, and usability. This prize aims to inspire developers to reimagine DeFi by utilizing Stylus for high-performance and feature-rich applications that can serve both seasoned and new DeFi users.",
+            "prizes": "$4,000 (up to 2 teams)",
+            "requirements": "- Only awarded to DeFi or DEX use cases with Stylus, e.g. Uniswap V4 Hooks - Must have a Stylus smart contract deployed on an Arbitrum chain (Arbitrum Sepolia, Arbitrum One, Arbitrum Nova, or your own Arbitrum Orbit chain)"
+        },
+        {
+            "title": "Arbitrum Orbit Chain Deployment",
+            "description": "Deploy your own Arbitrum Orbit chain. This is the track for projects that deploy their own Arbitrum Orbit chain. You can deploy an Orbit chain on Arbitrum Sepolia for free. You can use the Orbit SDK to deploy your chain. Bonus points if you use Stylus on your Orbit chain.",
+            "prizes": "$2,500 (up to 2 teams)",
+            "requirements": "- Must deploy an Arbitrum Orbit chain on Arbitrum Sepolia - Must have a smart contract deployed on your Orbit chain"
+        }
+    ],
+    "Avail": [
+        {
+            "title": "For this track, we’re challenging you to create a dApp that integrates Cartesi with Avail protocol.",
+            "description": "The dApp must leverage both asset handling through base layer with Cartesi Rollups Smart Contracts and Avail Data Availability solution.",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place",
+            "requirements": "Build a Proof of concept that should be deployed on a supported testnet (Ethereum, Arbitrum, OP or Base Sepolia or any other EVM network) - The Project description should be clearly defined - Components and logic that runs inside Cartesi - Use of assets through Cartesi portal contracts - Send generic transactions through Avail’s DA - Share a demo video or a thread on socials which describes what you’re building. Tag @cartesiproject and @AvailProject"
+        }
+    ],
+    "Arx": [
+        {
+            "title": "Build the most interesting and creative digi-physical experience.",
+            "description": "How can a signature tap from a wristband/card/tag spice up Ethereum? Onboard new users? Radically change how things work IRL? What's a L2 that should use chips? Find us if you need more chips for testing!",
+            "prizes": "$2,500 for 1st place, $1,250 for 2nd place (×2)",
+            "requirements": "You may or may not use ERS for this prize, however, we expect that you will implement libHaLo. At a minimum you should use a signature obtained from a chip (on or offchain!)"
+        }
+    ],
+    "Axelar": [
+        {
+            "title": "Use Axelar Interchain Token Service (ITS) for building/integrating cross-chain assets.",
+            "description": "Axelar’s Interchain Token Service provides functionality to bridge tokens between blockchains, enabling composability across ecosystems. Your solution should demonstrate a meaningful integration for your asset with Axelar’s Interchain Token Service, enhancing interoperability and functionality across blockchains.",
+            "prizes": "$2,000 for 1st place, $1,500 for 2nd place, $500 for 3rd place",
+            "requirements": "Projects will be judged on Viability, Creativity, and how essential being Interchain is to your DApp - Demonstration of an integration with Axelar ITS to bridge tokens across at least two blockchain networks (with a link to live Axelarscan transaction) - The project should showcase a compelling use case for cross-chain assets (examples include cross-chain staking, yield aggregation, or multi-chain token governance). - Ensure the dApp is secure, efficient, and maintains reliable interchain transactions. - Please include the following in the readme.md / bounty.md of your application. You must share the source code of your DApp."
+        }
+    ],
+    "Base": [
+        {
+            "title": "Create innovative applications that demonstrate real-world onchain use cases.",
+            "description": "We're looking for projects that make onchain interactions more accessible, practical, and valuable for everyday users while showcasing Base's technical advantages. A couple ideas: Merchant payment systems with instant settlement, Decentralized Ticketmaster for event ticketing, Simplified yield strategies for everyday retail users",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place",
+            "requirements": "No specific requirements listed in the content."
+        },
+        {
+            "title": "Demonstrate innovative implementations of OnchainKit's React components that create seamless, production-ready onchain experiences.",
+            "description": "We're looking for projects that showcase how OnchainKit's ready-to-use components can streamline complex onchain interactions into simple, beautiful interfaces. Key Focus Areas: Checkout integration: Implement one-click payment solutions to streamline e-commerce and in-app purchases. Fund (onramp) integration: Integrate user-friendly onramps powered by debit card or Coinbase balance. NFT integration: minting and showcasing NFTs, Wallet Integration: Create seamless and secure wallet connections, Swap integration: token swapping, Identity: display Basenames, ENS avatars, social media profiles, attestation badges, and account information.",
+            "prizes": "$3,000 for 1st place, $1,500 for 2nd place, $500 for 3rd place",
+            "requirements": "No specific requirements listed in the content."
+        }
+    ],
+    "Biconomy": [
+        {
+            "title": "Best Use of Biconomy SDK",
+            "description": "Build a dApp that uses Biconomy SDK to provide a seamless user experience. This can include using Biconomy's Account Abstraction SDK, Paymaster, Bundler, or Session Keys.",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place, $1,000 for 3rd place",
+            "requirements": "- Use Biconomy SDK in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "BitDSM": [
+        {
+            "title": "Best Use of BitDSM",
+            "description": "Build a dApp that uses BitDSM to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use BitDSM in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Bitkub Chain": [
+        {
+            "title": "Best dApp on Bitkub Chain",
+            "description": "For projects that use the Bitkub Chain Are you ready to showcase your skills in blockchain innovation? Bitkub Chain is excited to challenge developers and find the best dApp on Bitkub Chain. We are searching for new, creative, and impactful dApps that use the power of KUB Chain to make a difference.",
+            "prizes": "1st place: $5,000, 2nd place: $3,000, 3rd place: $2,000",
+            "requirements": "- Bitkub NEXT Integration: Develop a decentralized application that incorporates Bitkub NEXT to enhance wallet functionality - Build on KUB Chain / Multi chain : deploy the application on Bitkub Chain network. - Innovation and creativity in solving real-world problems"
+        },
+        {
+            "title": "Bitkub Coin (KUB) Utilization",
+            "description": "Unleash the power of the KUB coin! Calling all dApp developers to craft innovative ideas to boost KUB coin utility. Show us how your innovative ideas will increase KUB adoption and liquidity.",
+            "prizes": "1st place: $5,000, 2nd place: $3,000, 3rd place: $2,000",
+            "requirements": "- Must use KUB Coin on Defi protocol or dApp - Increasing KUB liquidity and utilization with innovative solutions"
+        }
+    ],
+    "Blockless": [
+        {
+            "title": "Best Use of Blockless",
+            "description": "Build a dApp that uses Blockless to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Blockless in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Blockscout": [
+        {
+            "title": "Best Use of Blockscout",
+            "description": "Build a dApp that uses Blockscout to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Blockscout in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Capsule": [
+        {
+            "title": "Use the Capsule Web Modal to power seamless cross-app onboarding experiences",
+            "description": "Use the Capsule Web Modal to power seamless cross-app onboarding experiences. Bonus points for using pregenerated wallets as well",
+            "prizes": "Prize details coming soon",
+            "requirements": "Must use the Capsule drop-in Web Modal Must be a functioning app with an onchain component"
+        }
+    ],
+    "Cartesi": [
+        {
+            "title": "Demonstrate compute power beyond EVM and showcase the usage of open-source libraries with the Cartesi VM’s Linux runtime",
+            "description": "Demonstrate compute power beyond EVM and showcase the usage of open-source libraries with the Cartesi VM’s Linux runtime. We highly encourage builders to leverage the modular capabilities of Cartesi and integrate the core app logic with other protocols. Think DeFi, Games, AI/ML, Governance, Social apps, IoT, Dev tools and anything that shows the best use of Cartesi. Bonus points: We encourage you to integrate Cartesi with other protocols, showcasing true modularity between ecosystems. You can take advantage of the templates and guides prepared. Use any existing dapps from the Cartesi ecosystem and add modular enhancements.",
+            "prizes": "1st place $3,000, 2nd place $1,500, 3rd place $500",
+            "requirements": "- Build a Proof of concept that should be deployed on a supported testnet (Ethereum, Arbitrum, OP or Base Sepolia or any other EVM network) - Project description with clearly defined components and logic that runs inside Cartesi - Share a demo video or a thread on the idea that you’re building. Tag @cartesiproject with #ExploreCartesi"
+        },
+        {
+            "title": "Create a dApp that integrates Cartesi with Avail protocol",
+            "description": "For this track, we’re challenging you to create a dApp that integrates Cartesi with Avail protocol. The dApp must leverage both asset handling through base layer with Cartesi Rollups Smart Contracts and Avail Data Availability solution.",
+            "prizes": "1st place $3,000, 2nd place $2,000",
+            "requirements": "- Build a Proof of concept that should be deployed on a supported testnet (Ethereum, Arbitrum, OP or Base Sepolia or any other EVM network) - The Project description should be clearly defined - Components and logic that runs inside Cartesi - Use of assets through Cartesi portal contracts - Send generic transactions through Avail’s DA - Share a demo video or a thread on socials which describes what you’re building. Tag @cartesiproject and @AvailProject"
+        }
+    ],
+    "Celo": [
+        {
+            "title": "Consumer App for Emerging Markets",
+            "description": "Build a responsive web app for non-crypto native users in emerging markets. Ideas include: - Payments (personal finance, yield, microloans, on/off ramps, remittances, utility payments, salary payments) - Funding (microwork, crowdfunding, gift cards, donations) - Rewards (learn-to-earn, games, gift cards, prize saving pools, lottery) - Donations (Kickstarter, direct donations, quadratic funding)",
+            "prizes": "$3,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place",
+            "requirements": "Responsive web app (needs to look good on mobile) - Easy, simple to use, and great UX Nice to have: - Demoed within the MiniPay site tester - Uses the Celo-Composer MiniPay template starter kit - Uses viem, wagmi, or web3.js We do consider partial or incomplete integration on a case-by-case basis. For submissions aiming to solve real-world use cases with a clear path towards full integration, we will most likely issue the full amount of the bounty."
+        },
+        {
+            "title": "Open-Source Tool on Celo's L2 Testnet",
+            "description": "Build an open-source tool on Celo's L2 testnet. Ideas include: - Improvements to Celo Composer - Developer tools (SDKs, APIs) - Mobile app components - Wallet integrations with fee abstraction or social connect - Data indexing - Scalability solutions - Cross-chain interoperability Your project should enhance the Celo L2 ecosystem and improve its functionality. We offer support for open-source through public goods funding and Open Source community projects",
+            "prizes": "$2,500 for 1st place, $1,500 for 2nd place",
+            "requirements": "Live on Celo Alfajores L2 Testnet - Open Source Nice to have: - Improves Celo Composer - Uses Social Connect or Fee Abstraction"
+        }
+    ],
+    "Chiliz": [
+        {
+            "title": "Retail Facing Platforms Utilizing Fan Tokens",
+            "description": "Retail facing platforms which optimally utilize Fan Tokens for social, commerce, live event etc experience focuses.",
+            "prizes": "$2,750 for 1st place, $1,750 for 2nd place",
+            "requirements": "Operational smart contracts Direct utilization of 1 or more Fan Token assets. Scoring based on: -Idea/concept -Technical -Execution rating"
+        },
+        {
+            "title": "SportFi Applications on Chiliz Spicy Network",
+            "description": "M2E, Ticketing, Sport Membership, Marketplaces, Prediction markets, Sportsbook, P2E Fan Token battles, Fantasy and football manager games, along with SportFi infrastructure projects such as Pyth, Azuro, RaribleX",
+            "prizes": "$2,750 for 1st place, $1,750 for 2nd place",
+            "requirements": "Operational smart contracts deployed on Chiliz Spicy Network (testnet) focusing on SportFi (see info for inspiration) Scoring based on: -Idea/concept -Technical -Execution rating"
+        },
+        {
+            "title": "SportFi or Fan Token Utilization on Chiliz Spicy Network",
+            "description": "This pricing covers the complete execution of operational smart contracts deployed on the Chiliz Spicy Network (testnet), with a focus on SportFi applications or the direct utilization of one or more Fan Token assets. It encompasses all stages of development, deployment, and integration to ensure seamless functionality and interaction within the SportFi ecosystem.",
+            "prizes": "$2,750 for 1st place, $1,750 for 2nd place",
+            "requirements": "Operational smart contracts deployed on Chiliz Spicy Network (testnet) Scoring based on: -Idea/concept -Technical -Execution rating"
+        }
+    ],
+    "Chronicle Protocol": [
+        {
+            "title": "Use Chronicle Oracles to power up your DApp!",
+            "description": "Use Chronicle Oracles to power up your DApp! You can utilize any of the oracles provided on the Dashboard (https://chroniclelabs.org/dashboard/oracles) across any of the 10 chains where Chronicle is live.",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place, $1,000 for 3rd place, $500 for 4th place",
+            "requirements": "Your project must read from a Chronicle oracle and then make a state change on a blockchain. Make sure to include the following in your project submission: - A public demo URL to your deployed project that judges can test. - A short video that demonstrates your submission (approximately 2-3 minutes). - A public GitHub repository with the code. - Complete the 2-min Builder Feedback Form: https://forms.gle/EZiu96gfhBBnwuAQ8"
+        }
+    ],
+    "Circle": [
+        {
+            "title": "Best Use of Circle",
+            "description": "Build a dApp that uses Circle to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Circle in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "CoW DAO": [
+        {
+            "title": "Best Use of CoW DAO",
+            "description": "Build a dApp that uses CoW DAO to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use CoW DAO in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Curvegrid": [
+        {
+            "title": "Best Use of Curvegrid",
+            "description": "Build a dApp that uses Curvegrid to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Curvegrid in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Dynamic": [
+        {
+            "title": "Best Use of Dynamic",
+            "description": "Build a dApp that uses Dynamic to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Dynamic in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "ENS": [
+        {
+            "title": "ENS Integration",
+            "description": "Any type of ENS integration is eligible for this prize. Get creative! An example of a successful project may be a smart contract wallet that mints an ENS subname on L2 and sets its primary name upon deployment. If you're building an AI project, consider how ENS can be used to name autonomous agents. Come by our booth for help brainstorming ways to integrate ENS into your project!",
+            "prizes": "1st place: $3,500, 2nd place: $2,000, 3rd place: $1,500 ×3",
+            "requirements": "It should be obvious how ENS improves your product and is not just implemented as an afterthought. Your demo must be functional and not just include hard-coded values. Upon submission, your project showcase must have a video recording or link to a live demo (ideally both) and the code needs to be open source and accessible on Github or a similar platform."
+        }
+    ],
+    "Essential": [
+        {
+            "title": "Best DeFi Application Using Pint or Tooling for the Essential Ecosystem",
+            "description": "This prize will be awarded to the teams that submit either: - The best declarative DeFi application using Pint; OR - The best tooling for the Essential ecosystem OPTION 1: BEST DEFI APPLICATION USING PINT Pint (short for “programmable intents”) is Essential’s DSL for declarative smart contracts. The term declarative means that code written in Pint is focused on defining logic and not execution. Projects should feature smart contracts written in Pint, as well as a user-friendly front-end (if relevant to the project). Ideal use cases include, but are not limited to: - Orderbook-based lending - Orderbook DEX - Something utilising flash loans in a declarative way - Escrow service OPTION 2: TOOLING FOR THE ESSENTIAL ECOSYSTEM As well as needing good applications, our ecosystem needs more tooling for developers! Ideal use cases include: - Block explorer - Wallet - TS framework - Oracle - Or talk to our team in-person or on Discord about your idea!",
+            "prizes": "$7,000 for 1st place, $3,000 for 2nd place",
+            "requirements": "* Open-source your project on GitHub with a readme explaining what you’ve built and how it works. * If building a DeFi application, use Pint as the primary programming language for smart contract development. * Bonus points: Submit a video demo to showcase your project."
+        }
+    ],
+    "Euler": [
+        {
+            "title": "Best Telegram Integration for Euler V2",
+            "description": "Prize is awarded to the team who best delivers a consumer-ready Telegram integration for Euler V2. Examples include - deposit into Euler straight from Telegram, a bot that flags highest deposit APY pools, or any other creative and viral market need integrating Telegram into Euler.",
+            "prizes": "$3,000 for 1st place, $1,000 for 2nd place ×2",
+            "requirements": "- Build project using React - Project must integrate with Euler - Innovation and creativity in delivering something Euler users can easily use everyday - Project should be a live Telegram app - Source code should be provided via Github repository"
+        }
+    ],
+    "Fhenix": [
+        {
+            "title": "Fhenix Ecosystem Full-Stack Applications",
+            "description": "Fhenix is an L2 on ETH that uses Fully Homomorphic Encryption (FHE) to provide confidentiality. For our track, we are looking for developers who are interested in building full-stack applications in the Fhenix ecosystem that use encrypted computation. This can be anything from on-chain social media, dark pools, private lending, confidential voting, auctions, social betting, data marketplaces, etc. We’re open to ideas and look forward to seeing what you and your team come up with!",
+            "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place",
+            "requirements": "We require a full stack application demonstration, live hosting is preferred but not mandatory. However, creating an application that others can play around with from their own machines would be beneficial for the team's prospects of being selected. A Github repository with a history of commits is also required. In addition to a corresponding readme that makes it easy for developers, judges and our team to understand the overarching architecture of the project submission. Finally teams must submit their official application before the deadline in order to qualify for prize considerations."
+        }
+    ],
+    "Filecoin": [
+        {
+            "title": "Build the next generation of decentralized applications using Synapse SDK",
+            "description": "Build the next generation of decentralized applications using Synapse SDK to access Filecoin’s new warm storage service and payment rails. We are seeking applications that demonstrate real-world utility, a seamless developer experience, and the unique capabilities of services from Filecoin Onchain Cloud, powered by the Synapse SDK. We’re excited to see applications that use storage and USDFC payments seamlessly, from user-generated content and AI datasets to escrow, subscriptions, or pay-per-use services. Key Primitives to Explore: 1. Build Apps with Innovative Storage Economics: Use Filecoin warm storage service for innovative applications like on-chain governance, Immutable File Sharing, decentralized social or video platform, etc. 2. Boost AI infrastructure: Data storage is the key for AI, and Filecion warm storage is ready to boost any AI use cases, including verifiable AI-training datasets, fair AI training economy, or decentralized Retrieval-Augmented Generation (dRAG), etc. 3. Toolings: Explore other services or toolings added to enrich the capability of Filecoin Onchain Cloud: KYC services, access control, privacy services.",
+            "prizes": "1st place: $2,500, 2nd place: $1,500, 3rd place: $1,000",
+            "requirements": "- Your project must use Synapse SDK or Lighthouse in a meaningful way (storage, retrieval, or payment). - Your project must deploy to the Filecoin Calibration Testnet. - Must include a working demo (frontend or CLI). - Open-source code submitted via GitHub."
+        },
+        {
+            "title": "Build innovative DataDAOs that showcase the power of Lighthouse",
+            "description": "Build innovative DataDAOs that showcase the power of Lighthouse as a data tokenisation platform. We want to see Data DAOs, encrypted storage, and real-world data feeds integrated directly into decentralized applications. Steps: Data DAOs — Create Data DAOs where community members contribute and monetize data via DataCoins. Datastored permanently on Filecoin via Lighthouse. Register data coin on Lighthouse data tokenisation platform. Storage + Token Gating — Use Lighthouse SDK for storage and token-based access control. zkTLS / Verifiable Data Feeds — Use zkTLS or other cryptographic proofs to ingest/validate real-world data (e.g. Social Feed, DeFi oracles, off-chain APIs). On-Chain Deployment — Deploy your DAO and data contracts to Base, Polygon, or Filecoin mainnet. Live Real-World Data — Projects must integrate at least one live real-world dataset or API feed.",
+            "prizes": "1st place: $2,500, 2nd place: $1,500, 3rd place: $1,000",
+            "requirements": "- Must store data via Lighthouse + Filecoin. - Must use Lighthouse SDK meaningfully. - Must integrate at least one live real-world dataset with proof/validation (e.g., zkTLS, API → DAO). - Must deploy to Base, Polygon, Filecoin mainnet or other supported networks. - Must include a working demo (frontend) deployed on vercel, etc. - Open-source code submitted via GitHub."
+        },
+        {
+            "title": "Use Akave O3, an S3-compatible API",
+            "description": "Use Akave O3, an S3-compatible API—keep your familiar S3 workflow while building on decentralized storage. Pick one of the following tracks to build: AI/ML datasets & checkpoints, Cross-cloud analytics (External Tables), Iceberg lakehouse on Akave, Edge/DePIN ingest, Immutable backup & DR.",
+            "prizes": "Up to 2 teams will receive $2,500",
+            "requirements": "- Clarity & completeness: can a newcomer reproduce your README? - Innovation: clever/niche use of decentralized storage. - Realism: O3 use should make sense where it’s used."
+        }
+    ],
+    "Gnosis": [
+        {
+            "title": "Use Chronicle Oracles to power up your DApp!",
+            "description": "Use Chronicle Oracles to power up your DApp! You can utilize any of the oracles provided on the Dashboard (https://chroniclelabs.org/dashboard/oracles) across any of the 10 chains where Chronicle is live.",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place, $1,000 for 3rd place, $500 for 4th place",
+            "requirements": "Your project must read from a Chronicle oracle and then make a state change on a blockchain. Make sure to include the following in your project submission: - A public demo URL to your deployed project that judges can test. - A short video that demonstrates your submission (approximately 2-3 minutes). - A public GitHub repository with the code. - Complete the 2-min Builder Feedback Form: https://forms.gle/EZiu96gfhBBnwuAQ8"
+        },
+        {
+            "title": "Integrate Chronicle Oracles into your project",
+            "description": "Integrate Chronicle Oracles into your project to qualify for the Chronicle Pool Prize. The Pool Prize will be evenly distributed to all projects that integrate Chronicle Oracles (excluding those that win a separate prize from Chronicle).",
+            "prizes": "Split with up to 30 teams (capped at $117 per team)",
+            "requirements": "Projects must demonstrate a good-faith effort to integrate Chronicle Oracles to be eligible for the Pool Prize. This is a great add-on bounty as Chronicle is compatible with many chains (Ethereum, Arbitrum, Mantle, Polygon zkEVM, Gnosis Chain, zkSync, Base, Optimism, Scroll, Berachain)."
+        },
+        {
+            "title": "Build a Social or Community dApp with Circles SDK",
+            "description": "If you are building out a social or community dApp, you can use the Circles SDK and take advantage of the following features for your project to jumpstart soft Sybil resistance, group dynamics and economic liveliness: - Bootstrap a community / DAO currency that guarantees equal opportunity of all group participants - Unlock soft sybil resistance using Circles’ trust connections and path finder - Experiment with a fair economy for voting, commerce or action (e.g. Gasless transactions) via the steady issuance of CRC personal tokens (1 CRC/hour) to each participant of Circles Network",
+            "prizes": "$1,000 for 1st place, $500 for 2nd place",
+            "requirements": "- Should use Circles SDK integration - Should have a github Repo along with README.md that includes the problem statement - Video demo is recommended"
+        },
+        {
+            "title": "Build dApps on Decentralized Payments Infrastructure with Gnosis Pay",
+            "description": "If you want to build out dApps on decentralized payments infrastructure, you can utilize Gnosis Pay that leverages Safe infra to: * Develop self-custodial or non-custodial solutions using Safe Smart Accounts. * Use delay and role modules for emitting transactions that can be processed via the Visa network. * Deploy your own custom modules on top of the delay module to enhance functionality.",
+            "prizes": "$1,000 for 1st place (2 winners), $500 for Runner Up",
+            "requirements": "- Should use Safe smart accounts for account implementation - Should use delay modules - Github Repo with README.MD along with problem statement - Deployed Application link / Video demo (Recommended)"
+        }
+    ],
+    "Hedera": [
+        {
+            "title": "Build Anything Using Hedera Smart Contract Service",
+            "description": "• Build anything you like • Submissions that use multiple Hedera services will be prioritized. • Otherwise, submissions are prioritized based on the order of submission.",
+            "prizes": "Up to 2 teams will receive $1,500",
+            "requirements": "- Must be deployed on (or send transactions to) the Hedera Testnet. - Must use Hedera Smart Contract Service (HSCS)."
+        },
+        {
+            "title": "Build Anything Using Hedera Token Service or Hedera Consensus Service",
+            "description": "• Build anything you like. • Must be deployed on (or send transactions to) the Hedera Testnet.",
+            "prizes": "Up to 2 teams will receive $1,500",
+            "requirements": "- Must use at least one of Hedera Token Service (HTS) or Hedera Consensus Service (HCS). - Submissions that use multiple Hedera services will be prioritized. - Otherwise, submissions are prioritized based on the order of submission."
+        }
+    ],
+    "Hyperbolic": [
+        {
+            "title": "Best Use of Hyperbolic Inference API and GPU Rental for Autonomous Agent",
+            "description": "Best use of the Hyperbolic Inference API and GPU rental to make an autonomous on-chain or social agent.",
+            "prizes": "Up to 2 teams will receive $500",
+            "requirements": "- Utilize the Hyperbolic API - Access GPU rentals for model fine-tuning - Develop an autonomous agent capable of operating without human intervention"
+        }
+    ],
+    "Hyperlane": [
+        {
+            "title": "Grand Prize",
+            "description": "The grand prize will be given to the most compelling submissions made during the hackathon. It can qualify under any of the categories below, so be sure to read them to get some ideas! Think of the grand prize as an extension of the category prizes.",
+            "prizes": "Not specified",
+            "requirements": "Get in touch with the Hyperlane team for more details! Join our discord to engage & get support."
+        },
+        {
+            "title": "Infrastructure",
+            "description": "This category is for building infrastructure that either enhances Hyperlane or makes use of Hyperlane's capabilities. Maybe you’ll build a customized Deploy tool to bundle Hyperlane with any OP Chain deployment? Or perhaps you’d build a way to more easily connect chains with Hyperlane? Maybe you’ll build a tool to allow any chain to get access to oracle feeds from any chain? You decide!",
+            "prizes": "Not specified",
+            "requirements": "To win, your submission will have to serve a useful purpose either for Hyperlane users, or utilize Hyperlane to provide a valuable service to someone else. Get in touch with the team for more details!"
+        },
+        {
+            "title": "Hooks",
+            "description": "Hooks are the next evolution in Hyperlane’s Modular Security stack, allowing any interoperability protocol to be access from a single Hyperlane interface! To do this, Hooks need to be created for existing bridging solutions, whether they are canonical rollup bridges, or external AMB protocols such as Axelar, or LayerZero. Use this hackathon to build your first Hook and integrate it!",
+            "prizes": "Not specified",
+            "requirements": "Get in touch with the team for more details! Join our discord to engage with the team and get support."
+        },
+        {
+            "title": "Interchain Application",
+            "description": "An interchain application is an application that communicates between different blockchains. It can either transfer assets or make interchain function calls. The winner of this prize will be the most impressive application that makes use of Hyperlane and benefits from its presence on multiple blockchains. Depending on the quality of submissions relative to other categories relative to other categories, Hyperlane may award several Interchain applications (up to $3k USD for first, $2k for 2nd, $1k for 3rd)",
+            "prizes": "$2,000 for 1st place, $1,000 for 2nd place",
+            "requirements": "Get in touch with the team for more details! Join our discord to engage with the team and get support."
+        }
+    ],
+    "Inco": [
+        {
+            "title": "Build with Inco Confidential Computing",
+            "description": "Inco confidential computing facilitates a whole new Dapp design space on-chain with seamless developer experience. We’re excited to see the possibility of web 2 businesses replicable in web3 contexts with on-chain confidentiality. Confidential ERC-20s enable new interactions with existing paradigms of DeFi (private AMM, money market, flashloan), web3 infrastructures (decentralized identity, private on-chain voting, auctions, social betting, data marketplaces), as well as businesses to be built on-chain (private payroll, token vesting and cap tables).",
+            "prizes": "Up to 2 teams will receive $2,500",
+            "requirements": "- To complete this prize, the smart contract needs to be deployed on Inco Testnet, and the smart contract code has to be functional and complete. - The projects will be judged based on completeness (bonus if there’s a UI), creativity, and clever utilization of confidentiality and/or randomness to enable use cases that aren’t feasible on regular EVMs. - Submission should include: - List of team members - Video — project intro & overview (1-2 minutes) - Video — project demo (5 minutes maximum) - GitHub - Clickable demo (optional) - Short description of project and components leveraging FHE"
+        }
+    ],
+    "Kinode": [
+        {
+            "title": "Best Use of Kinode",
+            "description": "Build a dApp that uses Kinode to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Kinode in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Kinto": [
+        {
+            "title": "Best Kinto Application",
+            "description": "One application will obtain a $7500 prize for having the best Kinto application implemented during ETHGlobal Bangkok.",
+            "prizes": "$7500",
+            "requirements": "This application has it all, a great idea implemented to perfection. - Can be a fully working product or MVP. - Submit a video demo to showcase and walk through your project. - Open-source your project on Github for the team to evaluate. - Integrate with Kinto using the SDK, API, or smart contracts. - This prize will only be granted for a submission that extensively interacts with and utilizes Kinto."
+        },
+        {
+            "title": "Best Implementation of Kinto Smart Contracts",
+            "description": "Two prizes in this category with 1st place taking $3500 and 2nd place taking $1,500 of the prize fund.",
+            "prizes": "1st place $3,500, 2nd place $1,500",
+            "requirements": "These applications focus on useful implementations of one or more of our Kinto Smart Contracts. - Can be a fully working product or MVP. - Submit a video demo to showcase and walk through your project. - Open-source your project on Github for the team to evaluate. - Integrate with Kinto APIs to create an innovative project or use case. - This prize will only be granted for a submission that extensively interacts with and utilizes Kinto."
+        },
+        {
+            "title": "Best Integration with Kinto Wallet",
+            "description": "Two prizes in this category with 1st place taking $3500 and 2nd place taking $1,500 of the prize fund.",
+            "prizes": "1st place $3,500, 2nd place $1,500",
+            "requirements": "These applications focus on integrating our Kinto Wallet to new or existing applications to expand or create new functionality. - Can be a fully working product or MVP. - Submit a video demo to showcase and walk through your project. - Open-source your project on Github for the team to evaluate. - Integrate with Kinto SDK to create an innovative project or use case. - This prize will only be granted for a submission that extensively interacts with and utilizes Kinto."
+        },
+        {
+            "title": "Best Venn Integration",
+            "description": "One prize with the winner receiving $500",
+            "prizes": "$500",
+            "requirements": "The winning application will have the best integration of Venn within their Kinto project - it's possible to win this AND another prize at the same time. - Best Venn integration as part of a wider project on Kinto - Can be won independently as a prize or along side another prize - You can find the Venn docs to assist here: https://docs.venn.build/"
+        },
+        {
+            "title": "Best UX/UI",
+            "description": "There is one prize worth $1000 for this track",
+            "prizes": "$1000",
+            "requirements": "The application with the best UX/UI will win $1000 - it's possible to win this prize along side another! - Best UI/UX as part of a wider project on Kinto - Can be won independently as a prize or along side another prize"
+        }
+    ],
+    "LayerZero": [
+        {
+            "title": "Best Use of LayerZero",
+            "description": "Build a dApp that uses LayerZero to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use LayerZero in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Ledger": [
+        {
+            "title": "Best Use of Ledger",
+            "description": "Build a dApp that uses Ledger to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Ledger in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Linea": [
+        {
+            "title": "Build a cutting-edge DeFi, DeSoc/attestation, or Gaming dApp to seize the opportunity and push the boundaries of decentralized technology on zkEVM by deploying your contracts to Linea",
+            "description": "Build a cutting-edge DeFi, DeSoc/attestation, or Gaming dApp to seize the opportunity and push the boundaries of decentralized technology on zkEVM by deploying your contracts to Linea. Earn additional points if you incorporate MetaMask API. Deploying to Linea is a requirement; using MetaMask JSON-RPC API is preferred.",
+            "prizes": "Up to 5 teams will receive $1,000",
+            "requirements": "- Code needs to be viewable on GitHub - Include a README that has your deployed Linea contract address and link to Lineascan - Submissions need a short video that describes scope and functionality of the dapp - It's best to demo live in front of our team; if you cannot, a video demo of the project and how it operates - Must include a readme on your project's Github repo outlining the use of Linea (deployed contract addresses) or MetaMask API (which API endpoints were used). - It is preferred to use our MetaMask JSON-RPC API (docs resources below)."
+        }
+    ],
+    "Lit Protocol": [
+        {
+            "title": "Best Use of Lit Protocol",
+            "description": "Build a dApp that uses Lit Protocol to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Lit Protocol in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Liquity V2": [
+        {
+            "title": "Best Use of Liquity V2",
+            "description": "Build a dApp that uses Liquity V2 to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Liquity V2 in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Mantle": [
+        {
+            "title": "Inspire the next frontier of DeFi on Mantle",
+            "description": "Inspire the next frontier of DeFi on Mantle. Whether it's integrating with real-world assets (RWAs), creating a novel lending or staking protocol, or designing a new liquidity mining mechanism, your project should highlight the limitless potential of DeFi on Mantle. Ideas, but don’t limit yourself to just these: - CLOB-based Perps - LSDFi / Restaking - Intent-based dApps - Prediction Markets - New and innovative ideas.",
+            "prizes": "Up to 2 teams will receive $1,250",
+            "requirements": "- The submission must be deployed on Mantle testnet or mainnet (include a link to smart contract deployed on Mantle Explorer) - A video demo and GitHub repo must be submitted.(All tracks have the same criteria) - A link to an X post must be submitted with a short description or demo of your project, tagging @0xMantleDevs"
+        },
+        {
+            "title": "Build an engaging NFT, Social or Gaming project with innovative on-chain solutions",
+            "description": "Build an engaging NFT, Social or Gaming project with innovative on-chain solutions. Ideas but please be creative and have fun! - Games on Telegram - TG bots - Gamification and leaderboards - Mobile-first games - Classic games (chess, backgammon) - Location-based minting - NFT & AR use cases - Arcade and mini-games - Chat platforms - Mantle-related frames on Warpcast",
+            "prizes": "Up to 2 teams will receive $1,250",
+            "requirements": "- The submission must be deployed on Mantle testnet or mainnet (include a link to smart contract deployed on Mantle Explorer) - A video demo and GitHub repo must be submitted.(All tracks have the same criteria) - A link to an X post must be submitted with a short description or demo of your project, tagging @0xMantleDevs"
+        },
+        {
+            "title": "Drive the future of the Ethereum ecosystem with tools that enhance the developer experience",
+            "description": "Drive the future of the Ethereum ecosystem with tools that enhance the developer experience. We're looking for inventive solutions that simplify, optimize, and supercharge development on Ethereum, using Mantle's infrastructure. Ideas: * Build a visual smart contract builder that simplifies the creation of complex contract logic * Develop an analytics tool that provides insights into dApp performance and user interactions * Create a library that facilitates facilitates seamless integrations for Ethereum applications across various L2s",
+            "prizes": "Up to 2 teams will receive $1,250",
+            "requirements": "- The submission must be deployed on Mantle testnet or mainnet (include a link to smart contract deployed on Mantle Explorer) - A video demo and GitHub repo must be submitted.(All tracks have the same criteria) - A link to an X post must be submitted with a short description or demo of your project, tagging @0xMantleDevs"
+        },
+        {
+            "title": "Build a dApp that raises the bar for UX in some way",
+            "description": "One of the most challenging problems in Web3 is creating an intuitive and seamless User Experience for dApps. Build a dApp that raises the bar for UX in some way. Make sure to explain in your submission in detail what you’ve done to make UX more accessible. Ideas: Ideas: - Create a user-friendly mobile application or PWA - Design a seamless onboarding flow for first-time crypto users - Develop an adaptive interface that caters to both novice and expert users - Gasless transactions - Walletless logins - Web2-like application experience",
+            "prizes": "Up to 2 teams will receive $1,250",
+            "requirements": "- The submission must be deployed on Mantle testnet or mainnet (include a link to smart contract deployed on Mantle Explorer) - A video demo and GitHub repo must be submitted.(All tracks have the same criteria) - A link to an X post must be submitted with a short description or demo of your project, tagging @0xMantleDevs"
+        }
+    ],
+    "Mina": [
+        {
+            "title": "Step into the innovative realm of the Mina Protocol and the Protokit framework",
+            "description": "Build an application or library that reshapes privacy. This challenge seeks projects that harness Mina's lightweight blockchain to redefine secure transactions and interactions. By leveraging Protokit's frameworks - privacy-enabled modules, succinct zkVM, and seamless wallet integration, your creation should offer a new practical utility. Prize amount will be split as $7,000 for first place, $4,000 for second place, $2,000 for third place, and $1000 for fouth place. All winners and participants will earn recognition for contributing significantly to advancing privacy and security using Mina's groundbreaking technology! DISCLAIMER: If the projects do not meet our criteria, we reserve the right to utilize only a part of the funds, or to leave the first or second placements null.",
+            "prizes": "$7,000 for 1st, $4,000 for 2nd, $2,000 for 3rd, $1,000 for 4th",
+            "requirements": "-The project must be implemented using protokit -Correct usage of the on-chain execution model using runtime modules (bonus for usages of hybrid execution model) -Demo UI that showcases the project (suitable projects only) -Tests required for projects that don’t have a UI, bonus for all other -Correct implementation of application in the provable code model"
+        },
+        {
+            "title": "Discover the world of provable, zero-knowledge game development on Mina Protocol!",
+            "description": "ZkNoid is a gaming platform with a modular framework providing all the infrastructure you need to easily deploy games on Mina Protocol. Create your own provably fair game, game mechanic, or improve an already exiting ZkNoid game using the modular SDK provided by ZkNoid! We offer hackers three oportunities to participate in the zkGaming track. Using our SDK, you can: 1. A complete zkGame 2. An innovative game mechanic to be used in future ZkNoid zkGames 3. Improve existing games in our game store Prize amount will be split among 3 winners. $3,000 for first place, $2,000 for second place, and $1,000 for third place. Winners will be provided with technical support and will have the opportunity to launch their games to the ZkNoid store. This is your chance to contribute to the future of gaming! DISCLAIMER: If the projects do not meet our criteria, we reserve the right to utilize only a part of the funds, or to leave the first or second placements null.",
+            "prizes": "$3,000 for 1st, $2,000 for 2nd, $1,000 for 3rd",
+            "requirements": "Qualification requirements for Games: -The project must be implemented using ZkNoid SDK -Game contracts should be meaningful and integrated to the game **Qualification requirements for game mechanics: - Interesting mechanic which can be used in several games using zk-proofs - Simple showcase where it can be used - Include mechanic contract - Basic demonstration using test Qualification requirements game improvement: - Suggest an idea to improve an existing game - Rework existing game contracts according to your idea - Demo with improvment demonstration The user interface of your project will be an advantage"
+        }
+    ],
+    "Morph": [
+        {
+            "title": "Morphy's Favourite",
+            "description": "We're looking for innovative consumer applications built on top of our Morph Holesky testnet. This track challenges developers to build user-centric dApps that leverage Morph's tech to deliver value to consumers. Winning projects will demonstrate a friendly UX/UI, creative use of our tools, and potential for real-world impact in the application. ✅ Ideal Project Technical Innovation: Uses Morph's technology to leverage the application. Like our usage of our zkEVM and modular design. * User Experience: Provides a seamless, engaging, and intuitive experience for end-users. * Practicality: Addresses a real-world problem or need in a practical manner. * Scalability: Designed to handle growth and increased usage. * Creativity: Showcases original ideas or novel approaches to existing problems. 💡Project Ideas - A Telegram mini-app or bot - A consumer-facing dApp like a social app, game, or tool - An AI agent or integration - Anything consumer-focused that leverages Morph's tech",
+            "prizes": "$3,000 for 1st place, $2,000 for 2nd place, $1,000 for 3rd place",
+            "requirements": "- Deployed on Morph Holesky testnet - Open-source code on GitHub - Video demo (2-3 minutes) - Feedback on Morph dev experience"
+        }
+    ],
+    "Near": [
+        {
+            "title": "Best Use of Near",
+            "description": "Build a dApp that uses Near to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Near in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Nethermind": [
+        {
+            "title": "Build on Starknet",
+            "description": "Nethermind invites you to build on Starknet. Build what? Absolutely anything! Yes, that's right. Absolutely anything! The most useful and creative project wins! Think about a Smart Contract that does something unique, something that doesn't exist on Starknet yet, or an integration of some kind, perhaps a tool that helps others access Starknet data.",
+            "prizes": "Not specified",
+            "requirements": "- To be considered your project source code must be hosted on a code repository like Github. - The code must be your own work. - You must demonstrate that your project is executable on the Starknet Testnet. The project will be judged based on: - The quality and originality of the cryptography underlying the project. That is, we will value projects that propose cryptographic protocols that are effective and creative in tackling the project’s goals. - The quality of the implementation. - Amount of work done during the event."
+        },
+        {
+            "title": "Build a cryptographic tool that supports social good/benefits society",
+            "description": "Your project can focus on areas such as privacy, accessibility, or identity, but is not limited to these fields. Requirements: We welcome any application, provided you can demonstrate how it serves the greater good. Note: For this prize, you must use Starknet.",
+            "prizes": "Not specified",
+            "requirements": "- To be considered your project source code must be hosted on a code repository like Github. - The code must be your own work. - You must demonstrate that your project is executable on the Starknet Testnet. The project will be judged based on: - The quality and originality of the cryptography underlying the project. That is, we will value projects that propose cryptographic protocols that are effective and creative in tackling the project’s goals. - The quality of the implementation. - Amount of work done during the event."
+        }
+    ],
+    "NeonEVM": [
+        {
+            "title": "Best Use of NeonEVM",
+            "description": "Build a dApp that uses NeonEVM to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use NeonEVM in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Nillion": [
+        {
+            "title": "Nillion Encrypted Secret Storage Bounty",
+            "description": "Securely storing and retrieving secret data is crucial in almost any app. This prize is for apps that integrate Nillion’s encrypted secret storage, utilizing our new Store Secret API and Retrieve Secret API to securely manage sensitive data. Build something and highlight how you've built on Nillion to protect user and/or app secrets. Awesome use cases for Nillion storage - Use Nillion Storage for Base AI Agents and AgentKit: add custom functionality to let your AI Agent store and retrieve secret data on Nillion - you can copy / paste our Python storage examples from our Nillion Storage APIs docs - Telegram Mini Apps or Telegram Bots (check out our Telegram Tea Bot example that uses Nillion Storage APIs) - Apps that need private attestations (Sign Protocol) - Data / photo / location / password / API key sharing or secret keeping apps",
+            "prizes": "Up to 3 teams will receive $1,666",
+            "requirements": "- Your app must call Nillion's Store Secret API and/or Retrieve Secret API - we'll check your code for this. - In your app description (EthGlobal showcase page) explain how you've built on Nillion to protect user and/or app secrets."
+        },
+        {
+            "title": "Nillion Blind App Bounty",
+            "description": "Start building your blind app FAST with our Create-Nillion-App tool. Follow our quickstart to run 1 easy command that bootstraps a Next.js project. Inside of this project you'll have everything you need to use Nillion secret storage, Nillion secret retrieval, and Nada blind computation via our React Hooks and Nillion TypeScript (nillion-ts) client. What's a blind app? A blind app runs blind computation on Nillion using one or more privacy-preserving Nada programs. These programs compute on secret integers without ever seeing the underlying input values, making them ideal for operations involving sensitive data.",
+            "prizes": "Up to 2 teams will receive $2,500",
+            "requirements": "- Your blind app is built with our new create-nillion-app CLI tool, which creates a new Nillion Next.js app - You wrote at least 1 Nada program and stored it on the Nillion Testnet - Your app uses Nillion for secret storage and blind computation"
+        }
+    ],
+    "Nouns": [
+        {
+            "title": "Best Use of Nouns",
+            "description": "Build a dApp that uses Nouns to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Nouns in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Oasis": [
+        {
+            "title": "Best Use of Oasis",
+            "description": "Build a dApp that uses Oasis to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Oasis in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Phala": [
+        {
+            "title": "Build an Autonomous AI Bot similar to projects like ai16z's eliza - Wrap custom LLM as a docker container and integrate onchain - Build Multi-Agent System that can run an onchain business autonomously",
+            "description": "Must build a docker image that integrates AI in TEE for a Web3 use case.",
+            "prizes": "Bonus Bounty - Ledger Nano X for top prize or top 10 finish!",
+            "requirements": "Must build a docker image that integrates AI in TEE for a Web3 use case."
+        },
+        {
+            "title": "Put ZK in TEE - Link a Web2 Account to Web3 via TEE - Verifiable Frontends - Build a Blockchain Game - Multi-Chain Programs - One-Time Use Programs - Killswitch",
+            "description": "Use dstack SDK functions for remote attestation or derive keys to generate a wallet for any chain",
+            "prizes": "Bonus Bounty - Ledger Nano X for top prize or top 10 finish!",
+            "requirements": "Use dstack SDK functions for remote attestation or derive keys to generate a wallet for any chain"
+        },
+        {
+            "title": "Use of Agent Contract in their project - Only builds a docker image to host in TEE, but does not use dstack SDK functions",
+            "description": "This prize is open for those that use other technologies of Phala like Agent Contract or built a docker image to host in TEE Server without using dstack SDK functions.",
+            "prizes": "",
+            "requirements": "Use of Agent Contract in their project - Only builds a docker image to host in TEE, but does not use dstack SDK functions"
+        },
+        {
+            "title": "Build an Autonomous AI Bot similar to projects like ai16z's eliza - Wrap custom LLM as a docker container and integrate onchain - Build Multi-Agent System that can run an onchain business autonomously",
+            "description": "Must build a docker image that integrates AI in TEE for a Web3 use case.",
+            "prizes": "Bonus Bounty - Ledger Nano X for top prize or top 10 finish!",
+            "requirements": "Must build a docker image that integrates AI in TEE for a Web3 use case."
+        },
+        {
+            "title": "Multi-Sig w/ TEE Signer * Put ZK in TEE * Link a Web2 Account to Web3 via TEE via TEE * Verifiable Frontends * Build a Blockchain Game * Multi-Chain Programs * One-Time Use Programs * Killswitch",
+            "description": "Use dstack SDK functions for remote attestation or derive keys to generate a wallet for any chain",
+            "prizes": "Bonus Bounty - Ledger Nano X for top prize or top 10 finish!",
+            "requirements": "Use dstack SDK functions for remote attestation or derive keys to generate a wallet for any chain"
+        }
+    ],
+    "Polygon Labs": [
+        {
+            "title": "AI Integration with Smart Contracts",
+            "description": "With the growing trend and interest in decentralized AI, we’re looking for innovative AI integration with smart contracts. This bounty aims to inspire innovative AI solutions that leverage blockchain technology for decentralized applications.",
+            "prizes": "$2,000 for 1st place, $1,000 ×3 for Runners-up",
+            "requirements": "📝 Submission Requirements - AI Integration: Develop a decentralized application that incorporates AI to solve a specific problem or enhance functionality - Use of Blockchain: Demonstrate how blockchain technology enhances or secures the AI solution - Deployment: Deploy the application on Polygon PoS or another suitable Polygon network. - Documentation: Provide detailed documentation, including setup instructions, architecture/conceptual diagrams, and an explanation of the AI model used ✅ Ideal Project - Innovative Use of AI: Showcases a novel application of AI in a decentralized context. - Technical Excellence: Demonstrates a strong understanding of AI and blockchain integration. - Scalable and Efficient: Designed to handle multiple users and transactions efficiently. - User Experience: Provides a user-friendly interface for interacting with the AI solution. - Real-world Impact: Addresses a real-world problem with a practical and impactful AI solution. 💡Project Ideas - AI Wearables - On-chain Inference Validation - Verifiable Inferencing - Data Sourcing Incentive Model - Computation Outsourcing - AI powered Blockchain applications - AI protection on Blockchain Security"
+        },
+        {
+            "title": "AggLayer Cross-Chain Applications",
+            "description": "Challenge developers to build groundbreaking applications that leverage the AggLayer’s capabilities for seamless cross-chain interactions. This bounty focuses on projects that utilize the AggLayer’s Unified Bridge and bridgeAndCall functionality to create innovative solutions that were previously impossible due to chain fragmentation.",
+            "prizes": "$2,000 for 1st place, $1,000 for 2nd place",
+            "requirements": "📝 Submission Requirements - Cross-Chain Functionality: Use AggLayer operations, like bridgeAndCall, for interactions across multiple chains - Transfer Integrity: Ensure that the transferred ETH retains its original form and is not wrapped (not WETH, ETH.e) - Documentation: Include documentation with setup instructions, architectural diagrams, and explanations of how AggLayer features are utilized - Deployment: Deployed on at least two AggLayer-connected chains (e.g., Polygon zkEVM + CDK chain) ✅ Ideal Project - Innovation: Novel use cases that showcase the power of cross-chain composability and unified liquidity - User Experience: Intuitive user interface that reduces complexities of cross-chain interactions - Security: Implements robust security measures to protect user assets and data - Scalable and Efficient: Designed to handle multiple users and transactions efficiently - Impact: Demonstrates use of the unified bridge to solve real-world problems 💡 Project Ideas - Cross-Chain DeFi Platform - Interoperable NFT Marketplace - Cross-Chain Identity Solution - Gaming Platform with Shared Assets - Cross-Chain Yield Aggregator - Unified Wallet Interface - Cross-Chain DAO Governance"
+        },
+        {
+            "title": "Zero-Knowledge Proofs on Polygon zkEVM",
+            "description": "Harness the power of zero-knowledge proofs on Polygon zkEVM to build applications that prioritize privacy, scalability, and security. This bounty focuses on projects that demonstrate advanced use cases of zk technology.",
+            "prizes": "$2,000 for 1st place, $1,000 ×2 for Runners-up",
+            "requirements": "📝 Submission Requirements - Zero-Knowledge Integration: The application must utilize zk proofs in a meaningful way. - Technical Complexity: Demonstrate an understanding of zk technology through innovative implementation. - Deployment: Deploy the application on Polygon zkEVM. - Documentation: Include technical documentation explaining how zk proofs are implemented and their benefits. ✅ Ideal Project - Technical Prowess: Demonstrates advanced use of zk technology, such as using Plonky3, Privado ID, or other zk tools. - Privacy/Security Enhancement: Leverage zero-knowledge technology to create solutions that benefit users in the Privacy and Data Security areas. - Market Potential: Demonstrates potential for a marketable product with a clear understanding of Polygon’s zk tech’s capabilities applied creatively. 💡 Project Ideas - Private Transactions - Anonymous Voting Systems - Identity Management - Supply Chain Tracking - Zero-Knowledge Rollups - zkSNARK-Based Authentication - Private NFT Ownership"
+        },
+        {
+            "title": "Social and Environmental Impact Applications",
+            "description": "Motivate developers to build applications that address social and environmental challenges using Polygon’s technology, demonstrating blockchain’s potential for positive change.",
+            "prizes": "$2,000 for 1st place, $1,000 ×2 for Runners-up",
+            "requirements": "📝 Submission Requirements - Impact Focus: The application must address a social or environmental issue. - Blockchain Integration: Use Polygon technology to enhance the solution’s effectiveness. - Deployment: Deploy the application on Polygon PoS or another suitable Polygon network. - Documentation: Provide detailed documentation, including the problem statement, solution approach, and impact measurement. ✅ Ideal Project - Real-World Impact: Addresses a significant social or environmental challenge with a practical solution. - Innovative Use of Blockchain: Leverages Polygon’s features to create a unique and effective solution. - Sustainability: Designed with sustainability in mind, minimizing environmental footprint. - User Engagement: Encourages user participation and engagement in social or environmental causes. - Measurable Outcomes: Includes mechanisms to measure and report the impact of the application. 💡 Project Ideas - Carbon Credit Tracking - Sustainable Supply Chain Management - Community Fundraising Platforms - Educational Tools for Environmental Awareness - Social Impact DAOs"
+        }
+    ],
+    "Powerloom Protocol": [
+        {
+            "title": "For those interested in enhancing GPM, here are some project ideas: • Pooler Frontend: Develop a frontend that supports pair address searches and displays snapshots with price data. • Decentralized Chat: Create a chat system where users’ holdings are visible (similar to Polymarket). • Telegram App: Create telegram app for GPM • Leaderboard Enhancements: Build weekly and monthly leaderboards with sorting capabilities. • Portfolio Analytics: Show users’ holdings and profit/loss analytics. • GPM Landing Page: Create a dedicated landing page for GPM.",
+            "description": "Innovative use of Powerloom-generated data.",
+            "prizes": "1st place $2,500",
+            "requirements": "Innovative use of Powerloom-generated data. User-friendly and impactful application development."
+        }
+    ],
+    "Privy": [
+        {
+            "title": "This prize will be awarded to the app that shows the most promise as a viral breakout consumer application.",
+            "description": "The app must use Privy for the authentication or wallet onboarding flow, and be focused on a consumer retail audience.",
+            "prizes": "Not specified",
+            "requirements": "The app must use Privy for the authentication or wallet onboarding flow, and be focused on a consumer retail audience."
+        },
+        {
+            "title": "This prize is awarded to the project that best utilizes Privy’s Delegated Action feature to balance UX and security. Ideally, the developer can use this feature to make the experience smooth and to make the crypto elements as behind-the-scenes as possible.",
+            "description": "Project must include at least one feature which uses Privy's new Delegated Action feature. For example, teams can use this feature to take certain actions on user’s characters for in-game actions and transactions, to place limit orders that spend from an embedded wallet, or to enable gasless transactions for users.",
+            "prizes": "Not specified",
+            "requirements": "Project must include at least one feature which uses Privy's new Delegated Action feature."
+        }
+    ],
+    "Push Protocol": [
+        {
+            "title": "Best Use of Push Protocol",
+            "description": "Build a dApp that uses Push Protocol to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Push Protocol in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Pyth Network": [
+        {
+            "title": "Use Pyth Pull oracle to power up your dapp",
+            "description": "Use Pyth Pull oracle to power up your dapp. The prize will go to the top three teams with best and most innovative use of Pyth Price feeds.",
+            "prizes": "1st place: $2,500, 2nd place: $1,500, 3rd place: $1,000",
+            "requirements": "Your app should use Pyth price feeds via Pull method. The steps include: 1. Pull/Fetch the data from Hermes. (Check the links and Resources) 2. Update the data on chain using updatePriceFeeds method 3. Consume the price. 4. You can run a price pusher too if you prefer traditional way of using oracles. Please follow our comprehensive Pyth EVM guide to to integrate Pyth in less than 5 minutes."
+        },
+        {
+            "title": "Use Pyth Entropy to generate and consume random number on chains",
+            "description": "Use Pyth Entropy to generate and consume random number on chains. Anyone can permissionless generate random number on-chain. This pool prize will be given to most Innovative apps to use Pyth Entropy.",
+            "prizes": "Up to 2 teams will receive $2,500",
+            "requirements": "Your app should consume random number generated by Pyth. Please follow along the guides and Tutorials to get started."
+        }
+    ],
+    "Rome Protocol": [
+        {
+            "title": "Best Use of Rome Protocol",
+            "description": "Build a dApp that uses Rome Protocol to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Rome Protocol in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Rootstock": [
+        {
+            "title": "Build practical DeFi applications on Rootstock and/or RIF technologies",
+            "description": "Build practical DeFi applications on Rootstock and/or RIF technologies. We’re looking for accessible, efficient tools that redefine everyday finance, with a special emphasis on generating native bitcoin yield. 🔸Yield farming strategies 🔸Lending protocols 🔸Decentralized exchanges (DEXs) 🔸Liquidity pools",
+            "prizes": "Up to 2 teams will receive $2,000",
+            "requirements": "Qualification Requirements - Smart contract deployed in Rootstock and at least 2 on-chain (testnet) successful transactions. - Projects must have a description and a GitHub repository with a descriptive README. - The README should include: 1) Clear short one-sentence description of your submission. 2) Short description of what you integrated Rootstock with and how. 3) Short description of the team and their backgrounds. 4) Clear instructions for testing the integration. 5) Feedback describing your experience with building on Rootstock. 6) A short video demo or slide deck."
+        },
+        {
+            "title": "Build high-quality decentralized applications (dApps) on Rootstock",
+            "description": "Build high-quality decentralized applications (dApps) on Rootstock and unleash your creativity. We’re looking for innovative solutions and while not required, integrating AI-driven tools or techniques will earn you bonus points for showcasing advanced innovation 🔸DeFi Automation Agents 🔸Smart Contract Assistants 🔸Cross-Chain Interoperability Agents 🔸Decentralized Governance Helpers",
+            "prizes": "Up to 2 teams will receive $2,000",
+            "requirements": "Qualification Requirements - Smart contract deployed in Rootstock and at least 2 on-chain (testnet) successful transactions. - Projects must have a description and a GitHub repository with a descriptive README. - The README should include: 1) Clear short one-sentence description of your submission. 2) Short description of what you integrated Rootstock with and how. 3) Short description of the team and their backgrounds. 4) Clear instructions for testing the integration. 5) Feedback describing your experience with building on Rootstock. 6) A short video demo or slide deck."
+        },
+        {
+            "title": "Build anything that puts the RIF token to work on Rootstock",
+            "description": "Build anything that puts the RIF token to work on Rootstock; bonus points for slick, one‑step UX and creative token utility. 🔸RIF one‑click staking; bridge or swap then stake in a single flow 🔸RIF staking inside a Telegram mini‑app; think MEW‑style but in TG 🔸AI bot that answers English questions by querying Collective Graph subgraphs 🔸RIF‑POAPs; mint event badges or sub‑domain NFTs paid in RIF 🔸Social‑content rewards in RIF; track on‑chain engagement then tip users 🔸x402 payments; ship a lightweight SDK that lets devs accept USDRIF with Coinbase’s agentic standard",
+            "prizes": "Not specified",
+            "requirements": "Qualification Requirements - Smart contract deployed in Rootstock and at least 2 on-chain (testnet) successful transactions. - Projects must have a description and a GitHub repository with a descriptive README. - The README should include: 1) Clear short one-sentence description of your submission. 2) Short description of what you integrated Rootstock with and how. 3) Short description of the team and their backgrounds. 4) Clear instructions for testing the integration. 5) Feedback describing your experience with building on Rootstock. 6) A short video demo or slide deck."
+        }
+    ],
+    "Scroll": [
+        {
+            "title": "L1 State Reads with L1SLOAD",
+            "description": "Are you passionate about experimental work? Dive into Scroll’s cutting-edge research and explore new horizons for L2 dApps by enabling direct L1 state reads! Deploy your app on Scroll's devnet using L1SLOAD, a precompile contract that lets L2 contracts access state storage slots on L1. Push the boundaries—create something innovative, futuristic, or entirely new, and imagine a world where every L2 has this capability. Get inspired with the L1SLOAD guide in our hackathon mini-site, where you’ll find use-case ideas and a faucet to kick-start your journey.",
+            "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place",
+            "requirements": "1. Please include a link to a verified contract deployment on Scroll Devnet in your Github README 2. Evidence in your code that L1SLOAD was used"
+        },
+        {
+            "title": "Scroll SDK Pool Prize",
+            "description": "The Scroll SDK is production-ready infrastructure for deploying blockchain networks secured by Scroll's battle-tested zkEVM technology. You can deploy a local testing environment with just four commands in 5 minutes. Take it a step further by customizing your chain with a set of services provided by Scroll. There are two ways to qualify for this pool prize: 1. Take it another step further and create your own service or modify an existing one! This is your chance to step into the world of devops and build a helm chart to for chain operators to deploy. The possibilities are endless. Try adapting an existing Ethereum helm chart (https://github.com/ethpandaops/ethereum-helm-charts) for the Scroll SDK. 2. Deploy a contract, interact with a block explorer, and mess around as if you were a dapp developer on your own chain.",
+            "prizes": "Split with up to 4 teams (capped at $1,250 per team)",
+            "requirements": "For building a helm chart: 1. Forked instance of https://github.com/scroll-tech/scroll-sdk 2. New helm chart added under /charts 3. Description and instruction on how to install/use your chart 4. Feedback about using the SDK in your GH README For interacting with your chain: 1. Connect MetaMask to your chain 2. Deploy a contract on your chain 3. Make a transaction on your chain 4. Take screenshots of batches committed and transactions on the local blockscout instance 5. Feedback about using the SDK in your GH README"
+        },
+        {
+            "title": "Most Innovative dApp on Scroll",
+            "description": "This bounty rewards creativity and originality in dApp development. This bounty will recognize the top five teams showcasing the most groundbreaking ideas built on Scroll. Winners will receive prizes as part of our commitment to supporting pioneers shaping the future of decentralized applications.",
+            "prizes": "$4,000 for 1st place, $2,500 for 2nd place, $1,500 for 3rd place, $1,200 for 4th place, $800 for 5th place",
+            "requirements": "1. Deployed and verified contract on https://sepolia.scrollscan.com/ or the L1SLOAD devnet linked in your Github README"
+        }
+    ],
+    "Sign": [
+        {
+            "title": "Core Functionality with Sign Protocol",
+            "description": "Sign Protocol is an omni-chain attestation protocol, enabling users to freely attest and retrieve structured and verifiable data onchain. This prize will be given to two project teams using Sign Protocol to add core functionality to their project.",
+            "prizes": "$3,000 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place",
+            "requirements": "To be eligible, projects must: - implement Self onchain SDK (right now only on Celo mainnet and testnet) - proof needs to work"
+        },
+        {
+            "title": "Encrypted Attestations",
+            "description": "Not everything is meant to be viewed publicly. This prize will be granted to the top projects that store and use encrypted data in their attestations. For your idea, consider protocols that aid in conditionally decrypting encrypted attestations, such as Lit Protocol. As an example, you could selectively share your location or a trip itinerary as encrypted attestations that will only be viewable by friends and family.",
+            "prizes": "$3,000 for 1st place, $1,500 for 2nd place",
+            "requirements": "To be eligible projects must: - implement Self offchain SDK - proof needs to work"
+        },
+        {
+            "title": "Consumer Applications",
+            "description": "Sign Protocol offers a suite of tools, infrastructure, and standards to create a future where all claims and assertions on the web and the world around us are driven by verifiable attestations. This prize category will be granted to the best projects showcasing consumer applications. Consumer applications can include games, communication platforms, online shopping experiences, and any other application designed to meet the needs of consumers.",
+            "prizes": "Up to 2 teams will receive $2,000",
+            "requirements": "You must use schemas, attestations, and Sign Protocol's indexing service. Sign Protocol must be part of your project's core logic/functionality. Project must be a consumer-facing application. Project submission must have a working live demo link."
+        },
+        {
+            "title": "Schema Hooks Utilization",
+            "description": "Sign Protocol’s Schema Hooks allow builders to extend the core attestation protocol, adding custom Solidity logic that is triggered each time an attestation is created or revoked for a specific schema. Schema hooks can whitelist attesters, receive payments, or perform any custom application logic. This prize will be granted to two project teams that each must utilize at least one schema hook in their core project logic in a unique, technical, and innovative way.",
+            "prizes": "Not specified",
+            "requirements": "You must create at least one schema that utilizes a custom schema hook. The schema hook must solve a specific need for your project (e.g. whitelist, payment, custom data verification, etc). Sign Protocol must be part of your project's core logic/functionality. Project submission must have a working live demo link."
+        }
+    ],
+    "The Graph": [
+        {
+            "title": "Use a Subgraph and/or a Substream in your dapp",
+            "description": "To be eligible for this bounty, use a Subgraph and/or a Substream in your dapp. You may either use an existing subgraph found on The Graph Explorer, or create and deploy a new subgraph or substream. When evaluating submissions, judges will mainly look for technical excellency how The Graph is integrated into a project. Other factors like innovation and product experience are incorporated too but with lesser weight. Below is a list of points that judges use to evaluate your project. Try to get as many points as possible.",
+            "prizes": "$3,000, $2,000, $1,500 ×2",
+            "requirements": "1. Link to the deployed or used subgraph on The Graph Explorer 2. Link to the source code 3. The project must be using data indexed and queried using the subgraph/substream"
+        },
+        {
+            "title": "Use a new or existing Substream to process and consume web3 data, with optional use of Substreams-powered subgraphs",
+            "description": "Use a new or existing Substream to process and consume web3 data, with optional use of Substreams-powered subgraphs.",
+            "prizes": "$3,000, $2,000, $1,500 ×2",
+            "requirements": "1. Link to the deployed substream 2. Link to the source code 3. Documentation"
+        }
+    ],
+    "Uniswap Foundation": [
+        {
+            "title": "Uniswap v4 Hooks Innovation",
+            "description": "Uniswap v4 introduces Hooks, smart contracts that let developers customize swap fees, liquidity logic, and trading behavior at the protocol level. This bounty is an open track for projects that push the limits of what’s possible in DeFi innovation using Hooks, with bonus points for those deploying on Unichain.",
+            "prizes": "🥇 1st place: $4,000, 🥈 2nd place: $3,000, 🥉 3rd place: $2,000, 🏅 4th place: $1,000",
+            "requirements": "A user interface is not mandatory, but projects must provide clear evidence of functional code. Each team must submit the following: - GitHub Repository – A well-documented repo with clean code - README.md – Instructions on setup, usage, and functionality - Demo Link or Setup Instructions – Either a hosted live demo or clear steps to run it locally - Demo Video (Max 3 min) – Showcasing the project, features, and why it matters"
+        }
+    ],
+    "Venn Network": [
+        {
+            "title": "Integrate Venn's firewall into your DeFi application",
+            "description": "We're awarding $1,000 to the DeFi dApp that best integrates Venn's firewall technology on any EVM. Show us how seamlessly your dApp protects user funds and leverages Venn’s security to create a more resilient ecosystem.",
+            "prizes": "$1,000",
+            "requirements": "- Install the Venn Firewall [Any EVM] https://docs.venn.build/venn-network/getting-started/protocols-and-developers/ethglobal-bangkok - Deploy smart contract with Venn Firewall Integration - Send test Tx through dApp SDK [see link below] https://docs.venn.build/venn-network/getting-started/protocols-and-developers/installation#id-4.-dapp-sdk - List a Tx hash - If everything went smoothly, great! But if you've any feedback to improve our tools and documentation please add comments with your project submission."
+        }
+    ],
+    "vlayer": [
+        {
+            "title": "Create a dApp that uses verifiable data in on-chain contracts",
+            "description": "Create a dApp that uses verifiable data in on-chain contracts. Examples: - Airdrop for successful DeFi traders - Proof of contribution to a DAO or GitHub to be eligible for an airdrop - Consumer facing app where email can be used for AA wallet recovery - An RWA use case, such as attesting ownership of certain items using Email Proofs or Web Proofs",
+            "prizes": "Not specified",
+            "requirements": "This application has it all - a great idea and best-in-class implementation. The application must use at least one of vlayer’s Solidity four superpowers, as well as incorporating both Prover and Verifier contracts."
+        },
+        {
+            "title": "Demonstrate how private data coming from web2 services can be used on-chain",
+            "description": "Demonstrate how private data coming from web2 services can be used on-chain. Examples: - Proof of balance in Revolut/PayPal - Proof of MRR/ARR in Stripe/Shopify",
+            "prizes": "Not specified",
+            "requirements": "The application must use vlayer Web Proofs, as well as incorporating both Prover and Verifier contracts."
+        },
+        {
+            "title": "Demonstrate how data from emails can be used on-chain",
+            "description": "Demonstrate how data from emails can be used on-chain. Examples: - Controlling AA wallets using email - An NFT airdrop for individuals that own an email address with a certain email domain",
+            "prizes": "Not specified",
+            "requirements": "The application must use vlayer Email Proofs, as well as incorporating both Prover and Verifier contracts."
+        },
+        {
+            "title": "Demonstrate how historical and cross-chain data can be used on-chain",
+            "description": "Demonstrate how historical and cross-chain data can be used on-chain. Examples: - Generate credit score for wallets using USDC or other ERC20 tokens - Rewards and airdrops for owners of certain NFTs - Proof of ownership of tokens on other chains to be eligible for airdrops",
+            "prizes": "Not specified",
+            "requirements": "The application must use vlayer Cross-Chain Proofs or Historical Proofs, as well as incorporating both Prover and Verifier contracts."
+        }
+    ],
+    "Web3Auth": [
+        {
+            "title": "Best Use of Web3Auth",
+            "description": "Build a dApp that uses Web3Auth to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use Web3Auth in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "World": [
+        {
+            "title": "Show us your best Mini Apps!",
+            "description": "Projects that build and deploy a Mini App using MiniKit are eligible for this prize.",
+            "prizes": "$4,000 (1st place), $3,000 (2nd place), $2,000 (3rd place), $500 ×2 (Honorable Mention)",
+            "requirements": "build a Mini App with MiniKit, integrate any of the Minikit SDK Commands, if your Mini App uses on-chain activity, deploy your contracts to World Chain, your project must not be gambling or chance based, proof validation is required and needs to occur in a web backend or smart contract"
+        }
+    ],
+    "XMTP": [
+        {
+            "title": "Best Use of XMTP",
+            "description": "Build a dApp that uses XMTP to provide a seamless user experience.",
+            "prizes": "$2,000",
+            "requirements": "- Use XMTP in your dApp - Deploy on any EVM chain - Provide a live demo link - Open source code on GitHub"
+        }
+    ],
+    "Zircuit": [
+        {
+            "title": "Zircuit Innovation Bounty",
+            "description": "We’re looking for high-quality projects that showcase innovation, thoughtful design, and technical precision, all deployed on Zircuit!! Whatever you are building dapps, infrastructure providers or developer tools, this bounty is your chance to set the standard for what’s possible on our chain and expand our amazing ecosystem. Create a functional, impactful solution that tackles a real-world problem, enhances user or developer experience, and sets an example for future hackathon projects. Deploying on Zircuit testnet or mainnet is easy as we are fully EVM compatible—just update your endpoint in your preferred development framework, and you’re ready to go! If you are out of idea these are some (but not all!) things we like: LRT Enhancements & Aggregators, DeFi Protocols, Marketplaces, Data Dashboards, Cross-Platform Bridges & Interoperability Solutions, Developer tooling and SDKs, DeSoc, On-Chain Identity & Verification Solutions.",
+            "prizes": "1st place: $3,000, 2nd place: $2,500, 3rd place: $2,000, 4th place: $1,500, 5th place: $1,000",
+            "requirements": "Submission requirements: 🔹 Project name and a short description 🔹 Contract deployment addresses 🔹 Public GitHub repo (README + setup instructions) 🔹 Demo video & live demo link (keep the video under 3 mins!) 🔹 Explain which protocol features or SDKs you used 🔹 Team member names and contact info (Telegram & X)"
+        }
+    ]
+}

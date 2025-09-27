@@ -15,6 +15,9 @@ import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 
+# Fluence Network Integration
+from fluence_ui import render_fluence_sidebar, render_fluence_integration_main
+
 
 # Page configuration
 st.set_page_config(
@@ -1333,6 +1336,10 @@ def main():
                         del st.session_state[key]
                 st.rerun()
     
+    # Fluence Network Integration Section
+    if st.session_state.current_step >= 4 and st.session_state.similar_bounties:
+        render_fluence_integration_main()
+    
     # Sidebar with event info and data management
     with st.sidebar:
         st.markdown("### 📊 Event Information")
@@ -1400,6 +1407,9 @@ def main():
                     st.session_state.vectorizer.vectorize_bounties(event_key, companies, force_revectorize=True)
                 st.success("All events re-vectorized!")
                 st.rerun()
+        
+        # Fluence Network Integration Sidebar
+        render_fluence_sidebar()
         
         st.markdown("---")
         st.markdown("### 🗑️ Reset")
