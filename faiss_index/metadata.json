@@ -1139,5 +1139,817 @@
     "title": "Real Estate Tokenization and Compliance",
     "bounty_index": 0,
     "bounty_id": "EthGlobal_New-Delhi_2025_September_Integra_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "1inch",
+    "title": "Build a novel extension for 1inch Cross-chain Swap (Fusion+)",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_1inch_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "1inch",
+    "title": "Build advanced strategies and hooks for the 1inch Limit Order Protocol",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_1inch_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "1inch",
+    "title": "Utilize 1inch's infrastructure to build your application",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_1inch_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Rootstock",
+    "title": "Build practical DeFi applications on Rootstock and/or RIF technologies",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Rootstock_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Rootstock",
+    "title": "Build high-quality decentralized applications (dApps) on Rootstock",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Rootstock_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Rootstock",
+    "title": "Build anything that puts the RIF token to work on Rootstock",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Rootstock_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Flow",
+    "title": "Consumer-Oriented Killer Apps",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Flow_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Flow",
+    "title": "Top Use of Automation & Actions",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Flow_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Pyth Network",
+    "title": "Use Pyth Pull oracle to power up your dapp",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Pyth Network_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Pyth Network",
+    "title": "Use Pyth Entropy to generate and consume random number on chains",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Pyth Network_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Hedera",
+    "title": "Build innovative applications, agents, tooling, or infrastructure that combine AI/ML with Hedera network services",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Hedera_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Hedera",
+    "title": "Build and deploy innovative Smart Contract based applications on Hedera",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Hedera_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Polygon",
+    "title": "Build an Agentic Payments project using x402 on Polygon",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Polygon_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "ENS",
+    "title": "ENS Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_ENS_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "World App",
+    "title": "Mini Apps",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_World App_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Uniswap Foundation",
+    "title": "Uniswap v4 Hooks",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Uniswap Foundation_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Filecoin",
+    "title": "Build the next generation of decentralized applications using Synapse SDK",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Filecoin_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Filecoin",
+    "title": "Build innovative DataDAOs using Lighthouse",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Filecoin_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Filecoin",
+    "title": "Use Akave O3 for decentralized storage applications",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Filecoin_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Citrea",
+    "title": "Build new Bitcoin Applications",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Citrea_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Citrea",
+    "title": "Innovation track for Bitcoin applications",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Citrea_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "The Graph",
+    "title": "Innovative Project Using Substreams or Token API",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_The Graph_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "The Graph",
+    "title": "High-Impact Application Using Knowledge Graph Framework",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_The Graph_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "The Graph",
+    "title": "Decentralized Application Using GRC-20-ts Library",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_The Graph_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "ASI:One and MeTTa Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "Agentverse Launch",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "Multi-Agent System",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "Agent Collaboration Demonstration",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_3"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "User-Facing Experience",
+    "bounty_index": 4,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_4"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "PayPal",
+    "title": "Powerful and Scalable Real-World Use Case for PYUSD",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_PayPal_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "PayPal",
+    "title": "Seamless and Engaging Consumer Payment Experience with PYUSD",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_PayPal_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "PayPal",
+    "title": "Creative Use of PYUSD in Applications",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_PayPal_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "0G",
+    "title": "Production-Ready Applications and Developer Tooling on 0G Mainnet",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_0G_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Self Protocol",
+    "title": "Onchain Identity Verification with Self SDK",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Self Protocol_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Self Protocol",
+    "title": "Offchain Identity Verification with Self SDK",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Self Protocol_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Fluence",
+    "title": "Impactful Use of Fluence Virtual Servers",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Fluence_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Kadena",
+    "title": "Build a dApp or Developer Tool Harnessing Kadena\u2019s Multiple Parallel Chains",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Kadena_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Kadena",
+    "title": "Deploy a Unique dApp or Integration Connecting Kadena to External Ecosystems",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Kadena_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Kadena",
+    "title": "Design a Project for Institutional or TradFi Applications on Kadena",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Kadena_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Unified ZK Registry System",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "NFC Feature Exploration",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Credential Sharing",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Mobile Gaming",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_3"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Matching Apps",
+    "bounty_index": 4,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_4"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Walrus",
+    "title": "Applications that use Walrus storage",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Walrus_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Walrus",
+    "title": "Developer tools for Walrus",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Walrus_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Integra",
+    "title": "Real Estate Tokenization and Compliance",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Integra_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "LayerZero",
+    "title": "Most Innovative Omnichain Solution",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_LayerZero_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "SKALE",
+    "title": "Gas-Free Blockchain Applications",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_SKALE_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "SKALE",
+    "title": "SKALE Native Functionality",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_SKALE_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Uniswap",
+    "title": "Implement a Hook",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Uniswap_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Uniswap",
+    "title": "Integrations with Uniswap v4",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Uniswap_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Uniswap",
+    "title": "Deploy a DeFi App to Unichain Sepolia",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Uniswap_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Polygon Labs",
+    "title": "Consumer Applications",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Polygon Labs_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Polygon Labs",
+    "title": "AI Integration with Smart Contracts",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Polygon Labs_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Polygon Labs",
+    "title": "Unified Bridge Implementation",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Polygon Labs_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Polygon Labs",
+    "title": "Zero-Knowledge Technology Applications",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Polygon Labs_3"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Sign",
+    "title": "Sign Protocol Core Functionality",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Sign_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Sign",
+    "title": "Encrypted Attestations",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Sign_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Sign",
+    "title": "Consumer Applications",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Sign_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Sign",
+    "title": "Schema Hooks Utilization",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Sign_3"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "AirDAO",
+    "title": "Most Innovative and Impactful Application",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_AirDAO_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "AirDAO",
+    "title": "Attention Economy Solutions",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_AirDAO_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "AirDAO",
+    "title": "AI and Blockchain Integration",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_AirDAO_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Flow",
+    "title": "Most Killer App Potential",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Flow_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Flow",
+    "title": "Web3 Sports",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Flow_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Flow",
+    "title": "Best Developer Feedback",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Flow_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Flow",
+    "title": "Pool Prize",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Flow_3"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Gnosis",
+    "title": "Prize details coming soon",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Gnosis_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "The Graph",
+    "title": "Build and deploy a custom subgraph",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_The Graph_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "The Graph",
+    "title": "Query a new or existing subgraph",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_The Graph_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "The Graph",
+    "title": "Use a new or existing substream",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_The Graph_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Lit Protocol",
+    "title": "Utilize Decrypting and Combining Within an Action",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Lit Protocol_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Lit Protocol",
+    "title": "Implement Sign within a Lit Action",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Lit Protocol_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Lit Protocol",
+    "title": "Noteworthy projects",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Lit Protocol_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Circle",
+    "title": "Build a seamless UX for near-instant payments",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Circle_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Circle",
+    "title": "Build a chain-abstracted user experience using Cross Chain Transfer Protocol (CCTP)",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Circle_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Circle",
+    "title": "Build with Circle\u2019s Web3 Services",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Circle_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "XMTP",
+    "title": "MessageKit",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_XMTP_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Essential",
+    "title": "Pint DeFi Primitives",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Essential_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Coinbase Developer Platform",
+    "title": "Innovative Onchain Experiences",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Coinbase Developer Platform_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Coinbase Developer Platform",
+    "title": "AI and Crypto Financial Rails",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Coinbase Developer Platform_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Coinbase Developer Platform",
+    "title": "Stablecoins and Fintech Use Cases",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Coinbase Developer Platform_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Rootstock",
+    "title": "Build a Top-Tier EVM dApp on Bitcoin",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Rootstock_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Rootstock",
+    "title": "Create an Everyday DeFi Application",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Rootstock_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Hedera",
+    "title": "Build on Hedera Network",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Hedera_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Walrus",
+    "title": "Build on Walrus Network",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Walrus_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Chronicle Protocol",
+    "title": "Best Use of Chronicle Oracles",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Chronicle Protocol_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Chronicle Protocol",
+    "title": "Best DeFi Application Powered by Chronicle Oracles",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Chronicle Protocol_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Ledger",
+    "title": "Best Use of Ledger Tech",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Ledger_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Nethermind",
+    "title": "Blockchain and Robotics Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Nethermind_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Nethermind",
+    "title": "Zero-Knowledge Proofs in Deep Learning and Ethereum",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Nethermind_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Dynamic",
+    "title": "Best Game Using Dynamic.xyz",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Dynamic_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Dynamic",
+    "title": "Next Native App with Dynamic.xyz",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Dynamic_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Dynamic",
+    "title": "Crypto-Enabled Real Use Case with Dynamic.xyz",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Dynamic_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Dynamic",
+    "title": "Web3 Onboarding with Dynamic.xyz",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Dynamic_3"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "ENS",
+    "title": "Creative ENS Use Cases",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_ENS_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "ENS",
+    "title": "Any ENS Integration",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_ENS_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Unlimit",
+    "title": "Seamless Crypto Payments",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Unlimit_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Unlimit",
+    "title": "NFT Checkouts",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Unlimit_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Unlimit",
+    "title": "Name Extensions Wallet Identifiers",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Unlimit_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Neon EVM",
+    "title": "Develop a EVM-based application leveraging Solana\u2019s infrastructure and Neon composability",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Neon EVM_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Zircuit",
+    "title": "Best Project Deployed on Zircuit",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Zircuit_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Zircuit",
+    "title": "Integrate Zircuit into a web3 project",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Zircuit_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Zircuit",
+    "title": "Best DeFi protocols on Zircuit",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Zircuit_2"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Phala Network",
+    "title": "dstack SDK and Agent Contract Bounty",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Phala Network_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Nouns",
+    "title": "Public Goods Infrastructure",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Nouns_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Alchemy Account Kit",
+    "title": "Consumer-Ready Mainstream Applications",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Alchemy Account Kit_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Fhenix",
+    "title": "Fhenix Ecosystem Full-Stack Applications",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Fhenix_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "DELV",
+    "title": "Best Feedback on Developer Experience",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_DELV_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "NEAR",
+    "title": "AI and Web3 Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_NEAR_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Blockless",
+    "title": "Best dApp on Blockless Platform",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Blockless_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Avail",
+    "title": "Avail DA Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Avail_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Avail",
+    "title": "Avail Documentation Testing",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Avail_1"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Privy",
+    "title": "Consumer App Experience for Viral Adoption",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Privy_0"
+  },
+  {
+    "event_key": "EthGlobal_SanFrancisCo_2024_February",
+    "company": "Stackr",
+    "title": "Innovative Micro-Rollup Application",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Stackr_0"
   }
 ]
