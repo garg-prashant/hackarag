@@ -1,5 +1,4 @@
-# Use Python 3.12 slim Debian-based image
-FROM python:3.12-slim
+FROM python:3.12.3-alpine
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -13,27 +12,25 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 # Install system dependencies required for ChromaDB and other packages
-RUN apt-get update && apt-get install -y \
-    build-essential \
+RUN apk update && apk add --no-cache \
+    build-base \
     curl \
-    software-properties-common \
     git \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/cache/apk/*
 
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir --timeout=300 --retries=5 -r requirements.txt
 
 # Copy application code
 COPY app.py .
-COPY README.md .
 
 # Create necessary directories
 RUN mkdir -p data hackathon_data chroma_db
 
 # Create a non-root user for security
-RUN useradd --create-home --shell /bin/bash app && \
+RUN adduser -D -s /bin/sh app && \
     chown -R app:app /app
 USER app
 
