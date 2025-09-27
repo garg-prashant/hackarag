@@ -287,3 +287,6 @@ temp/
 Icon?
 ehthumbs.db
 Thumbs.db
+
+
+faiss_index/*
