@@ -1,6 +1,5 @@
 """
 SQLite-based vectorization tracking system.
-Tracks which events have been vectorized to prevent duplicates and enable incremental updates.
 """
 
 import sqlite3
@@ -13,20 +12,16 @@ import logging
 logger = logging.getLogger(__name__)
 
 class VectorizationTracker:
-    """SQLite-based tracker for vectorization status."""
     
     def __init__(self, db_path: str = "./vectorization_tracker.db"):
-        """Initialize the tracker with SQLite database."""
         self.db_path = db_path
         self._init_database()
     
     def _init_database(self):
-        """Initialize the SQLite database with required tables."""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 
-                # Create events table
                 cursor.execute("""
                     CREATE TABLE IF NOT EXISTS vectorized_events (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,7 +39,6 @@ class VectorizationTracker:
                     )
                 """)
                 
-                # Create bounty details table for tracking individual bounties
                 cursor.execute("""
                     CREATE TABLE IF NOT EXISTS vectorized_bounties (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +52,6 @@ class VectorizationTracker:
                     )
                 """)
                 
-                # Create index for faster lookups
                 cursor.execute("""
                     CREATE INDEX IF NOT EXISTS idx_event_key ON vectorized_events(event_key)
                 """)

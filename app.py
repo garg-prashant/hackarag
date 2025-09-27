@@ -29,25 +29,19 @@ os.environ.setdefault('MKL_NUM_THREADS', '1')
 # FAISS doesn't require telemetry settings
 
 def cleanup_resources():
-    """Clean up multiprocessing resources to prevent semaphore leaks."""
     try:
-        # Force cleanup of multiprocessing resources
         multiprocessing.active_children()
         for process in multiprocessing.active_children():
             process.join(timeout=1)
         
-        # Clear any remaining semaphores
         if hasattr(multiprocessing, '_resource_tracker'):
             multiprocessing._resource_tracker._cleanup()
             
     except Exception as e:
-        # Silently handle cleanup errors
         pass
 
-# Register cleanup function
 atexit.register(cleanup_resources)
 
-# Page configuration
 st.set_page_config(
     page_title="Hackathon Idea Evaluator",
     page_icon="🚀",
@@ -55,7 +49,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Clean, step-by-step CSS styling
 st.markdown("""
 <style>
     /* Import Google Fonts */
@@ -268,7 +261,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 class HackathonDataLoader:
-    """Load and manage hackathon data from JSON files"""
     
     def __init__(self, data_dir="hackathon_data"):
         self.data_dir = data_dir
@@ -276,7 +268,6 @@ class HackathonDataLoader:
         self.load_all_events()
     
     def load_all_events(self):
-        """Load all hackathon events from JSON files"""
         try:
             json_files = glob.glob(os.path.join(self.data_dir, "*.json"))
             for file_path in json_files:
@@ -305,24 +296,20 @@ class HackathonDataLoader:
             st.error(f"Error loading hackathon data: {str(e)}")
     
     def get_all_events(self):
-        """Get all available events"""
         return self.events
     
     def get_event_companies(self, event_key):
-        """Get all companies for a specific event"""
         if event_key in self.events:
             return self.events[event_key]['companies']
         return {}
     
     def get_company_bounties(self, event_key, company_name):
-        """Get all bounties for a specific company in an event"""
         companies = self.get_event_companies(event_key)
         if company_name in companies:
             return companies[company_name]
         return []
 
 class BountyVectorizer:
-    """Handle vectorization and similarity search for bounty data using FAISS"""
     
     def __init__(self, index_path="./faiss_index"):
         self.index_path = index_path
@@ -331,19 +318,14 @@ class BountyVectorizer:
         self.initialize()
     
     def initialize(self):
-        """Initialize FAISS vector store and sentence transformer model"""
         try:
-            # Download and initialize sentence transformer model at boot time
-            with st.spinner("🔄 Downloading AI model (this may take a moment on first run)..."):
+            with st.spinner("🔄 Downloading AI model..."):
                 try:
-                    # Try with CPU device first
                     self.model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
                 except Exception as model_error:
                     st.warning(f"⚠️ CPU device failed, trying default: {str(model_error)}")
-                    # Fallback to default initialization
                     self.model = SentenceTransformer('all-MiniLM-L6-v2')
             
-            # Initialize FAISS vector store
             self.faiss_store = FAISSVectorStore(
                 index_path=self.index_path,
                 embedding_model='all-MiniLM-L6-v2'
@@ -352,17 +334,9 @@ class BountyVectorizer:
             st.success("✅ FAISS vector database and AI model initialized successfully!")
         except Exception as e:
             st.error(f"Error initializing vector database: {str(e)}")
-            # Provide more helpful error message
-            if "meta tensor" in str(e).lower():
-                st.error("💡 **Tip**: This error is related to PyTorch model loading. Try restarting the app or clearing the browser cache.")
-            elif "device" in str(e).lower():
-                st.error("💡 **Tip**: This error is related to GPU/CPU device handling. The app will try to use CPU instead.")
     
     def vectorize_bounties(self, event_key, companies_data, force_revectorize=False):
-        """Vectorize all bounties for an event using FAISS with tracking"""
         try:
-            # Extract event info from event_key
-            # Format: "EthGlobal_New-Delhi_2025_September"
             parts = event_key.split('_')
             if len(parts) >= 4:
                 event_name = parts[0]
@@ -375,7 +349,6 @@ class BountyVectorizer:
                 year = "2025"
                 month = "September"
             
-            # Use the new tracking-enabled method
             success = self.faiss_store.add_event_bounties(
                 event_key=event_key,
                 event_name=event_name,
@@ -387,7 +360,6 @@ class BountyVectorizer:
             )
             
             if success:
-                # Get the actual count from tracking
                 bounty_count = self.faiss_store.get_vectorization_status(event_key)
                 st.success(f"✅ Vectorized {bounty_count} bounties for {event_key}")
             else:
@@ -397,7 +369,6 @@ class BountyVectorizer:
             st.error(f"Error vectorizing bounties: {str(e)}")
     
     def get_vectorized_events(self):
-        """Get list of events that have been vectorized"""
         try:
             return self.faiss_store.get_vectorized_events()
         except Exception as e:
@@ -405,18 +376,14 @@ class BountyVectorizer:
             return []
     
     def get_vectorization_status(self, event_key):
-        """Get vectorization status for a specific event"""
         try:
             return self.faiss_store.get_vectorization_status(event_key)
         except Exception as e:
             return 0
     
     def search_similar_bounties(self, query, event_key=None, n_results=5, selected_events=None, selected_companies=None, selected_bounties=None):
-        """Search for similar bounties based on query using FAISS with filtering"""
         try:
-            # Use filtered search if we have specific selections
             if selected_events or selected_companies or selected_bounties:
-                # Use the new filtered search method
                 results = self.faiss_store.search_filtered(
                     query=query, 
                     k=n_results, 
@@ -426,20 +393,16 @@ class BountyVectorizer:
                     bounty_ids=selected_bounties
                 )
             else:
-                # Fallback to regular search with event_key filter for backward compatibility
                 results = self.faiss_store.search(query, k=n_results, score_threshold=0.1)
                 
-                # Filter by event_key if specified
                 if event_key:
                     filtered_results = [r for r in results if r['metadata'].get('event_key') == event_key]
                     results = filtered_results
             
-            # Convert FAISS results to ChromaDB-like format for compatibility
             if results:
-                # Convert to ChromaDB-like format
                 chromadb_format = {
                     'ids': [f"result_{i}" for i in range(len(results))],
-                    'distances': [[1.0 - r['similarity_score'] for r in results]],  # Convert similarity to distance
+                    'distances': [[1.0 - r['similarity_score'] for r in results]],
                     'documents': [r['content'] for r in results],
                     'metadatas': [r['metadata'] for r in results]
                 }
@@ -456,9 +419,7 @@ class BountyVectorizer:
             return None
     
     def get_bounty_by_id(self, bounty_id):
-        """Get bounty details by ID"""
         try:
-            # Search for the specific bounty by ID in metadata
             results = self.faiss_store.search(f"bounty_id:{bounty_id}", k=1, score_threshold=0.0)
             if results:
                 result = results[0]
@@ -472,7 +433,6 @@ class BountyVectorizer:
             return None
     
     def clear_all_vectors(self):
-        """Clear all vectors from FAISS store"""
         try:
             if self.faiss_store:
                 self.faiss_store.clear()
@@ -487,7 +447,6 @@ class HackathonEvaluator:
         self.data_dir = "data"
         self.ensure_data_directory()
         
-        # Ideation evaluation metrics with weights
         self.evaluation_metrics = {
             "Problem Significance": {
                 "weight": 0.20,
@@ -540,15 +499,12 @@ class HackathonEvaluator:
         }
     
     def count_words(self, text):
-        """Count words in text, handling various edge cases"""
         if not text or not isinstance(text, str):
             return 0
-        # Split by whitespace and filter out empty strings
         words = [word for word in text.split() if word.strip()]
         return len(words)
     
     def validate_idea_length(self, idea_text):
-        """Validate if idea text is appropriate length (not too short, not too long)"""
         word_count = self.count_words(idea_text)
         
         if word_count < 10:
@@ -559,7 +515,6 @@ class HackathonEvaluator:
             return True, f"Good! Your idea is {word_count} words long."
     
     def calculate_evaluation_score(self, scores, confidence_levels=None):
-        """Calculate weighted evaluation score with optional confidence adjustment"""
         total_weighted_score = 0
         total_weight = 0
         confidence_multiplier = 1.0
@@ -569,15 +524,12 @@ class HackathonEvaluator:
                 weight = self.evaluation_metrics[metric]["weight"]
                 max_score = self.evaluation_metrics[metric]["max_score"]
                 
-                # Normalize score to 0-1 range
                 normalized_score = score / max_score
                 weighted_score = normalized_score * weight
                 total_weighted_score += weighted_score
                 total_weight += weight
         
-        # Apply confidence adjustment if provided
         if confidence_levels:
-            # Convert confidence levels to numeric values
             confidence_values = []
             for metric, score in scores.items():
                 if metric in confidence_levels:
@@ -591,7 +543,6 @@ class HackathonEvaluator:
             else:
                 confidence_multiplier = 1.0
         
-        # Normalize to 0-10 scale
         final_score = (total_weighted_score / total_weight) * 10 * confidence_multiplier
         
         return {

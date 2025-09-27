@@ -1,6 +1,5 @@
 """
 LangGraph-based intelligent hackathon idea evaluator.
-Implements a multi-step flow for idea validation, bounty matching, and metrics calculation.
 """
 
 import os
@@ -15,7 +14,6 @@ import streamlit as st
 import logging
 from datetime import datetime
 
-# Set up comprehensive logging
 logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -26,7 +24,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Create a separate verbose logger for detailed operations
 verbose_logger = logging.getLogger('langgraph_verbose')
 verbose_handler = logging.StreamHandler()
 verbose_handler.setLevel(logging.DEBUG)
@@ -37,7 +34,6 @@ verbose_logger.setLevel(logging.DEBUG)
 
 
 class IdeaEvaluationState(TypedDict):
-    """State for the LangGraph evaluation flow."""
     user_idea: str
     selected_companies: List[str]
     selected_bounties: List[str]
@@ -50,10 +46,8 @@ class IdeaEvaluationState(TypedDict):
 
 
 class LangGraphIdeaEvaluator:
-    """LangGraph-based intelligent idea evaluator with full verbose logging."""
     
     def __init__(self, openai_api_key: str = None):
-        """Initialize the evaluator with OpenAI API key."""
         verbose_logger.info("🚀 Initializing LangGraph Idea Evaluator...")
         start_time = time.time()
         
@@ -64,7 +58,6 @@ class LangGraphIdeaEvaluator:
         
         verbose_logger.info(f"✅ OpenAI API key found: {self.openai_api_key[:10]}...")
         
-        # Initialize LLM with verbose logging
         verbose_logger.info("🤖 Initializing OpenAI ChatOpenAI model...")
         llm_start = time.time()
         self.llm = ChatOpenAI(
@@ -75,16 +68,13 @@ class LangGraphIdeaEvaluator:
         llm_time = time.time() - llm_start
         verbose_logger.info(f"✅ OpenAI model initialized in {llm_time:.2f}s")
         
-        # Test API connection
         verbose_logger.info("🔍 Testing OpenAI API connection...")
         try:
             test_response = self.llm.invoke([HumanMessage(content="Hello, respond with 'OK'")])
             verbose_logger.info(f"✅ OpenAI API connection test successful: {test_response.content[:50]}")
         except Exception as test_error:
             verbose_logger.warning(f"⚠️ OpenAI API connection test failed: {str(test_error)}")
-            # Don't raise error here, let it fail during actual usage for better error messages
         
-        # Initialize FAISS vector store with verbose logging
         verbose_logger.info("🗄️ Initializing FAISS vector store...")
         faiss_start = time.time()
         self.vector_store = FAISSVectorStore(
@@ -94,7 +84,6 @@ class LangGraphIdeaEvaluator:
         faiss_time = time.time() - faiss_start
         verbose_logger.info(f"✅ FAISS vector store initialized in {faiss_time:.2f}s")
         
-        # Log vector store stats
         try:
             stats = self.vector_store.get_stats()
             verbose_logger.info(f"📊 Vector store stats: {stats}")

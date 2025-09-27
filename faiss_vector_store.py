@@ -1,6 +1,5 @@
 """
 FAISS-based vector store for hackathon bounty similarity search.
-Replaces ChromaDB with FAISS for better performance and efficiency.
 """
 
 import os
@@ -15,7 +14,6 @@ from vectorization_tracker import VectorizationTracker
 import multiprocessing
 import atexit
 
-# Set PyTorch environment variables to avoid meta tensor issues
 os.environ.setdefault('PYTORCH_CUDA_ALLOC_CONF', 'max_split_size_mb:128')
 os.environ.setdefault('TOKENIZERS_PARALLELISM', 'false')
 os.environ.setdefault('OMP_NUM_THREADS', '1')
@@ -24,53 +22,34 @@ os.environ.setdefault('MKL_NUM_THREADS', '1')
 logger = logging.getLogger(__name__)
 
 class FAISSVectorStore:
-    """FAISS-based vector store for hackathon bounties."""
     
     def __init__(self, index_path: str = "./faiss_index", embedding_model: str = 'all-MiniLM-L6-v2'):
-        """
-        Initialize FAISS vector store.
-        
-        Args:
-            index_path: Path to store FAISS index and metadata
-            embedding_model: Sentence transformer model name
-        """
         self.index_path = index_path
         self.embedding_model_name = embedding_model
         
-        # Create directory if it doesn't exist
         os.makedirs(index_path, exist_ok=True)
         
-        # Initialize sentence transformer with lazy loading
         self.embedder = None
         self.embedding_dim = None
         self._embedder_initialized = False
         
-        # Initialize FAISS index
         self.index = None
         self.metadata = []
         self.documents = []
         self.is_trained = False
         
-        # Initialize vectorization tracker
         self.tracker = VectorizationTracker()
         
-        # Load existing index if available
         self._load_index()
     
     def _ensure_embedder_initialized(self):
-        """Ensure the sentence transformer embedder is initialized."""
         if self._embedder_initialized:
             return
         
-        # Try multiple initialization strategies
         init_strategies = [
-            # Strategy 1: CPU device
             lambda: SentenceTransformer(self.embedding_model_name, device='cpu'),
-            # Strategy 2: No device specification
             lambda: SentenceTransformer(self.embedding_model_name),
-            # Strategy 3: With trust_remote_code
             lambda: SentenceTransformer(self.embedding_model_name, trust_remote_code=True),
-            # Strategy 4: Force CPU with specific settings
             lambda: SentenceTransformer(self.embedding_model_name, device='cpu', trust_remote_code=True),
         ]
         
@@ -85,7 +64,6 @@ class FAISSVectorStore:
             except Exception as e:
                 logger.warning(f"⚠️ Strategy {i} failed: {str(e)}")
                 if i == len(init_strategies):
-                    # All strategies failed - use fallback
                     logger.error(f"❌ All initialization strategies failed, using fallback")
                     self._initialize_fallback_embedder()
                     return
