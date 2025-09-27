@@ -1,8 +1,5 @@
 """
 RAG-driven Hackathon Idea Evaluation System
-
-This module implements a comprehensive RAG pipeline for evaluating hackathon ideas
-against existing bounty descriptions with evidence-backed feedback.
 """
 
 import streamlit as st
@@ -18,15 +15,11 @@ from datetime import datetime
 from langchain_anthropic import ChatAnthropic
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
-
-# FAISS doesn't require telemetry settings
 
 
 @dataclass
 class BountyMatch:
-    """Represents a bounty match with similarity score and evidence"""
     bounty_id: str
     company_name: str
     event_name: str
@@ -41,7 +34,6 @@ class BountyMatch:
 
 @dataclass
 class EvaluationResult:
-    """Comprehensive evaluation result with evidence"""
     idea: str
     bounty_matches: List[BountyMatch]
     overall_score: float
@@ -54,10 +46,6 @@ class EvaluationResult:
 
 
 class RAGEvaluator:
-    """
-    RAG-driven hackathon idea evaluator that provides critical, constructive,
-    and evidence-backed feedback by comparing ideas against bounty descriptions.
-    """
     
     def __init__(self, index_path="./faiss_index"):
         self.index_path = index_path
@@ -66,7 +54,6 @@ class RAGEvaluator:
         self.anthropic_client = None
         self.initialize()
         
-        # Evaluation criteria with weights
         self.evaluation_criteria = {
             "Problem Significance": {
                 "weight": 0.20,

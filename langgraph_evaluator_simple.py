@@ -1,6 +1,5 @@
 """
 Simplified LangGraph-based intelligent hackathon idea evaluator.
-Implements a 2-step flow: 1) Find similar bounties, 2) LLM evaluation.
 """
 
 import os
@@ -15,12 +14,10 @@ import streamlit as st
 import logging
 from datetime import datetime
 
-# Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class IdeaEvaluationState(TypedDict):
-    """State for the LangGraph evaluation flow."""
     user_idea: str
     selected_companies: List[str]
     selected_bounties: List[str]
@@ -31,23 +28,19 @@ class IdeaEvaluationState(TypedDict):
     error_message: Optional[str]
 
 class LangGraphIdeaEvaluator:
-    """Simplified LangGraph-based intelligent idea evaluator."""
 
     def __init__(self, anthropic_api_key: str = None):
-        """Initialize the evaluator."""
         self.anthropic_api_key = anthropic_api_key or os.getenv('ANTHROPIC_API_KEY')
         
         if not self.anthropic_api_key or self.anthropic_api_key == 'your_anthropic_api_key_here':
             raise ValueError("Anthropic API key not provided. Please set ANTHROPIC_API_KEY environment variable.")
         
-        # Initialize Anthropic client
         self.llm = ChatAnthropic(
             model="claude-3-5-sonnet-20241022",
             temperature=0.1,
             api_key=self.anthropic_api_key
         )
         
-        # Initialize FAISS vector store
         self.vector_store = FAISSVectorStore(
             index_path="./faiss_index",
             embedding_model='all-MiniLM-L6-v2'
