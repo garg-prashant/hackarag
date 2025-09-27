@@ -1,4 +1,4 @@
-FROM python:3.12.3-alpine
+FROM python:3.12.3-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -11,12 +11,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies required for ChromaDB and other packages
-RUN apk update && apk add --no-cache \
-    build-base \
+# Install system dependencies required for FAISS and other packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
     curl \
     git \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt .
@@ -24,13 +24,13 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir --timeout=300 --retries=5 -r requirements.txt
 
 # Copy application code
-COPY app.py .
+COPY *.py ./
 
 # Create necessary directories
-RUN mkdir -p data hackathon_data chroma_db
+RUN mkdir -p data hackathon_data faiss_index
 
 # Create a non-root user for security
-RUN adduser -D -s /bin/sh app && \
+RUN useradd --create-home --shell /bin/bash app && \
     chown -R app:app /app
 USER app
 

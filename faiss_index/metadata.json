@@ -810,5 +810,334 @@
     "title": "Innovative Micro-Rollup Application",
     "bounty_index": 0,
     "bounty_id": "EthGlobal_SanFrancisCo_2024_February_Stackr_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "1inch",
+    "title": "Build a novel extension for 1inch Cross-chain Swap (Fusion+)",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_1inch_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "1inch",
+    "title": "Build advanced strategies and hooks for the 1inch Limit Order Protocol",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_1inch_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "1inch",
+    "title": "Utilize 1inch's infrastructure to build your application",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_1inch_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Rootstock",
+    "title": "Build practical DeFi applications on Rootstock and/or RIF technologies",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Rootstock_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Rootstock",
+    "title": "Build high-quality decentralized applications (dApps) on Rootstock",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Rootstock_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Rootstock",
+    "title": "Build anything that puts the RIF token to work on Rootstock",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Rootstock_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Flow",
+    "title": "Consumer-Oriented Killer Apps",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Flow_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Flow",
+    "title": "Top Use of Automation & Actions",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Flow_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Pyth Network",
+    "title": "Use Pyth Pull oracle to power up your dapp",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Pyth Network_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Pyth Network",
+    "title": "Use Pyth Entropy to generate and consume random number on chains",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Pyth Network_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Hedera",
+    "title": "Build innovative applications, agents, tooling, or infrastructure that combine AI/ML with Hedera network services",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Hedera_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Hedera",
+    "title": "Build and deploy innovative Smart Contract based applications on Hedera",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Hedera_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Polygon",
+    "title": "Build an Agentic Payments project using x402 on Polygon",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Polygon_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "ENS",
+    "title": "ENS Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_ENS_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "World App",
+    "title": "Mini Apps",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_World App_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Uniswap Foundation",
+    "title": "Uniswap v4 Hooks",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Uniswap Foundation_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Filecoin",
+    "title": "Build the next generation of decentralized applications using Synapse SDK",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Filecoin_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Filecoin",
+    "title": "Build innovative DataDAOs using Lighthouse",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Filecoin_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Filecoin",
+    "title": "Use Akave O3 for decentralized storage applications",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Filecoin_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Citrea",
+    "title": "Build new Bitcoin Applications",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Citrea_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Citrea",
+    "title": "Innovation track for Bitcoin applications",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Citrea_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "The Graph",
+    "title": "Innovative Project Using Substreams or Token API",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_The Graph_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "The Graph",
+    "title": "High-Impact Application Using Knowledge Graph Framework",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_The Graph_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "The Graph",
+    "title": "Decentralized Application Using GRC-20-ts Library",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_The Graph_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "ASI:One and MeTTa Integration",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "Agentverse Launch",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "Multi-Agent System",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "Agent Collaboration Demonstration",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_3"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Artificial Superintelligence Alliance",
+    "title": "User-Facing Experience",
+    "bounty_index": 4,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Artificial Superintelligence Alliance_4"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "PayPal",
+    "title": "Powerful and Scalable Real-World Use Case for PYUSD",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_PayPal_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "PayPal",
+    "title": "Seamless and Engaging Consumer Payment Experience with PYUSD",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_PayPal_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "PayPal",
+    "title": "Creative Use of PYUSD in Applications",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_PayPal_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "0G",
+    "title": "Production-Ready Applications and Developer Tooling on 0G Mainnet",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_0G_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Self Protocol",
+    "title": "Onchain Identity Verification with Self SDK",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Self Protocol_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Self Protocol",
+    "title": "Offchain Identity Verification with Self SDK",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Self Protocol_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Fluence",
+    "title": "Impactful Use of Fluence Virtual Servers",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Fluence_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Kadena",
+    "title": "Build a dApp or Developer Tool Harnessing Kadena\u2019s Multiple Parallel Chains",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Kadena_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Kadena",
+    "title": "Deploy a Unique dApp or Integration Connecting Kadena to External Ecosystems",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Kadena_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Kadena",
+    "title": "Design a Project for Institutional or TradFi Applications on Kadena",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Kadena_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Unified ZK Registry System",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "NFC Feature Exploration",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Credential Sharing",
+    "bounty_index": 2,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_2"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Mobile Gaming",
+    "bounty_index": 3,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_3"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Ethereum Foundation",
+    "title": "Matching Apps",
+    "bounty_index": 4,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Ethereum Foundation_4"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Walrus",
+    "title": "Applications that use Walrus storage",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Walrus_0"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Walrus",
+    "title": "Developer tools for Walrus",
+    "bounty_index": 1,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Walrus_1"
+  },
+  {
+    "event_key": "EthGlobal_New-Delhi_2025_September",
+    "company": "Integra",
+    "title": "Real Estate Tokenization and Compliance",
+    "bounty_index": 0,
+    "bounty_id": "EthGlobal_New-Delhi_2025_September_Integra_0"
   }
 ]
