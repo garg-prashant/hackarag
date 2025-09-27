@@ -1,0 +1,11 @@
+# OpenAI API Configuration
+OPENAI_API_KEY=
+
+# Optional: Specify model (defaults to gpt-4o)
+OPENAI_MODEL=gpt-4o
+
+# Optional: Set temperature for response generation (0.0 to 2.0)
+OPENAI_TEMPERATURE=0.7
+
+# Optional: Set max context length for response (defaults to 2000)
+OPENAI_MAX_CONTEXT_LENGTH=100000

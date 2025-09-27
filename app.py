@@ -14,6 +14,10 @@ from pathlib import Path
 import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
+from rag_evaluator import RAGEvaluator
+
+# Disable ChromaDB telemetry globally
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
 
 
 # Page configuration
@@ -303,8 +307,11 @@ class BountyVectorizer:
     def initialize(self):
         """Initialize ChromaDB and sentence transformer model"""
         try:
-            # Initialize ChromaDB client
-            self.client = chromadb.PersistentClient(path=self.persist_directory)
+            # Initialize ChromaDB client with telemetry disabled
+            self.client = chromadb.PersistentClient(
+                path=self.persist_directory,
+                settings=Settings(anonymized_telemetry=False)
+            )
             
             # Download and initialize sentence transformer model at boot time
             with st.spinner("🔄 Downloading AI model (this may take a moment on first run)..."):
@@ -447,6 +454,193 @@ class HackathonEvaluator:
     def __init__(self):
         self.data_dir = "data"
         self.ensure_data_directory()
+        
+        # Ideation evaluation metrics with weights
+        self.evaluation_metrics = {
+            "Problem Significance": {
+                "weight": 0.20,
+                "max_score": 10,
+                "description": "Is this a trivial gimmick or a meaningful pain point?",
+                "category": "Problem & Context"
+            },
+            "Target User Clarity": {
+                "weight": 0.05,
+                "max_score": 5,
+                "description": "Do they know who the user is, or is it 'crypto people'?",
+                "category": "Problem & Context"
+            },
+            "Novelty / Uniqueness": {
+                "weight": 0.20,
+                "max_score": 10,
+                "description": "Is this new, or already solved better by 5 other dApps?",
+                "category": "Solution Quality"
+            },
+            "Feasibility": {
+                "weight": 0.10,
+                "max_score": 5,
+                "description": "Can this actually be built in hackathon constraints, or is it vaporware?",
+                "category": "Solution Quality"
+            },
+            "Crypto-Nativeness": {
+                "weight": 0.15,
+                "max_score": 10,
+                "description": "Does it require Web3, or could it be a Web2 SaaS with a wallet connect?",
+                "category": "Solution Quality"
+            },
+            "User Value": {
+                "weight": 0.15,
+                "max_score": 10,
+                "description": "Does this save time, money, or create opportunities?",
+                "category": "Impact & Potential"
+            },
+            "Adoption Potential": {
+                "weight": 0.10,
+                "max_score": 5,
+                "description": "Would users or DAOs actually try this?",
+                "category": "Impact & Potential"
+            },
+            "Ecosystem Fit": {
+                "weight": 0.05,
+                "max_score": 5,
+                "description": "Does it extend existing protocols, infra, or L2s, or is it isolated?",
+                "category": "Impact & Potential"
+            }
+        }
+    
+    def count_words(self, text):
+        """Count words in text, handling various edge cases"""
+        if not text or not isinstance(text, str):
+            return 0
+        # Split by whitespace and filter out empty strings
+        words = [word for word in text.split() if word.strip()]
+        return len(words)
+    
+    def validate_idea_length(self, idea_text):
+        """Validate if idea text is appropriate length (not too short, not too long)"""
+        word_count = self.count_words(idea_text)
+        
+        if word_count < 10:
+            return False, "Please provide more details about your idea (at least 10 words)."
+        elif word_count >= 200:
+            return False, "Your description is too detailed (200+ words). Please provide a more concise description."
+        else:
+            return True, f"Good! Your idea is {word_count} words long."
+    
+    def calculate_evaluation_score(self, scores, confidence_levels=None):
+        """Calculate weighted evaluation score with optional confidence adjustment"""
+        total_weighted_score = 0
+        total_weight = 0
+        confidence_multiplier = 1.0
+        
+        for metric, score in scores.items():
+            if metric in self.evaluation_metrics:
+                weight = self.evaluation_metrics[metric]["weight"]
+                max_score = self.evaluation_metrics[metric]["max_score"]
+                
+                # Normalize score to 0-1 range
+                normalized_score = score / max_score
+                weighted_score = normalized_score * weight
+                total_weighted_score += weighted_score
+                total_weight += weight
+        
+        # Apply confidence adjustment if provided
+        if confidence_levels:
+            # Convert confidence levels to numeric values
+            confidence_values = []
+            for metric, score in scores.items():
+                if metric in confidence_levels:
+                    confidence = confidence_levels[metric]
+                    confidence_numeric = {"low": 0.7, "medium": 0.85, "high": 1.0}.get(confidence, 0.85)
+                    confidence_values.append(confidence_numeric)
+            
+            if confidence_values:
+                avg_confidence = sum(confidence_values) / len(confidence_values)
+                confidence_multiplier = avg_confidence
+            else:
+                confidence_multiplier = 1.0
+        
+        # Normalize to 0-10 scale
+        final_score = (total_weighted_score / total_weight) * 10 * confidence_multiplier
+        
+        return {
+            "raw_score": (total_weighted_score / total_weight) * 10,
+            "confidence_adjusted_score": final_score,
+            "confidence_multiplier": confidence_multiplier,
+            "max_possible": 10.0
+        }
+    
+    def get_evaluation_insights(self, scores, confidence_levels=None, evidence=None):
+        """Generate insights and recommendations based on evaluation scores and evidence"""
+        insights = []
+        
+        # Find lowest scoring metrics
+        sorted_metrics = sorted(scores.items(), key=lambda x: x[1])
+        lowest_metric = sorted_metrics[0]
+        
+        if lowest_metric[1] < 3:
+            evidence_text = ""
+            if evidence and lowest_metric[0] in evidence and evidence[lowest_metric[0]]:
+                evidence_text = f" Evidence: {evidence[lowest_metric[0]][:100]}{'...' if len(evidence[lowest_metric[0]]) > 100 else ''}"
+            insights.append(f"⚠️ **{lowest_metric[0]}** needs attention (score: {lowest_metric[1]}){evidence_text}")
+        
+        # Check for significant gaps
+        if confidence_levels:
+            for metric, score in scores.items():
+                if metric in confidence_levels:
+                    confidence = confidence_levels[metric]
+                    if confidence == "low" and score > 7:
+                        evidence_text = ""
+                        if evidence and metric in evidence and evidence[metric]:
+                            evidence_text = f" Evidence: {evidence[metric][:100]}{'...' if len(evidence[metric]) > 100 else ''}"
+                        insights.append(f"🤔 **{metric}** scored high but with low confidence - verify assumptions{evidence_text}")
+                    elif confidence == "high" and score < 4:
+                        evidence_text = ""
+                        if evidence and metric in evidence and evidence[metric]:
+                            evidence_text = f" Evidence: {evidence[metric][:100]}{'...' if len(evidence[metric]) > 100 else ''}"
+                        insights.append(f"🚨 **{metric}** scored low with high confidence - major concern{evidence_text}")
+        
+        # Check for missing evidence
+        if evidence:
+            missing_evidence = []
+            for metric in scores.keys():
+                if not evidence.get(metric, "").strip():
+                    missing_evidence.append(metric)
+            
+            if missing_evidence:
+                insights.append(f"📝 **Missing Evidence**: Consider providing justification for: {', '.join(missing_evidence[:3])}{'...' if len(missing_evidence) > 3 else ''}")
+        
+        # Category analysis
+        category_scores = {}
+        for metric, score in scores.items():
+            if metric in self.evaluation_metrics:
+                category = self.evaluation_metrics[metric]["category"]
+                if category not in category_scores:
+                    category_scores[category] = []
+                category_scores[category].append(score)
+        
+        for category, scores_list in category_scores.items():
+            avg_score = sum(scores_list) / len(scores_list)
+            if avg_score < 4:
+                insights.append(f"📊 **{category}** category needs improvement (avg: {avg_score:.1f})")
+        
+        # Evidence quality analysis
+        if evidence:
+            strong_evidence = []
+            weak_evidence = []
+            
+            for metric, evid in evidence.items():
+                if evid and len(evid.strip()) > 50:  # Substantial evidence
+                    strong_evidence.append(metric)
+                elif evid and len(evid.strip()) < 20:  # Weak evidence
+                    weak_evidence.append(metric)
+            
+            if strong_evidence:
+                insights.append(f"💪 **Strong Evidence**: Good justification provided for: {', '.join(strong_evidence[:3])}{'...' if len(strong_evidence) > 3 else ''}")
+            
+            if weak_evidence:
+                insights.append(f"📝 **Weak Evidence**: Consider strengthening justification for: {', '.join(weak_evidence[:3])}{'...' if len(weak_evidence) > 3 else ''}")
+        
+        return insights
         
     def ensure_data_directory(self):
         """Create data directory if it doesn't exist"""
@@ -933,6 +1127,8 @@ def main():
         st.session_state.data_loader = HackathonDataLoader()
     if 'vectorizer' not in st.session_state:
         st.session_state.vectorizer = BountyVectorizer()
+    if 'rag_evaluator' not in st.session_state:
+        st.session_state.rag_evaluator = RAGEvaluator()
     
     # Clean header
     st.markdown("""
@@ -980,6 +1176,21 @@ def main():
     
     st.markdown("---")
     
+    # RAG Evaluation Mode Toggle
+    st.markdown("### 🔍 Evaluation Mode")
+    col1, col2 = st.columns([1, 3])
+    
+    with col1:
+        use_rag_evaluation = st.checkbox("Use RAG Evaluation", value=True, help="Enable AI-powered evaluation with evidence-backed feedback")
+    
+    with col2:
+        if use_rag_evaluation:
+            st.info("🤖 **RAG Mode**: AI will analyze your idea against bounty descriptions and provide evidence-backed feedback")
+        else:
+            st.info("📊 **Manual Mode**: Self-evaluation form with manual scoring")
+    
+    st.markdown("---")
+    
     evaluator = HackathonEvaluator()
     
     # Initialize session state
@@ -993,6 +1204,12 @@ def main():
         st.session_state.user_idea = ""
     if 'similar_bounties' not in st.session_state:
         st.session_state.similar_bounties = []
+    if 'evaluation_scores' not in st.session_state:
+        st.session_state.evaluation_scores = {}
+    if 'confidence_levels' not in st.session_state:
+        st.session_state.confidence_levels = {}
+    if 'evaluation_evidence' not in st.session_state:
+        st.session_state.evaluation_evidence = {}
     if 'current_step' not in st.session_state:
         st.session_state.current_step = 1
     
@@ -1001,11 +1218,13 @@ def main():
         if not st.session_state.selected_event:
             return 0
         elif st.session_state.selected_event and not st.session_state.selected_companies:
-            return 25
+            return 20
         elif st.session_state.selected_companies and not st.session_state.user_idea:
-            return 50
-        elif st.session_state.user_idea and not st.session_state.similar_bounties:
-            return 75
+            return 40
+        elif st.session_state.user_idea and not st.session_state.evaluation_scores:
+            return 60
+        elif st.session_state.evaluation_scores and not st.session_state.similar_bounties:
+            return 80
         else:
             return 100
     
@@ -1082,83 +1301,116 @@ def main():
                 # Select All Companies option
                 col1, col2 = st.columns([1, 4])
                 with col1:
-                    select_all_companies = st.checkbox("Select All", key="select_all_companies")
+                    select_all_companies = st.checkbox("Select All", key="select_all_companies", label_visibility="visible")
                 with col2:
                     if select_all_companies:
                         st.info("All companies will be selected")
                 
-                # Company selection
+                # Company selection with proper state management
                 if select_all_companies:
                     selected_companies = list(companies.keys())
+                    # Update session state immediately
+                    st.session_state.selected_companies = selected_companies
+                    # Show the selected companies
+                    st.success(f"✅ Selected all {len(selected_companies)} companies")
                 else:
                     selected_companies = st.multiselect(
                         "Choose companies:",
                         options=list(companies.keys()),
-                        default=st.session_state.selected_companies
+                        default=st.session_state.selected_companies,
+                        key="company_multiselect"
                     )
-                
-                if selected_companies:
+                    # Update session state immediately
                     st.session_state.selected_companies = selected_companies
+                
+                # Validation: Check if companies are selected
+                if not selected_companies:
+                    st.warning("⚠️ Please select at least one company to continue.")
+                    st.stop()
+                
+                # Update session state
+                st.session_state.selected_companies = selected_companies
+                
+                # Display bounties for selected companies
+                st.markdown("### 🎯 Available Bounties")
+                
+                all_bounties = []
+                for company in selected_companies:
+                    bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
+                    for i, bounty in enumerate(bounties):
+                        bounty_id = f"{st.session_state.selected_event}_{company}_{i}"
+                        all_bounties.append({
+                            'id': bounty_id,
+                            'company': company,
+                            'title': bounty.get('title', ''),
+                            'description': bounty.get('description', ''),
+                            'prizes': bounty.get('prizes', ''),
+                            'bounty_data': bounty
+                        })
                     
-                    # Display bounties for selected companies
-                    st.markdown("### 🎯 Available Bounties")
-                    
-                    all_bounties = []
-                    for company in selected_companies:
-                        bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
-                        for i, bounty in enumerate(bounties):
-                            bounty_id = f"{st.session_state.selected_event}_{company}_{i}"
-                            all_bounties.append({
-                                'id': bounty_id,
-                                'company': company,
-                                'title': bounty.get('title', ''),
-                                'description': bounty.get('description', ''),
-                                'prizes': bounty.get('prizes', ''),
-                                'bounty_data': bounty
-                            })
-                    
-                    # Select All Bounties option
+                # Select All Bounties option
+                col1, col2 = st.columns([1, 4])
+                with col1:
+                    select_all_bounties = st.checkbox("Select All Bounties", key="select_all_bounties", label_visibility="visible")
+                with col2:
+                    if select_all_bounties:
+                        st.info(f"All {len(all_bounties)} bounties will be selected")
+                
+                # Display bounties with checkboxes
+                selected_bounty_ids = []
+                for bounty in all_bounties:
                     col1, col2 = st.columns([1, 4])
                     with col1:
-                        select_all_bounties = st.checkbox("Select All Bounties", key="select_all_bounties")
-                    with col2:
                         if select_all_bounties:
-                            st.info(f"All {len(all_bounties)} bounties will be selected")
-                    
-                    # Display bounties with checkboxes
-                    selected_bounty_ids = []
-                    for bounty in all_bounties:
-                        col1, col2 = st.columns([1, 4])
-                        with col1:
-                            if select_all_bounties:
-                                selected = True
-                            else:
-                                selected = st.checkbox("", key=f"bounty_{bounty['id']}")
-                            if selected:
-                                selected_bounty_ids.append(bounty['id'])
-                        with col2:
-                            st.markdown(f"""
-                            <div class="company-card">
-                                <div class="company-name">{bounty['company']}</div>
-                                <div class="company-title">{bounty['title']}</div>
-                                <p style="font-size: 0.8rem; color: #666; margin: 0.5rem 0;">{bounty['description'][:200]}...</p>
-                                <p style="font-size: 0.8rem; color: #059669; margin: 0;">💰 {bounty['prizes']}</p>
-                            </div>
-                            """, unsafe_allow_html=True)
-                    
-                    st.session_state.selected_bounties = selected_bounty_ids
-                    
-                    if st.button("🚀 Continue to Idea Evaluation", type="primary"):
-                        # Vectorize the selected event's bounties (only unvectorized ones)
-                        with st.spinner("🔍 Vectorizing bounties..."):
-                            st.session_state.vectorizer.vectorize_bounties(st.session_state.selected_event, companies)
-                        st.session_state.current_step = 3
-                        st.rerun()
+                            selected = True
+                        else:
+                            selected = st.checkbox("", key=f"bounty_{bounty['id']}", label_visibility="collapsed")
+                        if selected:
+                            selected_bounty_ids.append(bounty['id'])
+                    with col2:
+                        st.markdown(f"""
+                        <div class="company-card">
+                            <div class="company-name">{bounty['company']}</div>
+                            <div class="company-title">{bounty['title']}</div>
+                            <p style="font-size: 0.8rem; color: #666; margin: 0.5rem 0;">{bounty['description'][:200]}...</p>
+                            <p style="font-size: 0.8rem; color: #059669; margin: 0;">💰 {bounty['prizes']}</p>
+                        </div>
+                        """, unsafe_allow_html=True)
+                
+                # Show immediate feedback for "Select All" bounties
+                if select_all_bounties:
+                    st.success(f"✅ Selected all {len(all_bounties)} bounties")
+                
+                # Update session state with selected bounties
+                st.session_state.selected_bounties = selected_bounty_ids
+                
+                # Show selection summary
+                st.markdown(f"### 📊 Selection Summary")
+                st.info(f"**Companies Selected**: {len(selected_companies)} | **Bounties Selected**: {len(selected_bounty_ids)}")
+                
+                # Validation: Check if bounties are selected
+                if not selected_bounty_ids:
+                    st.warning("⚠️ Please select at least one bounty to continue.")
+                    st.stop()
+                
+                if st.button("🚀 Continue to Idea Evaluation", type="primary"):
+                    # Vectorize the selected event's bounties (only unvectorized ones)
+                    with st.spinner("🔍 Vectorizing bounties..."):
+                        st.session_state.vectorizer.vectorize_bounties(st.session_state.selected_event, companies)
+                    st.session_state.current_step = 3
+                    st.rerun()
             else:
                 st.warning("No companies found for this event.")
     
     # Step 3: Enter Your Idea
-    if st.session_state.current_step >= 3 and st.session_state.selected_companies:
+    if st.session_state.current_step >= 3:
+        # Check if previous steps are completed
+        if not st.session_state.selected_companies:
+            st.error("❌ Please complete Step 2: Select Companies & Bounties first.")
+            st.stop()
+        if not st.session_state.selected_bounties:
+            st.error("❌ Please complete Step 2: Select Companies & Bounties first.")
+            st.stop()
         step3_class = "step-container active" if st.session_state.current_step == 3 else "step-container completed"
         st.markdown(f"""
         <div class="{step3_class}">
@@ -1177,74 +1429,307 @@ def main():
                 "Describe your hackathon project idea:",
                 placeholder="I'm building a decentralized voting system that uses zero-knowledge proofs to ensure privacy while maintaining transparency...",
                 height=150,
-                value=st.session_state.user_idea
+                value=st.session_state.user_idea,
+                help="💡 Tip: Provide a clear, concise description (10-199 words) to find the best matching bounties."
             )
             
-            if st.button("🔍 Find Similar Bounties", type="primary", disabled=not user_idea):
+            if st.button("📊 Evaluate Your Idea", type="primary", disabled=not user_idea):
                 if user_idea:
                     st.session_state.user_idea = user_idea
                     
-                    # Count total bounties for selected companies
-                    total_bounties = 0
-                    for company in st.session_state.selected_companies:
-                        bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
-                        total_bounties += len(bounties)
+                    # Validate idea length using helper function
+                    is_valid, message = evaluator.validate_idea_length(user_idea)
                     
-                    st.info(f"📊 Total bounties selected: {total_bounties}")
-                    
-                    if total_bounties < 5:
-                        st.info("ℹ️ Bounty count is less than 5. Skipping vector database search and showing all selected bounties.")
+                    if not is_valid:
+                        if "too detailed" in message:
+                            st.error(f"❌ {message}")
+                        else:
+                            st.warning(f"⚠️ {message}")
+                        return
+                    else:
+                        st.success(f"✅ {message}")
                         
-                        # Create a mock results structure for consistency
-                        all_bounties = []
-                        for company in st.session_state.selected_companies:
-                            bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
-                            for i, bounty in enumerate(bounties):
-                                bounty_id = f"{st.session_state.selected_event}_{company}_{i}"
-                                all_bounties.append({
-                                    'id': bounty_id,
-                                    'company': company,
-                                    'title': bounty.get('title', ''),
-                                    'description': bounty.get('description', ''),
-                                    'prizes': bounty.get('prizes', ''),
-                                    'bounty_data': bounty
-                                })
+                        # RAG evaluation uses the same vectorized data as the main system
+                        # No additional vectorization needed
                         
-                        # Create mock results with all bounties
-                        mock_results = {
-                            'ids': [bounty['id'] for bounty in all_bounties],
-                            'distances': [[0.0] * len(all_bounties)],  # All have perfect match
-                            'documents': [f"Company: {bounty['company']}\nTitle: {bounty['title']}\nDescription: {bounty['description']}\nPrizes: {bounty['prizes']}" for bounty in all_bounties],
-                            'metadatas': [{'company': bounty['company'], 'title': bounty['title'], 'bounty_index': i} for i, bounty in enumerate(all_bounties)]
-                        }
-                        
-                        st.session_state.similar_bounties = mock_results
                         st.session_state.current_step = 4
                         st.rerun()
-                    else:
-                        with st.spinner("🔍 Finding similar bounties using vector database..."):
-                            # Search for similar bounties using vector database
-                            n_results = min(10, total_bounties)  # Fetch 5-10 closest ideas
-                            results = st.session_state.vectorizer.search_similar_bounties(
-                                user_idea, 
-                                st.session_state.selected_event, 
-                                n_results=n_results
-                            )
-                            
-                            if results and results['ids']:
-                                st.session_state.similar_bounties = results
-                                st.session_state.current_step = 4
-                                st.rerun()
-                            else:
-                                st.warning("No similar bounties found in vector database.")
     
-    # Step 4: Show Similar Bounties and Recommendations
-    if st.session_state.current_step >= 4 and st.session_state.similar_bounties:
+    # Step 4: Idea Evaluation
+    if st.session_state.current_step >= 4 and st.session_state.user_idea:
         step4_class = "step-container active" if st.session_state.current_step == 4 else "step-container completed"
+        step_title = "AI-Powered Evaluation" if use_rag_evaluation else "Evaluate Your Idea"
+        step_description = "AI analyzes your idea against bounty descriptions with evidence-backed feedback" if use_rag_evaluation else "Rate your idea across key dimensions to identify strengths and weaknesses"
+        
         st.markdown(f"""
         <div class="{step4_class}">
             <div class="step-header">
-                <div class="step-number completed">4</div>
+                <div class="step-number {'completed' if st.session_state.current_step > 4 else ''}">4</div>
+                <div>
+                    <h3 class="step-title">{step_title}</h3>
+                    <p class="step-description">{step_description}</p>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.session_state.current_step == 4:
+            st.markdown("### 🎯 Your Idea")
+            st.info(f"**{st.session_state.user_idea}**")
+            
+            if use_rag_evaluation:
+                # RAG Evaluation Mode
+                st.markdown("### 🤖 AI-Powered Evaluation")
+                st.markdown("The AI will analyze your idea against available bounty descriptions and provide evidence-backed feedback.")
+                
+                # Show RAG evaluator status
+                try:
+                    rag_count = st.session_state.rag_evaluator.get_collection_count()
+                    if rag_count > 0:
+                        st.success(f"✅ RAG system ready with {rag_count} bounties loaded")
+                    else:
+                        st.warning("⚠️ RAG system needs to load bounty data - this will happen automatically when you start evaluation")
+                except Exception as e:
+                    st.error(f"❌ RAG system initialization error: {str(e)}")
+                    st.info("Please refresh the page to reinitialize the RAG system.")
+                
+                if st.button("🚀 Start AI Evaluation", type="primary"):
+                    # RAG evaluator uses the same vectorized data as the main system
+                    with st.spinner("🤖 AI is analyzing your idea against bounty descriptions..."):
+                        evaluation_result = st.session_state.rag_evaluator.evaluate_hackathon_idea(st.session_state.user_idea)
+                    
+                    st.markdown("---")
+                    st.markdown(evaluation_result)
+                    
+                    # Store evaluation result for potential future use
+                    st.session_state.rag_evaluation_result = evaluation_result
+                    st.session_state.current_step = 5
+                    st.rerun()
+            else:
+                # Manual Evaluation Mode
+                st.markdown("### 📊 Self-Evaluation Form")
+                st.markdown("Rate your idea on each dimension (0 = poor, max = excellent). Be honest - this helps identify areas to improve before building.")
+                
+                # Initialize evaluation scores if not exists
+                if not st.session_state.evaluation_scores:
+                    st.session_state.evaluation_scores = {}
+                if not st.session_state.confidence_levels:
+                    st.session_state.confidence_levels = {}
+                if not st.session_state.evaluation_evidence:
+                    st.session_state.evaluation_evidence = {}
+                
+                # Group metrics by category
+                categories = {}
+                for metric, data in evaluator.evaluation_metrics.items():
+                    category = data["category"]
+                    if category not in categories:
+                        categories[category] = []
+                    categories[category].append((metric, data))
+                
+                # Create evaluation form
+                for category_name, metrics in categories.items():
+                    st.markdown(f"#### {category_name}")
+                    
+                    for metric, data in metrics:
+                        # Metric header
+                        st.markdown(f"**{metric}** ({data['max_score']} max)")
+                        st.caption(data['description'])
+                        
+                        # Score and confidence in one row
+                        col1, col2 = st.columns([1, 1])
+                        
+                        with col1:
+                            score = st.number_input(
+                                f"Score (0-{data['max_score']})",
+                                min_value=0,
+                                max_value=data['max_score'],
+                                value=st.session_state.evaluation_scores.get(metric, 0),
+                                key=f"score_{metric}",
+                                help=f"Rate from 0 (poor) to {data['max_score']} (excellent)"
+                            )
+                            st.session_state.evaluation_scores[metric] = score
+                        
+                        with col2:
+                            confidence = st.selectbox(
+                                "Confidence Level",
+                                options=["low", "medium", "high"],
+                                index=["low", "medium", "high"].index(st.session_state.confidence_levels.get(metric, "medium")),
+                                key=f"confidence_{metric}",
+                                help="How confident are you in this score?"
+                            )
+                            st.session_state.confidence_levels[metric] = confidence
+                        
+                        # Evidence/justification input
+                        evidence = st.text_area(
+                            f"Evidence/Justification for {metric}",
+                            value=st.session_state.evaluation_evidence.get(metric, ""),
+                            key=f"evidence_{metric}",
+                            placeholder=f"Explain why you gave {metric} a score of {score}. What specific evidence supports this rating?",
+                            help="Provide specific evidence, examples, or reasoning for your score. This helps identify strengths and areas for improvement.",
+                            height=80
+                        )
+                        st.session_state.evaluation_evidence[metric] = evidence
+                        
+                        st.markdown("---")
+                
+                # Calculate and display results
+                if st.button("📊 Calculate Evaluation Score", type="primary"):
+                    # Check for missing evidence on important metrics
+                    important_metrics = ["Problem Significance", "Novelty / Uniqueness", "User Value", "Crypto-Nativeness"]
+                    missing_evidence_important = []
+                    
+                    for metric in important_metrics:
+                        if not st.session_state.evaluation_evidence.get(metric, "").strip():
+                            missing_evidence_important.append(metric)
+                    
+                    if missing_evidence_important:
+                        st.warning(f"⚠️ Please provide evidence for important metrics: {', '.join(missing_evidence_important)}")
+                        return
+                    
+                    # Calculate scores
+                    score_result = evaluator.calculate_evaluation_score(
+                        st.session_state.evaluation_scores,
+                        st.session_state.confidence_levels
+                    )
+                    
+                    # Get insights
+                    insights = evaluator.get_evaluation_insights(
+                        st.session_state.evaluation_scores,
+                        st.session_state.confidence_levels,
+                        st.session_state.evaluation_evidence
+                    )
+                    
+                    # Display results
+                    st.markdown("### 📈 Evaluation Results")
+                    
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Raw Score", f"{score_result['raw_score']:.1f}/10")
+                    with col2:
+                        st.metric("Confidence Adjusted", f"{score_result['confidence_adjusted_score']:.1f}/10")
+                    with col3:
+                        confidence_mult = score_result['confidence_multiplier']
+                        confidence_text = "High" if confidence_mult >= 0.9 else "Medium" if confidence_mult >= 0.8 else "Low"
+                        st.metric("Confidence Level", confidence_text)
+                    
+                    # Detailed breakdown with evidence
+                    st.markdown("### 📋 Detailed Breakdown")
+                    
+                    for category_name, metrics in categories.items():
+                        st.markdown(f"#### {category_name}")
+                        
+                        for metric, data in metrics:
+                            score = st.session_state.evaluation_scores.get(metric, 0)
+                            confidence = st.session_state.confidence_levels.get(metric, "medium")
+                            evidence = st.session_state.evaluation_evidence.get(metric, "")
+                            
+                            # Score display with color coding
+                            if score >= data['max_score'] * 0.8:
+                                score_color = "🟢"
+                            elif score >= data['max_score'] * 0.6:
+                                score_color = "🟡"
+                            else:
+                                score_color = "🔴"
+                            
+                            # Confidence emoji
+                            confidence_emoji = {"low": "🔴", "medium": "🟡", "high": "🟢"}.get(confidence, "🟡")
+                            
+                            st.markdown(f"""
+                            **{score_color} {metric}**: {score}/{data['max_score']} {confidence_emoji} {confidence.title()} Confidence
+                            """)
+                            
+                            if evidence:
+                                st.markdown(f"**Evidence**: {evidence}")
+                            else:
+                                st.markdown("*No evidence provided*")
+                            
+                            st.markdown("---")
+                    
+                    # Display insights
+                    if insights:
+                        st.markdown("### 💡 Insights & Recommendations")
+                        for insight in insights:
+                            st.markdown(insight)
+                    
+                    # Score interpretation
+                    final_score = score_result['confidence_adjusted_score']
+                    if final_score >= 8:
+                        st.success("🎉 **Excellent!** Your idea scores very high. You're ready to build!")
+                    elif final_score >= 6:
+                        st.info("👍 **Good!** Your idea has solid potential. Consider the insights above to improve further.")
+                    elif final_score >= 4:
+                        st.warning("⚠️ **Needs Work.** Your idea has potential but needs significant improvement in key areas.")
+                    else:
+                        st.error("🚨 **Major Concerns.** Consider pivoting or significantly revising your idea before building.")
+                    
+                    # Proceed to bounty matching
+                    if st.button("🔍 Find Matching Bounties", type="primary"):
+                        # Count total bounties for selected companies
+                        total_bounties = 0
+                        for company in st.session_state.selected_companies:
+                            bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
+                            total_bounties += len(bounties)
+                        
+                        st.info(f"📊 Total bounties selected: {total_bounties}")
+                        
+                        if total_bounties < 5:
+                            st.info("ℹ️ Bounty count is less than 5. Skipping vector database search and showing all selected bounties.")
+                            
+                            # Create a mock results structure for consistency
+                            all_bounties = []
+                            for company in st.session_state.selected_companies:
+                                bounties = st.session_state.data_loader.get_company_bounties(st.session_state.selected_event, company)
+                                for i, bounty in enumerate(bounties):
+                                    bounty_id = f"{st.session_state.selected_event}_{company}_{i}"
+                                    all_bounties.append({
+                                        'id': bounty_id,
+                                        'company': company,
+                                        'title': bounty.get('title', ''),
+                                        'description': bounty.get('description', ''),
+                                        'prizes': bounty.get('prizes', ''),
+                                        'bounty_data': bounty
+                                    })
+                            
+                            # Create mock results with all bounties
+                            mock_results = {
+                                'ids': [bounty['id'] for bounty in all_bounties],
+                                'distances': [[0.0] * len(all_bounties)],  # All have perfect match
+                                'documents': [f"Company: {bounty['company']}\nTitle: {bounty['title']}\nDescription: {bounty['description']}\nPrizes: {bounty['prizes']}" for bounty in all_bounties],
+                                'metadatas': [{'company': bounty['company'], 'title': bounty['title'], 'bounty_index': i} for i, bounty in enumerate(all_bounties)]
+                            }
+                            
+                            st.session_state.similar_bounties = mock_results
+                            st.session_state.current_step = 5
+                            st.rerun()
+                        else:
+                            with st.spinner("🔍 Finding similar bounties using vector database..."):
+                                # Search for similar bounties using vector database
+                                n_results = min(10, total_bounties)  # Fetch 5-10 closest ideas
+                                results = st.session_state.vectorizer.search_similar_bounties(
+                                    st.session_state.user_idea, 
+                                    st.session_state.selected_event, 
+                                    n_results=n_results
+                                )
+                                
+                                if results and results['ids']:
+                                    # Check if we found enough relevant bounties (at least 5)
+                                    if len(results['ids']) >= 5:
+                                        st.success(f"✅ Found {len(results['ids'])} relevant bounties for your idea!")
+                                        st.session_state.similar_bounties = results
+                                        st.session_state.current_step = 5
+                                        st.rerun()
+                                    else:
+                                        st.warning(f"⚠️ Only found {len(results['ids'])} relevant bounties (need at least 5). Please provide more specific information about your project to find better matches.")
+                                else:
+                                    st.warning("⚠️ Unable to find relevant bounties for your idea. Please provide more specific information about your project.")
+    
+    # Step 5: Show Similar Bounties and Recommendations
+    if st.session_state.current_step >= 5 and st.session_state.similar_bounties:
+        step5_class = "step-container active" if st.session_state.current_step == 5 else "step-container completed"
+        st.markdown(f"""
+        <div class="{step5_class}">
+            <div class="step-header">
+                <div class="step-number completed">5</div>
                 <div>
                     <h3 class="step-title">Similar Bounties & Recommendations</h3>
                     <p class="step-description">Here are the bounties that match your idea</p>
@@ -1253,7 +1738,7 @@ def main():
         </div>
         """, unsafe_allow_html=True)
         
-        if st.session_state.current_step == 4:
+        if st.session_state.current_step == 5:
             st.markdown("### 🎯 Your Idea")
             st.info(f"**{st.session_state.user_idea}**")
             
@@ -1328,7 +1813,7 @@ def main():
             
             if st.button("🔄 Start Over", type="secondary"):
                 # Reset session state
-                for key in ['selected_event', 'selected_companies', 'selected_bounties', 'user_idea', 'similar_bounties', 'current_step']:
+                for key in ['selected_event', 'selected_companies', 'selected_bounties', 'user_idea', 'similar_bounties', 'evaluation_scores', 'confidence_levels', 'evaluation_evidence', 'current_step']:
                     if key in st.session_state:
                         del st.session_state[key]
                 st.rerun()
