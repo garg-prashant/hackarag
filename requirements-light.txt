@@ -6,7 +6,8 @@ openai==1.3.0
 python-dotenv==1.0.0
 pandas==2.1.3
 json5==0.9.14
-chromadb==0.4.15  # Commented out due to heavy dependencies
+chromadb==0.4.15
+# Use a lighter embedding model instead of sentence-transformers
 # sentence-transformers==2.2.2  # Commented out due to PyTorch dependency
 # Fluence Network Integration
 cryptography==41.0.7
