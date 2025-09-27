@@ -48,7 +48,6 @@ Thumbs.db
 
 # Project specific
 data/
-hackathon_data/
 chroma_db/
 .streamlit/
 
