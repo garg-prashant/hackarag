@@ -266,7 +266,6 @@ temp/
 
 # Large data files
 *.csv
-*.json
 *.parquet
 *.feather
 *.pickle

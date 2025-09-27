@@ -1,0 +1,328 @@
+{
+    "1inch": [
+        {
+        "title": "Build a novel extension for 1inch Cross-chain Swap (Fusion+)",
+        "description": "Build a novel extension for 1inch Cross-chain Swap (Fusion+) that enables swaps between Ethereum and one of the following non-EVM chains: Sui, Aptos, Bitcoin/Bitcoin cash/Doge/Litecoin, Tron, Ton, Monad, Near, Starknet, Cardano, Stellar, XRP Ledger, ICP, Tezos, Polkadot, EOS, or Cosmos. (Solana is excluded because we have already built it) It is required to directly integrate with the 1inch Limit Order Protocol contract code on the EVM side for this bounty.",
+        "prizes": "$6,000 for 1st place, $4,000 for 2nd place, $2,000 for 3rd place"
+        },
+        {
+        "title": "Build advanced strategies and hooks for the 1inch Limit Order Protocol",
+        "description": "Build advanced strategies and hooks for the 1inch Limit Order Protocol. Project ideas: Develop an options hook, Integrate concentrated liquidity, TWAP swap, Other creative projects are welcome. Existing examples built on top of Limit Order Protocol include ranged sells and dutch auctions.",
+        "prizes": "$3,000 for 1st place, $2,000 for 2nd place, $1,500 for 3rd place"
+        },
+        {
+        "title": "Utilize 1inch's infrastructure to build your application",
+        "description": "Utilize 1inch's infrastructure to help build your application - Build with our swap protocols (1inch Cross-chain Swap (Fusion+), Intent-based Swap (Fusion), Classic Swap, limit order protocol) - Build with any of our data APIs (price feeds API, wallet balances API, token metadata API, and many more) - Use our Web3 API to interact with the blockchain.",
+        "prizes": "Up to 5 teams will receive $300"
+        }
+    ],
+    "Rootstock": [
+        {
+        "title": "Build practical DeFi applications on Rootstock and/or RIF technologies",
+        "description": "Build practical DeFi applications on Rootstock and/or RIF technologies. We’re looking for accessible, efficient tools that redefine everyday finance, with a special emphasis on generating native bitcoin yield. Yield farming strategies, Lending protocols, Decentralized exchanges (DEXs), Liquidity pools.",
+        "prizes": "Up to 2 teams will receive $2,000"
+        },
+        {
+        "title": "Build high-quality decentralized applications (dApps) on Rootstock",
+        "description": "Build high-quality decentralized applications (dApps) on Rootstock and unleash your creativity. We’re looking for innovative solutions and while not required, integrating AI-driven tools or techniques will earn you bonus points for showcasing advanced innovation. DeFi Automation Agents, Smart Contract Assistants, Cross-Chain Interoperability Agents, Decentralized Governance Helpers.",
+        "prizes": "Up to 2 teams will receive $2,000"
+        },
+        {
+        "title": "Build anything that puts the RIF token to work on Rootstock",
+        "description": "Build anything that puts the RIF token to work on Rootstock; bonus points for slick, one-step UX and creative token utility. RIF one-click staking; bridge or swap then stake in a single flow, RIF staking inside a Telegram mini-app; think MEW-style but in TG, AI bot that answers English questions by querying Collective Graph subgraphs, RIF-POAPs; mint event badges or sub-domain NFTs paid in RIF, Social-content rewards in RIF; track on-chain engagement then tip users, x402 payments; ship a lightweight SDK that lets devs accept USDRIF with Coinbase’s agentic standard.",
+        "prizes": "Up to 2 teams will receive $2,000"
+        }
+    ],
+    "Flow": [
+        {
+        "title": "Consumer-Oriented Killer Apps",
+        "description": "Consumer-oriented “killer apps” have the power to define and lead entire industries by solving real user pain points at scale. Think of how ChatGPT made AI accessible to hundreds of millions. Flow is designed for mass adoption and consumer-grade experiences, so we’re looking for the next breakthrough application that can capture the interest of millions (or billions!) of everyday users. This is a very broad bounty and eligible projects include everything from AI Agents and RWA to games and social apps.",
+        "prizes": [
+            "$3,000",
+            "$2,000",
+            "$1,000"
+        ]
+        },
+        {
+        "title": "Top Use of Automation & Actions",
+        "description": "Flow Actions (FLIP-338) are a brand-new standard that turn protocol logic into self-contained, reusable onchain building blocks you can call without importing ABIs, reading contract code, or writing brittle glue scripts. Each Action is a trustless workflow with clear metadata, built-in safety checks, atomic execution, and verifiable success criteria—think standardized onchain APIs that plug together like Lego bricks. For AI agents, this means instant discovery of available protocols, safe composition of complex workflows, and full automation without off-chain keepers or MCP servers. This bounty is calling on builders to push the boundaries by creating new connectors to major protocols, chaining cross-protocol workflows, integrating Actions into games, integrating fully onchain agents with actions, or making tools that help others discover and use useful Actions. Whether you’re into DeFi, gaming, or novel automation, this is your chance to shape the future of composability and define how agents interact with Web3.",
+        "prizes": [
+            "$3,000",
+            "$1,000"
+        ]
+        }
+    ],
+    "Pyth Network": [
+        {
+        "title": "Use Pyth Pull oracle to power up your dapp",
+        "description": "Use Pyth Pull oracle to power up your dapp. The prize will go to the top three teams with best and most innovative use of Pyth Price feeds.",
+        "prizes": [
+            "$2,500",
+            "$1,500",
+            "$1,000"
+        ]
+        },
+        {
+        "title": "Use Pyth Entropy to generate and consume random number on chains",
+        "description": "Use Pyth Entropy to generate and consume random number on chains. Anyone can permissionless generate random number on-chain. This pool prize will be given to most Innovative apps to use Pyth Entropy.",
+        "prizes": "$2,500"
+        }
+    ],
+    "Hedera": [
+        {
+        "title": "Build innovative applications, agents, tooling, or infrastructure that combine AI/ML with Hedera network services",
+        "description": "Build innovative applications, agents, tooling, or infrastructure that combine AI/ML (including LLMs and autonomous agents) with Hedera network services. The focus is on demonstrating novel AI-blockchain integrations that create real utility for developers or end-users.",
+        "prizes": [
+            "$2,000",
+            "$1,500"
+        ]
+        },
+        {
+        "title": "Build and deploy innovative Smart Contract based applications on Hedera",
+        "description": "Build and deploy innovative Smart Contract based applications on Hedera. The focus is on leveraging Hedera's EVM compatibility and integration into the Ethereum ecosystem.",
+        "prizes": [
+            "$2,000",
+            "$1,500"
+        ]
+        }
+    ],
+    "Polygon": [
+        {
+        "title": "Build an Agentic Payments project using x402 on Polygon",
+        "description": "Build an Agentic Payments project using x402 on Polygon. Project ideas: Micropayments / Subscription sign-up using EthGlobal NFC bracelet, Agentic payment flows for everyday purchases, Private payments options for agents, Agent-run point of sale with: Refunds management, dispute resolution system, transaction tracking and analysis, reconciliation features.",
+        "prizes": [
+            "$3,500",
+            "$2,500",
+            "$2,000",
+            "$1,250",
+            "$750"
+        ]
+        }
+    ],
+    "ENS": [
+        {
+        "title": "ENS Integration",
+        "description": "Any type of ENS integration is eligible for this prize. Get creative! An example of a successful project may be a smart contract wallet that mints an ENS subname on L2 and sets its primary name upon deployment. If you're building an AI project, consider how ENS can be used to name autonomous agents.",
+        "prizes": [
+            "$3,500",
+            "$2,000",
+            "$1,500 ×3"
+        ]
+        }
+    ],
+    "World App": [
+        {
+        "title": "Mini Apps",
+        "description": "Show us your best Mini Apps! Projects that build and deploy a Mini App using MiniKit are eligible for this prize.",
+        "prizes": [
+            "$4,000",
+            "$3,000",
+            "$2,000",
+            "$500 ×2"
+        ]
+        }
+    ],
+    "Uniswap Foundation": [
+        {
+        "title": "Uniswap v4 Hooks",
+        "description": "Uniswap v4 introduces Hooks, smart contracts that let developers customize swap fees, liquidity logic, and trading behavior at the protocol level. This bounty is an open track for projects that push the limits of what’s possible in DeFi innovation using Hooks, with bonus points for those deploying on Unichain.",
+        "prizes": [
+            "$4,000",
+            "$3,000",
+            "$2,000",
+            "$1,000"
+        ]
+        }
+    ],
+    "Filecoin": [
+        {
+        "title": "Build the next generation of decentralized applications using Synapse SDK",
+        "description": "Build the next generation of decentralized applications using Synapse SDK to access Filecoin’s new warm storage service and payment rails. We are seeking applications that demonstrate real-world utility, a seamless developer experience, and the unique capabilities of services from Filecoin Onchain Cloud, powered by the Synapse SDK. We’re excited to see applications that use storage and USDFC payments seamlessly, from user-generated content and AI datasets to escrow, subscriptions, or pay-per-use services. Key Primitives to Explore: 1. Build Apps with Innovative Storage Economics: Use Filecoin warm storage service for innovative applications like on-chain governance, Immutable File Sharing, decentralized social or video platform, etc. 2. Boost AI infrastructure: Data storage is the key for AI, and Filecion warm storage is ready to boost any AI use cases, including verifiable AI-training datasets, fair AI training economy, or decentralized Retrieval-Augmented Generation (dRAG), etc. 3. Toolings: Explore other services or toolings added to enrich the capability of Filecoin Onchain Cloud: KYC services, access control, privacy services.",
+        "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place"
+        },
+        {
+        "title": "Build innovative DataDAOs using Lighthouse",
+        "description": "Build innovative DataDAOs that showcase the power of Lighthouse as a data tokenisation platform. We want to see Data DAOs, encrypted storage, and real-world data feeds integrated directly into decentralized applications. Steps: Data DAOs — Create Data DAOs where community members contribute and monetize data via DataCoins. Datastored permanently on Filecoin via Lighthouse. Register data coin on Lighthouse data tokenisation platform. Storage + Token Gating — Use Lighthouse SDK for storage and token-based access control. zkTLS / Verifiable Data Feeds — Use zkTLS or other cryptographic proofs to ingest/validate real-world data (e.g. Social Feed, DeFi oracles, off-chain APIs). On-Chain Deployment — Deploy your DAO and data contracts to Base, Polygon, or Filecoin mainnet. Live Real-World Data — Projects must integrate at least one live real-world dataset or API feed.",
+        "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place"
+        },
+        {
+        "title": "Use Akave O3 for decentralized storage applications",
+        "description": "Use Akave O3, an S3-compatible API—keep your familiar S3 workflow while building on decentralized storage. Pick one of the following tracks to build: AI/ML datasets & checkpoints, Cross-cloud analytics (External Tables), Iceberg lakehouse on Akave, Edge/DePIN ingest, Immutable backup & DR.",
+        "prizes": "Up to 2 teams will receive $2,500"
+        }
+    ],
+    "Citrea": [
+        {
+        "title": "Build new Bitcoin Applications",
+        "description": "Citrea enables a whole new area of Bitcoin Applications. This also covers new DeFi primitives. In this track we expect you to build new Bitcoin Applications that suits Bitcoin well. Some examples are as follows: BTC Options & Structured Products: on-chain options, covered calls, yield vaults. Privacy Trading / Dark Pools: anti-MEV trading, hidden order books with ZK. Money Markets: non-custodial lending/borrowing for BTC or BTC-correlated assets. Miners’ Tools: incentive/hedging tools, payout rails, dashboards. Note: if you apply to this track, you can apply to Innovation track at the same time, it's fine.",
+        "prizes": "$4,500 for 1st place, $1,500 for 2nd place"
+        },
+        {
+        "title": "Innovation track for Bitcoin applications",
+        "description": "You have some other ideas that fits to the spirit of Bitcoin? Private unstoppable money? Bitcoin x AI x Citrea? RWAs using Bitcoin? Community oriented ₿apps like ROSCA? Super complex infra? Then this track is for you. Anything novel that uses Citrea meaningfully and pushes Bitcoin UX forward.",
+        "prizes": "$3,000 for 1st place, $1,000 for 2nd place"
+        }
+    ],
+    "The Graph": [
+        {
+        "title": "Innovative Project Using Substreams or Token API",
+        "description": "Build an innovative project that integrates The Graph’s data products—Substreams or Token API—to deliver real-world utility, insight, or AI-enhanced functionality. Projects should demonstrate technical creativity and effective use of onchain data. Bonus points for AI-driven solutions that leverage MCP servers to enable agentic or natural-language capabilities.",
+        "prizes": [
+            "$3,000",
+            "$2,000"
+        ]
+        },
+        {
+        "title": "High-Impact Application Using Knowledge Graph Framework",
+        "description": "Build a high-impact application using the Knowledge Graph Framework to organize and query public web3 data in a composable and structured way. Examples and ideas: - Crypto Projects Directory: Structured registry of projects organized by category, type, and industry - Investment Graph: Dataset mapping project-investor relationships into a rich network - Dapp Registry: Extensible list of decentralized applications by domain and function - DAO Governance Explorer: Visualization of governance proposals, voting, and outcomes across DAOs",
+        "prizes": [
+            "$2,500",
+            "$1,500"
+        ]
+        },
+        {
+        "title": "Decentralized Application Using GRC-20-ts Library",
+        "description": "Build a decentralized application that utilizes the GRC-20-ts TypeScript library to publish offchain knowledge to the Knowledge Graph. This bounty rewards creative use of the GRC-20-ts library to attach meaningful metadata to smart contracts, protocols, or dapps. Example Use Cases: - Publishing protocol descriptions or governance rules - Publishing offchain data through GRC20-ts to the Knowledge Graph",
+        "prizes": "Not specified"
+        }
+    ],
+    "Artificial Superintelligence Alliance": [
+        {
+        "title": "ASI:One and MeTTa Integration",
+        "description": "Awarded to the team that shows the most effective and creative use of ASI:One for human–agent interaction, paired with MeTTa for structured reasoning. Judged on problem choice, solution quality, and real-world impact.",
+        "prizes": "$3,500"
+        },
+        {
+        "title": "Agentverse Launch",
+        "description": "Awarded to the team with the most impactful, well-presented launch on Agentverse. Your listing should be easy to find via ASI:One and clearly explain how MeTTa powers your logic. Judges look for usability, discoverability, clear purpose, and adoption potential.",
+        "prizes": "$2,500"
+        },
+        {
+        "title": "Multi-Agent System",
+        "description": "Awarded to the team that builds the most cohesive multi-agent system using Fetch.ai agents and MeTTa for shared knowledge and reasoning. We’ll evaluate how smoothly agents communicate, collaborate, and coordinate complex tasks across chains and environments.",
+        "prizes": "$1,750"
+        },
+        {
+        "title": "Agent Collaboration Demonstration",
+        "description": "Awarded to the team that delivers the most innovative demonstration of agent collaboration within the ASI:One ecosystem. Judges will look for originality, technical depth, and potential for future scalability.",
+        "prizes": "$1,250"
+        },
+        {
+        "title": "User-Facing Experience",
+        "description": "Awarded to the team with the most polished user-facing experience that makes advanced human–agent interaction intuitive and engaging. Judged on design quality, accessibility, and clarity of value to end users.",
+        "prizes": "$1,000"
+        }
+    ],
+    "PayPal": [
+        {
+        "title": "Powerful and Scalable Real-World Use Case for PYUSD",
+        "description": "Awarded to the project that most convincingly demonstrates a powerful and scalable real-world use case for PYUSD. The winner will set a new benchmark for digital payments, showing how PYUSD unlocks unique value—whether by powering global remittances, revolutionizing commerce, or creating new economic opportunities. Each Project Submission will be judged by a panel of judges in accordance with the following criteria: (a) Functionality: How well does this Project Submission work? What is the quality of the code? (b) Payments Applicability: How effectively does the solution address real-world payment challenges? (c) Novelty: How unique is this Project Submission’s concept? (d) UX: How well does this Project Submission utilize PYUSD’s performance and unique proposition to create great UX for downstream users? (e) Open-source: Is this Project Submission open-source? How well does the Project Submission compose with other primitives in the ecosystem? (f) Business Plan: Is there a viable business that can be built in the future around this Submission?",
+        "prizes": "Not specified"
+        },
+        {
+        "title": "Seamless and Engaging Consumer Payment Experience with PYUSD",
+        "description": "This prize recognizes the project that builds the most seamless and engaging consumer payment experience with PYUSD at its core. From streamlining cross-border settlements, to enabling microtransactions, programmable subscriptions, or “pay-as-you-go” economics, we want to see fresh ideas that push the boundaries of what’s possible in digital payments. Think outside the box—your solution should inspire new thinking for the entire PYUSD ecosystem. Each Project Submission will be judged by a panel of judges in accordance with the following criteria: (a) Functionality: How well does this Project Submission work? What is the quality of the code? (b) Payments Applicability: How effectively does the solution address real-world payment challenges? (c) Novelty: How unique is this Project Submission’s concept? (d) UX: How well does this Project Submission utilize PYUSD’s performance and unique proposition to create great UX for downstream users? (e) Open-source: Is this Project Submission open-source? How well does the Project Submission compose with other primitives in the ecosystem? (f) Business Plan: Is there a viable business that can be built in the future around this Submission?",
+        "prizes": "Not specified"
+        },
+        {
+        "title": "Creative Use of PYUSD in Applications",
+        "description": "This award honors creative thinkers who push the boundaries of where and how PYUSD can be used in applications—whether social, gaming, education, finance, or something completely unexpected. This is all about thinking outside the wallet and uncovering new ways digital dollars can unlock value in apps and platforms. Whether it’s a beautifully designed wallet, a seamless onboarding journey, or something that goes viral within the community, this prize celebrates projects that put people first. Each Project Submission will be judged by a panel of judges in accordance with the following criteria: (a) Functionality: How well does this Project Submission work? What is the quality of the code? (b) Payments Applicability: How effectively does the solution address real-world payment challenges? (c) Novelty: How unique is this Project Submission’s concept? (d) UX: How well does this Project Submission utilize PYUSD’s performance and unique proposition to create great UX for downstream users? (e) Open-source: Is this Project Submission open-source? How well does the Project Submission compose with other primitives in the ecosystem? (f) Business Plan: Is there a viable business that can be built in the future around this Submission?",
+        "prizes": "Not specified"
+        }
+    ],
+    "0G": [
+        {
+        "title": "Production-Ready Applications and Developer Tooling on 0G Mainnet",
+        "description": "This track rewards developers who build production-ready applications and essential developer tooling directly on 0G Mainnet (EVM Chain). We want to see projects that demonstrate real-world utility and contribute to the 0G mainnet ecosystem's growth - whether through innovative dApps or tools that make building on 0G easier.",
+        "prizes": [
+            "$3,000",
+            "$2,500",
+            "$2,000",
+            "$1,500",
+            "$1,000"
+        ]
+        }
+    ],
+    "Self Protocol": [
+        {
+        "title": "Onchain Identity Verification with Self SDK",
+        "description": "We are looking for interesting use cases of using the Self onchain SDK in your contracts. Self Smart contracts verify proofs, manage a merkle tree of identity commitments and allow for onchain disclosure of data while guaranteeing the permissionless aspect of the protocol. Using the Self.xyz SDK, allows a user to disclose their country, age (or range), that they are not on OFAC or from a sanctioned country, and verify that proof that onchain on the Celo network, or offchain, without sharing any private information with third parties. Since this month, you can not only prove your identity with your passport or ID, but Self has just launched Aadhaar card support, and we want to see your best use cases!",
+        "prizes": "$5,000 for 1st place, $2,500 for 2nd place, $1,500 for 3rd place"
+        },
+        {
+        "title": "Offchain Identity Verification with Self SDK",
+        "description": "Integrate Self offchain SDK into your application so users can prove their identity! Check out the Quickstart to see how quickly you can implement the Self SDK into your dApp.",
+        "prizes": "Not specified"
+        }
+    ],
+    "Fluence": [
+        {
+        "title": "Impactful Use of Fluence Virtual Servers",
+        "description": "A total of $5,000 will be awarded to the most impactful use of Fluence Virtual Servers. Demonstrate a working project using CPU-only VMs from Fluence. Expectations include efficient AI application deployed on Fluence VMs, such as small/quantized models, inference APIs, agentic LLM backends. Ideally, build toward CPU-only compatibility, no GPUs required.",
+        "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place"
+        }
+    ],
+    "Kadena": [
+        {
+        "title": "Build a dApp or Developer Tool Harnessing Kadena’s Multiple Parallel Chains",
+        "description": "Build a dApp or developer tool that harnesses Kadena’s multiple parallel chains. This could be a novel multichain dApp, a middleware that connects separate chains, or simple tooling to simplify multichain development. Show us how your project leverages the power of Kadena’s multi-chain model specifically.",
+        "prizes": "Not specified"
+        },
+        {
+        "title": "Deploy a Unique dApp or Integration Connecting Kadena to External Ecosystems",
+        "description": "Deploy a unique dApp or work on an integration that connects Kadena to external ecosystems. Whether you’re porting an existing Ethereum dApp (DeFi, NFT, gaming, DAO), building a brand new product from scratch, or integrating Kadena with wallets, liquidity layers, or middleware. Your product should show how Kadena can drive retail user adoption.",
+        "prizes": "Not specified"
+        },
+        {
+        "title": "Design a Project for Institutional or TradFi Applications on Kadena",
+        "description": "Design a project that shows how Kadena can power institutional or TradFi applications. This could include real-world assets (RWAs), tokenized securities, enterprise finance solutions, compliance-focused tooling, or infrastructure that bridges traditional finance with blockchain. The goal is to highlight Kadena’s potential in real-world, large-scale, and regulated environments.",
+        "prizes": "Not specified"
+        }
+    ],
+    "Ethereum Foundation": [
+        {
+        "title": "Unified ZK Registry System",
+        "description": "Build solutions to unify registry systems across formats like documents proofs, passports, AA, etc.",
+        "prizes": "$2,000 for 1st place, $1,000 for 2nd place, $500 for 3rd place"
+        },
+        {
+        "title": "NFC Feature Exploration",
+        "description": "Further developments on NFC feature integration with Mopro, such as utilizing chips embedded in ETHGlobal wristbands for proof generation, focusing on UX and DevEx.",
+        "prizes": "$2,000 for 1st place, $1,000 for 2nd place, $500 for 3rd place"
+        },
+        {
+        "title": "Credential Sharing",
+        "description": "Prove professional qualifications (degrees, licenses) stored as digitally signed PDFs and generate interesting use cases.",
+        "prizes": "$2,000 for 1st place, $1,000 for 2nd place, $500 for 3rd place"
+        },
+        {
+        "title": "Mobile Gaming",
+        "description": "ZK-based mobile games using the Mopro stack, such as ZK Escape Room, ZK Werewolf.",
+        "prizes": "$2,000 for 1st place, $1,000 for 2nd place, $500 for 3rd place"
+        },
+        {
+        "title": "Matching Apps",
+        "description": "Zero-knowledge powered matching applications across multiple domains like dating or job matching scenarios.",
+        "prizes": "$2,000 for 1st place, $1,000 for 2nd place, $500 for 3rd place"
+        }
+    ],
+    "Walrus": [
+        {
+        "title": "Applications that use Walrus storage",
+        "description": "Focus on an app idea where decentralized storage solves a real pain point, examples include hosting for NFTs, democratized access to AI models, or crowdsourced video streaming.",
+        "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place"
+        },
+        {
+        "title": "Developer tools for Walrus",
+        "description": "Build something that helps developers integrate with Walrus more easily, such as SDKs, caching layers, streaming utilities, blob management tools, and more.",
+        "prizes": "$2,500 for 1st place, $1,500 for 2nd place, $1,000 for 3rd place"
+        }
+    ],
+    "Integra": [
+        {
+        "title": "Real Estate Tokenization and Compliance",
+        "description": "Push boundaries in applying blockchain to real estate, from tokenization to compliance rails, asset registries to new user experiences, exploring how security tokens could transform real estate.",
+        "prizes": "$1,000"
+        }
+    ]
+}
