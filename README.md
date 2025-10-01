@@ -340,7 +340,7 @@ sequenceDiagram
 ## 🌐 **Fluence Deployment**
 
 ### **What is Fluence?**
-Fluence is a decentralized compute platform that allows you to deploy applications on a peer-to-peer network without traditional servers.
+Fluence is a decentralized computing platform that enables applications to run on a peer-to-peer network, eliminating the need for traditional servers.
 
 ### **Deployment Process**
 
